@@ -1,0 +1,14 @@
+# Datos crudos (se descargan aparte, ver README)
+data/
+
+# Intermedios grandes que se regeneran con los scripts
+features.csv
+sub*.csv
+alarmas_ims.csv
+baseline_sens.csv
+
+# Registros de ejecución
+log_*.txt
+
+__pycache__/
+.ipynb_checkpoints/
