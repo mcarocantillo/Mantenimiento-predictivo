@@ -42,6 +42,7 @@ Autores: María Carolina Cantillo Orozco, Andrés Aldana y Jenaan Tarabein (Univ
 | `baseline_ims.csv`, `limites_cartas.csv` | Baseline y límites de cada carta |
 | `reglas_falla.csv`, `correlacion_temporal.csv`, `comparacion_cartas.csv` | Resultados de las fases 4, 5 y 6 |
 | `fig_epocas.png` | Tasa de alarma en la última semana, rodamientos que fallan frente a sanos |
+| `html/eda_ims.html`, `html/mantenimiento_predictivo.html` | Los dos notebooks exportados a HTML, con figuras, para verlos sin Jupyter (descargar y abrir en el navegador) |
 
 ## Cómo reproducir
 
