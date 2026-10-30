@@ -64,3 +64,7 @@ extraído en `data/`.
 - Se excluyen 3 archivos con señal muerta al final de los ensayos 2 y 3 (máquina detenida).
 - El ensayo 1 tiene 24 huecos de registro; solo 341 de sus 828 h tienen datos.
 - La frecuencia de defecto real del ensayo 2 es ~231 Hz y no 236,4 Hz; por eso la envolvente busca en ±5 %.
+- El Readme oficial del conjunto IMS dice que el ensayo 3 tiene 4448 archivos y termina el 4 de abril de 2004,
+  pero el archivo descargado tiene 6324 archivos y llega al 18 de abril de 2004. Aquí se toma como momento de
+  la falla el último archivo con señal (18 de abril): la curtosis y el RMS de B3 solo se disparan en sus últimas
+  horas y el 4 de abril no muestra ningún cambio.
