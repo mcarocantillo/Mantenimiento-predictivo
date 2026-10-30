@@ -42,7 +42,11 @@ Autores: María Carolina Cantillo Orozco, Andrés Aldana y Jenaan Tarabein (Univ
 | `baseline_ims.csv`, `limites_cartas.csv` | Baseline y límites de cada carta |
 | `reglas_falla.csv`, `correlacion_temporal.csv`, `comparacion_cartas.csv` | Resultados de las fases 4, 5 y 6 |
 | `fig_epocas.png` | Tasa de alarma en la última semana, rodamientos que fallan frente a sanos |
-| `html/eda_ims.html`, `html/mantenimiento_predictivo.html` | Los dos notebooks exportados a HTML, con figuras, para verlos sin Jupyter (descargar y abrir en el navegador) |
+| `scripts/construir_cartas.py` | Genera `cartas_nelson_ims.ipynb`, que presenta las fases 2 a 6 (los tres objetivos) con explicaciones |
+| `index.html` | Página de inicio para el profesor: objetivos, estado, documentos, código y próximos pasos |
+| `html/` | Los tres notebooks exportados a HTML: `eda_ims.html`, `cartas_nelson_ims.html` y `mantenimiento_predictivo.html` |
+
+Los documentos se pueden ver en el navegador en https://mcarocantillo.github.io/Mantenimiento-predictivo/
 
 ## Cómo reproducir
 

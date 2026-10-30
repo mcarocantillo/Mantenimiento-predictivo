@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alarmas de Nelson en rodamientos: avances</title>
+<style>
+  :root {
+    --fondo: #fcfcfb; --tarjeta: #ffffff; --tinta: #1a1a19; --tinta2: #52514e; --borde: #e1e0d9;
+    --acento: #2a78d6; --acento-suave: #eaf2fc; --ok: #1f7a4d; --ok-suave: #e6f4ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #161615; --tarjeta: #1f1f1e; --tinta: #ededeb; --tinta2: #b4b3ae; --borde: #383835;
+      --acento: #6da7ec; --acento-suave: #1d2a3a; --ok: #6cc59a; --ok-suave: #1b2e24;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--fondo); color: var(--tinta);
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 1.3rem; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--borde); }
+  h3 { font-size: 1.05rem; margin: 0 0 6px; }
+  p { margin: 0 0 12px; }
+  .sub { color: var(--tinta2); margin-bottom: 24px; }
+  a { color: var(--acento); }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 0.95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 10px; border-bottom: 1px solid var(--borde); }
+  th { color: var(--tinta2); font-weight: 600; }
+  .tabla { overflow-x: auto; }
+  .estado { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.85rem;
+            background: var(--ok-suave); color: var(--ok); font-weight: 600; white-space: nowrap; }
+  .tarjetas { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 16px; }
+  .tarjeta p { color: var(--tinta2); font-size: 0.95rem; }
+  .boton { display: inline-block; margin-top: 4px; padding: 6px 12px; border-radius: 6px; text-decoration: none;
+           background: var(--acento-suave); font-weight: 600; }
+  .nota { background: var(--acento-suave); border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  ol, ul { padding-left: 22px; margin: 0 0 12px; }
+  li { margin-bottom: 6px; }
+  code { font-family: Consolas, "SFMono-Regular", monospace; font-size: 0.9em; }
+  footer { margin-top: 48px; color: var(--tinta2); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Alarmas de Nelson en rodamientos: avances del proyecto</h1>
+  <p class="sub">María Carolina Cantillo Orozco y Jenaan Tarabein · Universidad del Norte · octubre de 2026</p>
+
+  <p>
+    Este proyecto revisa si las 8 reglas de alarma de Nelson, que una empresa ya usó con éxito en Superbricks, sirven
+    para anticipar fallas en otra industria: la de máquinas rotativas. Para eso se usan los datos públicos de
+    rodamientos IMS (Universidad de Cincinnati), en los que 4 rodamientos montados en un eje giran hasta que uno se
+    daña. En total hay 4 rodamientos que fallan y 8 que terminan sanos, que sirven de comparación.
+  </p>
+  <p>
+    En esta página están los objetivos que planteó el profesor, en qué va cada uno, los documentos con los resultados
+    y el código, y lo que sigue.
+  </p>
+
+  <h2>Lo que pidió el profesor y en qué va</h2>
+  <div class="tabla">
+  <table>
+    <tr><th>Objetivo</th><th>Estado</th><th>Respuesta corta</th></tr>
+    <tr>
+      <td>1. Identificar cuál de las 8 alarmas corresponde a falla.</td>
+      <td><span class="estado">Hecho</span></td>
+      <td>La alarma de dispersión de la carta S sobre el RMS es la mejor: avisa unas 86 horas antes de la falla y casi
+        nunca suena en rodamientos sanos. Las reglas 1 y 5 sobre la curtosis también funcionan. Las reglas 3, 4, 7 y 8
+        no se asociaron con la falla.</td>
+    </tr>
+    <tr>
+      <td>2. Ver si hay relación en el tiempo entre las alarmas y la falla (ensayos 1, 2 y 3).</td>
+      <td><span class="estado">Hecho</span></td>
+      <td>Sí, en los tres ensayos. Con el método original (carta I-MR del RMS) las alarmas aumentan también en los
+        rodamientos sanos. Con la carta S y con la curtosis aumentan solo en el que va a fallar, desde unas 120 horas
+        antes.</td>
+    </tr>
+    <tr>
+      <td>3. Comparar las cartas I-MR, X̄-R y X̄-S en el mismo periodo.</td>
+      <td><span class="estado">Hecho</span></td>
+      <td>La X̄-S es la que mejor relaciona alarma y falla, por su parte S (AUC de 0,86 frente a 0,73 de la I-MR).</td>
+    </tr>
+  </table>
+  </div>
+  <div class="nota">
+    <strong>Una aclaración importante.</strong> Solo hay 4 rodamientos que fallan en estos datos. Los resultados son
+    consistentes en los tres ensayos, pero con tan pocas fallas no alcanzan a ser concluyentes desde el punto de vista
+    estadístico. Hay que confirmarlos con más datos. Además, el criterio de estabilidad usado en Superbricks
+    (coeficiente de variación de 10 a 30 %) no se transfiere: en estos rodamientos lo normal es cerca de 1 %.
+  </div>
+
+  <h2>Documentos</h2>
+  <p>Se recomienda leerlos en este orden. Cada uno explica los términos técnicos y qué quiere decir cada resultado.</p>
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <h3>1. Análisis exploratorio de los datos</h3>
+      <p>Revisión de los 3 ensayos: calidad de los datos, cómo se comporta la vibración en un rodamiento sano, qué
+        cambia antes de la falla y si se cumplen los supuestos de las cartas de control.</p>
+      <a class="boton" href="html/eda_ims.html">Abrir</a>
+    </div>
+    <div class="tarjeta">
+      <h3>2. Cartas de control y reglas de Nelson</h3>
+      <p>Los resultados de los tres objetivos: las cartas I-MR, X̄-R y X̄-S, cuál alarma corresponde a falla, la
+        relación en el tiempo y la comparación entre cartas. Termina con lo que sigue.</p>
+      <a class="boton" href="html/cartas_nelson_ims.html">Abrir</a>
+    </div>
+    <div class="tarjeta">
+      <h3>3. Ejercicio previo con datos hidráulicos</h3>
+      <p>Primera prueba de la idea con los datos hidráulicos que compartió el profesor: alarmas por σ sobre la potencia
+        del motor frente a modelos de Machine Learning.</p>
+      <a class="boton" href="html/mantenimiento_predictivo.html">Abrir</a>
+    </div>
+  </div>
+
+  <h2>Código</h2>
+  <p>
+    Todo el código está en el repositorio
+    <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo">github.com/mcarocantillo/Mantenimiento-predictivo</a>,
+    dentro de la carpeta <code>scripts/</code>. Cada documento indica, al final de cada sección, qué script calcula ese
+    resultado. Los scripts se corren en este orden:
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Paso</th><th>Script</th><th>Qué hace</th></tr>
+    <tr><td>1</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_features.py">ims_features.py</a></td><td>Calcula los indicadores de vibración de cada archivo: RMS, curtosis, pico, factor de cresta, energía por bandas y envolvente.</td></tr>
+    <tr><td>2</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_huecos.py">ims_huecos.py</a></td><td>Encuentra los huecos del registro (reinicios de la prueba).</td></tr>
+    <tr><td>3</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_baseline.py">ims_baseline.py</a></td><td>Elige la línea base de 24 horas con el coeficiente de variación más bajo.</td></tr>
+    <tr><td>4</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_subgrupos.py">ims_subgrupos.py</a></td><td>Parte cada segundo en 20 trozos para las cartas X̄-R y X̄-S.</td></tr>
+    <tr><td>5</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/nelson.py">nelson.py</a></td><td>Las 8 reglas de Nelson, idénticas a las del código original (Code01).</td></tr>
+    <tr><td>6</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_cartas.py">ims_cartas.py</a></td><td>Construye las tres cartas y aplica las reglas.</td></tr>
+    <tr><td>7</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_reglas_falla.py">ims_reglas_falla.py</a></td><td>Objetivo 1: califica cada alarma.</td></tr>
+    <tr><td>8</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_correlacion.py">ims_correlacion.py</a></td><td>Objetivo 2: relación en el tiempo entre alarmas y falla.</td></tr>
+    <tr><td>9</td><td><a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_comparar_cartas.py">ims_comparar_cartas.py</a></td><td>Objetivo 3: comparación de las tres cartas.</td></tr>
+  </table>
+  </div>
+  <p>
+    Los notebooks originales (<code>.ipynb</code>) también están en el repositorio. Las instrucciones para volver a
+    correr todo están en el <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo#cómo-reproducir">README</a>.
+  </p>
+
+  <h2>Qué sigue: Machine Learning para predecir la falla</h2>
+  <p>
+    Con las reglas de Nelson ya evaluadas, el siguiente paso es probar si un modelo de Machine Learning puede avisar
+    antes que la mejor alarma (la carta S), o con menos falsas alarmas. Todo se puede hacer con los datos que ya
+    tenemos, sin agregar sensores ni modificar el equipo.
+  </p>
+  <ol>
+    <li><strong>Modelos que aprenden solo de lo sano.</strong> Aprenden cómo vibra un rodamiento sano a partir de varios
+      indicadores a la vez y avisan cuando algo se aleja de eso. Son la primera opción, porque hay muchos datos sanos y
+      solo 4 fallas. La pregunta es si avisan antes que las reglas de Nelson.</li>
+    <li><strong>Modelos que aprenden de ejemplos.</strong> Responden "¿va a fallar este rodamiento en las próximas 24 a 48
+      horas?" a partir de las últimas horas de vibración. Se entrenan con dos ensayos y se evalúan en el tercero.</li>
+    <li><strong>Pronóstico de la señal.</strong> Predecir hacia dónde va la vibración y avisar antes de que cruce los
+      límites de la carta.</li>
+    <li><strong>Comparación justa.</strong> Cada modelo se mide igual que las alarmas: horas de anticipación, falsas
+      alarmas por día y nota de acierto.</li>
+    <li><strong>Más datos.</strong> Repetir lo mejor en otro conjunto público de rodamientos con más fallas, para que los
+      resultados sean concluyentes.</li>
+  </ol>
+  <p>El detalle está en la sección 7 del documento <a href="html/cartas_nelson_ims.html">Cartas de control y reglas de Nelson</a>.</p>
+
+  <footer>
+    Datos: IMS Bearing Data, NSF I/UCR Center for Intelligent Maintenance Systems, Universidad de Cincinnati, con apoyo
+    de Rexnord Corp. Ejercicio previo: <a href="https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems">Condition monitoring of hydraulic systems (UCI)</a>.
+  </footer>
+</main>
+</body>
+</html>

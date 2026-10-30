@@ -11,6 +11,10 @@ md(r"""
 **Pregunta.** Hoy se usa una alarma cuando la señal del motor sale de μ ± 1.5σ y otra cuando sale de μ ± 3σ.
 ¿Puede el Machine Learning detectar la degradación **antes**, en sus grados leves, cuando las alarmas σ todavía no se disparan?
 
+**Contexto.** Este fue un ejercicio previo, con los datos hidráulicos que compartió el profesor Aldana, para
+probar la idea general antes de trabajar con los rodamientos IMS: comparar las alarmas por σ con modelos de Machine
+Learning.
+
 **Datos.** *Condition monitoring of hydraulic systems* (UCI, ZeMA): 2205 ciclos de 60 s de un banco hidráulico,
 17 sensores. La señal que se vigila es **EPS1, la potencia del motor (W)**, que es la variable sobre la que se
 calculan las alarmas de 1.5σ y 3σ.
@@ -19,6 +23,10 @@ calculan las alarmas de 1.5σ y 3σ.
 fijaron a mano el estado de cuatro componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la
 pregunta equivalente a "anticiparse" es: **¿se detectan los grados leves de degradación antes de llegar a la falla
 grave?**
+
+**Dónde está el código.** Las características de cada ciclo se calculan con [features.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/features.py), la
+comparación de alarmas y modelos con [analisis.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/analisis.py), y este notebook se genera con
+[construir_notebook.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/construir_notebook.py). Los datos originales van en la carpeta `data/`.
 """)
 
 code(r"""

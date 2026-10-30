@@ -8,9 +8,17 @@ code = lambda s: celdas.append(nbf.v4.new_code_cell(s.strip()))
 md(r"""
 # Análisis exploratorio (EDA) de los rodamientos NASA IMS
 
-**Para qué.** Antes de aplicar cartas de control y reglas de Nelson hay que conocer los datos: si están completos,
-cómo se comporta cada indicador, qué cambia antes de la falla y si se cumplen los supuestos que necesitan las
-cartas (proceso estable, puntos independientes y aproximadamente normales).
+**Para qué.** Antes de aplicar cartas de control y reglas de Nelson hay que conocer los datos. Un análisis
+exploratorio (EDA, por sus siglas en inglés) responde cuatro preguntas:
+1. ¿Los datos están completos y son coherentes, o hay archivos dañados, huecos o valores imposibles?
+2. ¿Cómo se comporta cada indicador de vibración cuando el rodamiento está sano?
+3. ¿Qué cambia en la vibración antes de la falla, y cambia igual en los rodamientos sanos?
+4. ¿Se cumplen los supuestos que necesitan las cartas de control? Las cartas suponen que, en estado sano, la señal es
+   estable (sin tendencia), que cada medición es independiente de la anterior y que los valores tienen forma de
+   campana. Si eso no se cumple, las cartas dan falsas alarmas.
+
+Este análisis es la base de las cartas de control y de las reglas de Nelson, que están en el documento
+`cartas_nelson_ims`.
 
 **Datos.** 3 ensayos llevados hasta la falla, 4 rodamientos en un mismo eje a 2000 rpm. Cada archivo es 1 s de
 vibración a 20 kHz, tomado cada 10 min. De cada archivo se calcularon 13 indicadores por canal
@@ -23,6 +31,11 @@ vibración a 20 kHz, tomado cada 10 min. De cada archivo se calcularon 13 indica
 | 3 | B3 | Pista externa |
 
 El **baseline** de cada ensayo (24 h estables elegidas por el CV, fase 2) se marca en las figuras.
+
+**Dónde está el código.** Los indicadores de cada archivo se calculan con [ims_features.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_features.py); la
+línea base, con [ims_baseline.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_baseline.py). Todo lo demás se calcula dentro de este notebook, que se genera
+con [construir_eda.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/construir_eda.py). Para volver a correrlo hay que tener los datos IMS descargados y ajustar
+la ruta `RAIZ` de la primera celda de código.
 """)
 
 code(r"""
