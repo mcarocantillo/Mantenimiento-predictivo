@@ -73,6 +73,27 @@ COMP = {
 """)
 
 md(r"""
+### Términos clave en palabras simples
+
+| Término | Qué es |
+| --- | --- |
+| Ciclo | Una repetición de 60 s del trabajo del banco hidráulico. Cada fila de los datos es un ciclo. |
+| Sensor | Instrumento que mide algo (presión, caudal, temperatura, potencia) muchas veces por segundo. |
+| Potencia del motor (EPS1) y torque | El torque es la fuerza de giro del motor; la potencia es torque por velocidad. Como la velocidad casi no cambia, aquí la potencia sirve como reemplazo del torque. |
+| Degradación y grado | Qué tan dañado está un componente. Por ejemplo, la bomba tiene tres grados: sin fuga, fuga leve y fuga severa. |
+| μ y σ | μ es el valor promedio de la señal en ciclos sanos; σ (desviación estándar) dice cuánto se aleja normalmente de ese promedio. |
+| Alarma 1.5σ y 3σ | Suena si la señal se aleja del promedio más de 1,5 o 3 veces lo normal. La de 3σ es más estricta. |
+| Detección | Porcentaje de ciclos con daño en que la alarma o el modelo sí avisa. Más alto es mejor. |
+| Falsa alarma | Porcentaje de ciclos sanos en que avisa por error. Más bajo es mejor. |
+| Machine Learning supervisado | El modelo aprende de ejemplos ya etiquetados ("este ciclo era sano", "este estaba dañado") y luego clasifica ciclos nuevos. |
+| RandomForest | Modelo supervisado que combina cientos de árboles de decisión, cada uno con reglas simples del tipo "si la potencia máxima es mayor que X…". |
+| Característica | Un número que resume la señal de un ciclo, como su promedio, su máximo o cuánto varía. |
+| Validación por bloques (GroupKFold) | El modelo se prueba con ciclos que no vio al entrenar, separados por bloques de tiempo, para que no "haga trampa" con ciclos casi idénticos. |
+| No supervisado (IsolationForest) | El modelo solo ve ciclos sanos y aprende cómo es lo normal; marca como anomalía lo que se aleja de eso. No necesita ejemplos de fallas. |
+| Percentil 99 | El valor por debajo del cual queda el 99 % de los datos; se usa como umbral para decidir qué es raro. |
+""")
+
+md(r"""
 ## 1. Cómo se diseñó el experimento
 
 Cada línea es el estado de un componente a lo largo de los 2205 ciclos. Los grados cambian **en escalones fijados
@@ -91,6 +112,12 @@ axs[0].set_title("Estado de cada componente por ciclo (diseño del experimento)"
 axs[-1].set_xlabel("Ciclo (60 s cada uno)")
 fig.tight_layout()
 plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** En este banco los daños no aparecen poco a poco: los investigadores los pusieron a propósito y
+en escalones. Por eso aquí no se puede medir con cuánta anticipación avisa una alarma; solo si detecta los daños
+leves antes que los graves.
 """)
 
 md(r"""
@@ -115,6 +142,12 @@ ax.set_xlim(0, 68)
 ax.set_title("Potencia del motor dentro del ciclo de carga", loc="left")
 ax.set_xlabel("Tiempo dentro del ciclo (s)"); ax.set_ylabel("Potencia (W)")
 fig.tight_layout(); plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** Con la bomba dañada, el motor gasta un poco más de potencia en ciertas partes del ciclo, no en
+todo el ciclo. Una sola cifra por ciclo (el promedio) puede esconder ese cambio; por eso el modelo de ML usa varias
+cifras de cada ciclo.
 """)
 
 md(r"""
@@ -151,6 +184,12 @@ axs[0].set_ylabel("Potencia media del ciclo (W)")
 fig.suptitle("Las alarmas σ no separan los grados de degradación", x=0.01, ha="left",
              fontweight="bold", color=TINTA)
 fig.tight_layout(); plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** La alarma de 3σ casi nunca suena aunque el componente esté muy dañado, y la de 1.5σ suena casi
+igual de seguido con el componente sano que con el dañado. En la práctica, este sistema de alarmas solo detectaría la
+falla del enfriador, que cambia mucho la potencia del motor.
 """)
 
 md(r"""
@@ -229,6 +268,12 @@ plt.show()
 """)
 
 md(r"""
+**Qué quiere decir.** Con la misma señal del motor, el modelo de ML detecta daños que las alarmas σ no ven: por
+ejemplo, el 75 % de los ciclos con fuga leve de la bomba, con 8 % de falsas alarmas. En el acumulador y la válvula, en
+cambio, da muchas falsas alarmas si solo usa la señal del motor; con los demás sensores del banco casi desaparecen.
+""")
+
+md(r"""
 ### ¿Qué mira el modelo en la señal del motor?
 
 Importancia de las características de EPS1 para detectar la fuga de la bomba. Las características son: media, σ,
@@ -249,6 +294,12 @@ ax.grid(axis="y", visible=False); ax.grid(axis="x")
 ax.set_title("Importancia de cada característica de EPS1 (bomba)", loc="left")
 ax.set_xlabel("Importancia (reducción media de impureza)")
 fig.tight_layout(); plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** El modelo no se fija en una sola cifra: combina el nivel de potencia, su máximo y el nivel en
+distintas partes del ciclo. Esa combinación es lo que le permite separar el daño de la bomba de los cambios que causan
+los otros componentes.
 """)
 
 md(r"""
@@ -286,6 +337,12 @@ for nombre in [v[0] for v in COMP.values()]:
 """)
 
 md(r"""
+**Qué quiere decir.** El enfoque no supervisado falla aquí porque no hay un periodo largo en que todo esté sano para
+aprender qué es lo normal. No significa que el método no sirva: con meses de operación normal registrada es una opción
+útil, porque no necesita esperar a que ocurran fallas para aprender.
+""")
+
+md(r"""
 ## 6. Conclusiones
 
 - **Las alarmas σ casi no sirven para anticiparse.** La de 3σ dispara en menos del 2 % de los ciclos de válvula,
@@ -300,12 +357,16 @@ md(r"""
   vibración).
 - **El no supervisado necesita una referencia sana limpia**, que este dataset no tiene.
 
-## 7. Próximos pasos para el motor real
+## 7. Qué se puede hacer con los datos disponibles
 
-1. Registrar el torque con marca de tiempo continua y anotar cada alarma 1.5σ/3σ y cada intervención de mantenimiento.
-2. Calcular σ solo con un periodo sano, para no filtrar información del futuro.
-3. Etiquetar las ventanas previas a cada cruce ("pre-falla") y repetir este análisis con validación por eventos.
-4. Entrenar un detector no supervisado con meses de operación normal y comprobar si su puntaje sube antes de las
+Sin agregar sensores ni modificar el equipo:
+
+1. Calcular μ y σ solo con un periodo sano, para no usar información del futuro.
+2. Describir cada ciclo con varias características (promedio, máximo, nivel en cada parte del ciclo), no con una sola
+   cifra: es lo que le permite al ML ver lo que la alarma σ no ve.
+3. Si los registros tienen fecha y hora, marcar las ventanas previas a cada alarma ("pre-falla") y entrenar un
+   clasificador que avise antes de que la alarma suene, validando por eventos.
+4. Entrenar un detector no supervisado con los periodos sanos registrados y comprobar si su puntaje sube antes de las
    alarmas σ.
 """)
 

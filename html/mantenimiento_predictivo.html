@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3f79aace">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=818fd54d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7817,7 +7817,7 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=aca4c35f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a3a59f26">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7867,7 +7867,7 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=77972a13">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a265bfc1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7901,7 +7901,83 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=733b2504">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2371e4fd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="T%C3%A9rminos-clave-en-palabras-simples">Términos clave en palabras simples<a class="anchor-link" href="#T%C3%A9rminos-clave-en-palabras-simples">¶</a></h3><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ciclo</td>
+<td>Una repetición de 60 s del trabajo del banco hidráulico. Cada fila de los datos es un ciclo.</td>
+</tr>
+<tr>
+<td>Sensor</td>
+<td>Instrumento que mide algo (presión, caudal, temperatura, potencia) muchas veces por segundo.</td>
+</tr>
+<tr>
+<td>Potencia del motor (EPS1) y torque</td>
+<td>El torque es la fuerza de giro del motor; la potencia es torque por velocidad. Como la velocidad casi no cambia, aquí la potencia sirve como reemplazo del torque.</td>
+</tr>
+<tr>
+<td>Degradación y grado</td>
+<td>Qué tan dañado está un componente. Por ejemplo, la bomba tiene tres grados: sin fuga, fuga leve y fuga severa.</td>
+</tr>
+<tr>
+<td>μ y σ</td>
+<td>μ es el valor promedio de la señal en ciclos sanos; σ (desviación estándar) dice cuánto se aleja normalmente de ese promedio.</td>
+</tr>
+<tr>
+<td>Alarma 1.5σ y 3σ</td>
+<td>Suena si la señal se aleja del promedio más de 1,5 o 3 veces lo normal. La de 3σ es más estricta.</td>
+</tr>
+<tr>
+<td>Detección</td>
+<td>Porcentaje de ciclos con daño en que la alarma o el modelo sí avisa. Más alto es mejor.</td>
+</tr>
+<tr>
+<td>Falsa alarma</td>
+<td>Porcentaje de ciclos sanos en que avisa por error. Más bajo es mejor.</td>
+</tr>
+<tr>
+<td>Machine Learning supervisado</td>
+<td>El modelo aprende de ejemplos ya etiquetados ("este ciclo era sano", "este estaba dañado") y luego clasifica ciclos nuevos.</td>
+</tr>
+<tr>
+<td>RandomForest</td>
+<td>Modelo supervisado que combina cientos de árboles de decisión, cada uno con reglas simples del tipo "si la potencia máxima es mayor que X…".</td>
+</tr>
+<tr>
+<td>Característica</td>
+<td>Un número que resume la señal de un ciclo, como su promedio, su máximo o cuánto varía.</td>
+</tr>
+<tr>
+<td>Validación por bloques (GroupKFold)</td>
+<td>El modelo se prueba con ciclos que no vio al entrenar, separados por bloques de tiempo, para que no "haga trampa" con ciclos casi idénticos.</td>
+</tr>
+<tr>
+<td>No supervisado (IsolationForest)</td>
+<td>El modelo solo ve ciclos sanos y aprende cómo es lo normal; marca como anomalía lo que se aleja de eso. No necesita ejemplos de fallas.</td>
+</tr>
+<tr>
+<td>Percentil 99</td>
+<td>El valor por debajo del cual queda el 99 % de los datos; se usa como umbral para decidir qué es raro.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d3055fbf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7913,7 +7989,7 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c1c4cd1e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=634f6f8c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7949,7 +8025,20 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df4a212a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1b8631b2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> En este banco los daños no aparecen poco a poco: los investigadores los pusieron a propósito y
+en escalones. Por eso aquí no se puede medir con cuánta anticipación avisa una alarma; solo si detecta los daños
+leves antes que los graves.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5100535a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7960,7 +8049,7 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=68f571bc">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9a10a472">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8000,7 +8089,20 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=61bc3ffc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0cbe925c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Con la bomba dañada, el motor gasta un poco más de potencia en ciertas partes del ciclo, no en
+todo el ciclo. Una sola cifra por ciclo (el promedio) puede esconder ese cambio; por eso el modelo de ML usa varias
+cifras de cada ciclo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=de859f4b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8014,7 +8116,7 @@ dispersión que causan los otros componentes, así que un umbral fijo no puede s
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=802f6008">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=449fe94f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8062,7 +8164,20 @@ dispersión que causan los otros componentes, así que un umbral fijo no puede s
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8f502d92">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a5786bb9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> La alarma de 3σ casi nunca suena aunque el componente esté muy dañado, y la de 1.5σ suena casi
+igual de seguido con el componente sano que con el dañado. En la práctica, este sistema de alarmas solo detectaría la
+falla del enfriador, que cambia mucho la potencia del motor.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b96a710d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8076,7 +8191,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=acf64bbe">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e5484ad4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8270,7 +8385,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=95d3998e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=720de9f5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8280,7 +8395,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a2d828d2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a37dffa6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8330,7 +8445,20 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=40c6baf7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8ac8b1f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Con la misma señal del motor, el modelo de ML detecta daños que las alarmas σ no ven: por
+ejemplo, el 75 % de los ciclos con fuga leve de la bomba, con 8 % de falsas alarmas. En el acumulador y la válvula, en
+cambio, da muchas falsas alarmas si solo usa la señal del motor; con los demás sensores del banco casi desaparecen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85c87568">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8342,7 +8470,7 @@ cuarto del ciclo (<code>q1</code>–<code>q4</code>).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=55162cb7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7dc31280">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8380,7 +8508,20 @@ cuarto del ciclo (<code>q1</code>–<code>q4</code>).</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73b1644d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85ba094b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> El modelo no se fija en una sola cifra: combina el nivel de potencia, su máximo y el nivel en
+distintas partes del ciclo. Esa combinación es lo que le permite separar el daño de la bomba de los cambios que causan
+los otros componentes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aceac28b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8395,7 +8536,7 @@ sentido.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8c5e357d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=17ef28f9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8436,15 +8577,15 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_f13ea">
+<table id="T_98ce6">
 <caption>Válvula: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_f13ea_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_f13ea_level0_col1">detección 90</th>
-<th class="col_heading level0 col2" id="T_f13ea_level0_col2">detección 80</th>
-<th class="col_heading level0 col3" id="T_f13ea_level0_col3">detección 73</th>
+<th class="col_heading level0 col0" id="T_98ce6_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_98ce6_level0_col1">detección 90</th>
+<th class="col_heading level0 col2" id="T_98ce6_level0_col2">detección 80</th>
+<th class="col_heading level0 col3" id="T_98ce6_level0_col3">detección 73</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8456,18 +8597,18 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_f13ea_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_f13ea_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_f13ea_row0_col1">0.000000</td>
-<td class="data row0 col2" id="T_f13ea_row0_col2">0.000000</td>
-<td class="data row0 col3" id="T_f13ea_row0_col3">0.000000</td>
+<th class="row_heading level0 row0" id="T_98ce6_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_98ce6_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_98ce6_row0_col1">0.000000</td>
+<td class="data row0 col2" id="T_98ce6_row0_col2">0.000000</td>
+<td class="data row0 col3" id="T_98ce6_row0_col3">0.000000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_f13ea_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_f13ea_row1_col0">69.700000</td>
-<td class="data row1 col1" id="T_f13ea_row1_col1">33.300000</td>
-<td class="data row1 col2" id="T_f13ea_row1_col2">33.300000</td>
-<td class="data row1 col3" id="T_f13ea_row1_col3">36.400000</td>
+<th class="row_heading level0 row1" id="T_98ce6_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_98ce6_row1_col0">69.700000</td>
+<td class="data row1 col1" id="T_98ce6_row1_col1">33.300000</td>
+<td class="data row1 col2" id="T_98ce6_row1_col2">33.300000</td>
+<td class="data row1 col3" id="T_98ce6_row1_col3">36.400000</td>
 </tr>
 </tbody>
 </table>
@@ -8478,14 +8619,14 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_37a47">
+<table id="T_a179c">
 <caption>Bomba: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_37a47_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_37a47_level0_col1">detección 1</th>
-<th class="col_heading level0 col2" id="T_37a47_level0_col2">detección 2</th>
+<th class="col_heading level0 col0" id="T_a179c_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_a179c_level0_col1">detección 1</th>
+<th class="col_heading level0 col2" id="T_a179c_level0_col2">detección 2</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8496,16 +8637,16 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_37a47_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_37a47_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_37a47_row0_col1">17.300000</td>
-<td class="data row0 col2" id="T_37a47_row0_col2">24.400000</td>
+<th class="row_heading level0 row0" id="T_a179c_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_a179c_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_a179c_row0_col1">17.300000</td>
+<td class="data row0 col2" id="T_a179c_row0_col2">24.400000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_37a47_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_37a47_row1_col0">69.000000</td>
-<td class="data row1 col1" id="T_37a47_row1_col1">45.600000</td>
-<td class="data row1 col2" id="T_37a47_row1_col2">50.800000</td>
+<th class="row_heading level0 row1" id="T_a179c_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_a179c_row1_col0">69.000000</td>
+<td class="data row1 col1" id="T_a179c_row1_col1">45.600000</td>
+<td class="data row1 col2" id="T_a179c_row1_col2">50.800000</td>
 </tr>
 </tbody>
 </table>
@@ -8516,15 +8657,15 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_aa55e">
+<table id="T_302e2">
 <caption>Acumulador: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_aa55e_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_aa55e_level0_col1">detección 115</th>
-<th class="col_heading level0 col2" id="T_aa55e_level0_col2">detección 100</th>
-<th class="col_heading level0 col3" id="T_aa55e_level0_col3">detección 90</th>
+<th class="col_heading level0 col0" id="T_302e2_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_302e2_level0_col1">detección 115</th>
+<th class="col_heading level0 col2" id="T_302e2_level0_col2">detección 100</th>
+<th class="col_heading level0 col3" id="T_302e2_level0_col3">detección 90</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8536,18 +8677,18 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_aa55e_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_aa55e_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_aa55e_row0_col1">0.000000</td>
-<td class="data row0 col2" id="T_aa55e_row0_col2">0.600000</td>
-<td class="data row0 col3" id="T_aa55e_row0_col3">0.500000</td>
+<th class="row_heading level0 row0" id="T_302e2_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_302e2_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_302e2_row0_col1">0.000000</td>
+<td class="data row0 col2" id="T_302e2_row0_col2">0.600000</td>
+<td class="data row0 col3" id="T_302e2_row0_col3">0.500000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_aa55e_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_aa55e_row1_col0">0.000000</td>
-<td class="data row1 col1" id="T_aa55e_row1_col1">16.400000</td>
-<td class="data row1 col2" id="T_aa55e_row1_col2">24.200000</td>
-<td class="data row1 col3" id="T_aa55e_row1_col3">19.500000</td>
+<th class="row_heading level0 row1" id="T_302e2_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_302e2_row1_col0">0.000000</td>
+<td class="data row1 col1" id="T_302e2_row1_col1">16.400000</td>
+<td class="data row1 col2" id="T_302e2_row1_col2">24.200000</td>
+<td class="data row1 col3" id="T_302e2_row1_col3">19.500000</td>
 </tr>
 </tbody>
 </table>
@@ -8558,14 +8699,14 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_a2a6e">
+<table id="T_4616a">
 <caption>Enfriador: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_a2a6e_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_a2a6e_level0_col1">detección 20</th>
-<th class="col_heading level0 col2" id="T_a2a6e_level0_col2">detección 3</th>
+<th class="col_heading level0 col0" id="T_4616a_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_4616a_level0_col1">detección 20</th>
+<th class="col_heading level0 col2" id="T_4616a_level0_col2">detección 3</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8576,16 +8717,16 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_a2a6e_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_a2a6e_row0_col0">0.800000</td>
-<td class="data row0 col1" id="T_a2a6e_row0_col1">100.000000</td>
-<td class="data row0 col2" id="T_a2a6e_row0_col2">100.000000</td>
+<th class="row_heading level0 row0" id="T_4616a_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_4616a_row0_col0">0.800000</td>
+<td class="data row0 col1" id="T_4616a_row0_col1">100.000000</td>
+<td class="data row0 col2" id="T_4616a_row0_col2">100.000000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_a2a6e_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_a2a6e_row1_col0">25.700000</td>
-<td class="data row1 col1" id="T_a2a6e_row1_col1">100.000000</td>
-<td class="data row1 col2" id="T_a2a6e_row1_col2">100.000000</td>
+<th class="row_heading level0 row1" id="T_4616a_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_4616a_row1_col0">25.700000</td>
+<td class="data row1 col1" id="T_4616a_row1_col1">100.000000</td>
+<td class="data row1 col2" id="T_4616a_row1_col2">100.000000</td>
 </tr>
 </tbody>
 </table>
@@ -8594,7 +8735,20 @@ sentido.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bc0480c1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a01a70a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> El enfoque no supervisado falla aquí porque no hay un periodo largo en que todo esté sano para
+aprender qué es lo normal. No significa que el método no sirva: con meses de operación normal registrada es una opción
+útil, porque no necesita esperar a que ocurran fallas para aprender.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fd0f46a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8613,11 +8767,14 @@ caudal bajan a 13 % y 1 %: conviene registrar más variables del motor (corrient
 vibración).</li>
 <li><strong>El no supervisado necesita una referencia sana limpia</strong>, que este dataset no tiene.</li>
 </ul>
-<h2 id="7.-Pr%C3%B3ximos-pasos-para-el-motor-real">7. Próximos pasos para el motor real<a class="anchor-link" href="#7.-Pr%C3%B3ximos-pasos-para-el-motor-real">¶</a></h2><ol>
-<li>Registrar el torque con marca de tiempo continua y anotar cada alarma 1.5σ/3σ y cada intervención de mantenimiento.</li>
-<li>Calcular σ solo con un periodo sano, para no filtrar información del futuro.</li>
-<li>Etiquetar las ventanas previas a cada cruce ("pre-falla") y repetir este análisis con validación por eventos.</li>
-<li>Entrenar un detector no supervisado con meses de operación normal y comprobar si su puntaje sube antes de las
+<h2 id="7.-Qu%C3%A9-se-puede-hacer-con-los-datos-disponibles">7. Qué se puede hacer con los datos disponibles<a class="anchor-link" href="#7.-Qu%C3%A9-se-puede-hacer-con-los-datos-disponibles">¶</a></h2><p>Sin agregar sensores ni modificar el equipo:</p>
+<ol>
+<li>Calcular μ y σ solo con un periodo sano, para no usar información del futuro.</li>
+<li>Describir cada ciclo con varias características (promedio, máximo, nivel en cada parte del ciclo), no con una sola
+cifra: es lo que le permite al ML ver lo que la alarma σ no ve.</li>
+<li>Si los registros tienen fecha y hora, marcar las ventanas previas a cada alarma ("pre-falla") y entrenar un
+clasificador que avise antes de que la alarma suene, validando por eventos.</li>
+<li>Entrenar un detector no supervisado con los periodos sanos registrados y comprobar si su puntaje sube antes de las
 alarmas σ.</li>
 </ol>
 </div>

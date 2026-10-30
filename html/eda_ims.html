@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=74239ebb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c044b672">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7838,7 +7838,7 @@ vibración a 20 kHz, tomado cada 10 min. De cada archivo se calcularon 13 indica
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=95a0f355">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0916e9ad">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7919,7 +7919,7 @@ Archivos con señal muerta (excluidos): {1: [], 2: ['2004-02-19 06:12:39', '2004
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cc0ec7ee">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e367aac2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7959,7 +7959,91 @@ Archivos con señal muerta (excluidos): {1: [], 2: ['2004-02-19 06:12:39', '2004
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fb22f711">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5321f128">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="T%C3%A9rminos-clave-en-palabras-simples">Términos clave en palabras simples<a class="anchor-link" href="#T%C3%A9rminos-clave-en-palabras-simples">¶</a></h3><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Qué es</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rodamiento</td>
+<td>Pieza que permite que el eje gire con poca fricción: dos anillos (pistas) con bolas o rodillos entre ellos.</td>
+</tr>
+<tr>
+<td>Acelerómetro</td>
+<td>Sensor pegado a la carcasa del rodamiento que mide su vibración 20 000 veces por segundo. Se mide en g (aceleración de la gravedad).</td>
+</tr>
+<tr>
+<td>RMS</td>
+<td>La cantidad promedio de vibración en un segundo. Si sube, el rodamiento vibra más.</td>
+</tr>
+<tr>
+<td>Pico y factor de cresta</td>
+<td>El pico es el golpe más fuerte del segundo; el factor de cresta es el pico dividido por el RMS (qué tan sobresaliente es ese golpe).</td>
+</tr>
+<tr>
+<td>Curtosis</td>
+<td>Mide si la vibración tiene golpes aislados. Una grieta pequeña produce un golpecito cada vez que pasa una bola, y la curtosis sube.</td>
+</tr>
+<tr>
+<td>Asimetría</td>
+<td>Si la vibración se carga más hacia un lado (positivo o negativo). En una máquina sana es cercana a 0.</td>
+</tr>
+<tr>
+<td>Energía por bandas</td>
+<td>Qué porcentaje de la vibración está en sonidos graves (0–1 kHz) o agudos (5–10 kHz).</td>
+</tr>
+<tr>
+<td>Envolvente y frecuencia de defecto</td>
+<td>Cada parte dañada golpea a un ritmo fijo: BPFO (pista externa, ~236 golpes por segundo), BPFI (pista interna), BSF (bolas) y FTF (jaula). La envolvente busca ese ritmo.</td>
+</tr>
+<tr>
+<td>Baseline (línea base)</td>
+<td>24 horas en que el rodamiento está sano y estable; se usa como referencia de lo normal.</td>
+</tr>
+<tr>
+<td>σ (sigma)</td>
+<td>Cuánto varía normalmente la señal alrededor de su promedio. "Cambió 11σ" quiere decir que se movió 11 veces más de lo normal.</td>
+</tr>
+<tr>
+<td>Coeficiente de variación (CV)</td>
+<td>σ dividida por el promedio, en porcentaje. Un CV de 1 % es una señal muy estable.</td>
+</tr>
+<tr>
+<td>Correlación de Spearman (ρ)</td>
+<td>Mide si dos cosas suben y bajan juntas, de −1 a 1. Cerca de 1: se mueven igual.</td>
+</tr>
+<tr>
+<td>Autocorrelación</td>
+<td>Qué tanto se parece un punto al anterior. Si es alta, los puntos no son independientes.</td>
+</tr>
+<tr>
+<td>Prueba de Shapiro-Wilk</td>
+<td>Revisa si los datos tienen forma de campana (distribución normal). Un p menor que 0,05 indica que no.</td>
+</tr>
+<tr>
+<td>Valor atípico (vallas de Tukey)</td>
+<td>Un valor mucho más alto o más bajo que la mayoría; aquí, fuera del rango normal del baseline.</td>
+</tr>
+<tr>
+<td>Carta de control</td>
+<td>Gráfica de la señal en el tiempo con límites calculados en el baseline; si la señal se sale o forma ciertos patrones, suena una alarma.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=682b6f96">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7972,7 +8056,7 @@ detenida. Se excluyen del resto del análisis y "horas antes del fin" se mide de
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=167737ae">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c0fee67f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8121,7 +8205,7 @@ detenida. Se excluyen del resto del análisis y "horas antes del fin" se mide de
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fd8bc32e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7ff4df1c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8154,18 +8238,18 @@ Ensayo 3: {10.0: 6314, 5.0: 2, 270.0: 1, 2.0: 1} (minutos: archivos)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3c3a69b0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a2d54e63">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Chequeos de consistencia.</strong> Reglas físicas que deben cumplirse: RMS y pico positivos, factor de cresta ≥ 1,
+<p><strong>Chequeos de consistencia.</strong> Si algún número rompiera estas reglas, habría un error en los datos o en el código. Reglas físicas que deben cumplirse: RMS y pico positivos, factor de cresta ≥ 1,
 fracciones de energía por banda entre 0 y 1 que suman ~1 (las 4 bandas cubren 0–10 kHz), envolventes positivas.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6ce61f63">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c0053c39">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8271,7 +8355,7 @@ fracciones de energía por banda entre 0 y 1 que suman ~1 (las 4 bandas cubren 0
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc28113d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a022e201">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8282,7 +8366,7 @@ Si miden lo mismo, promediarlos es razonable.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c11de31f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c695ec4f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8376,7 +8460,20 @@ Si miden lo mismo, promediarlos es razonable.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=957724cf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9e62d732">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Los datos están completos y son coherentes físicamente. Los únicos problemas son los 3 archivos
+del final con la máquina apagada (ya excluidos) y los huecos del ensayo 1, donde la prueba se detuvo y se reanudó días
+después. Esos reinicios cambian un poco el nivel de vibración y pueden hacer sonar alarmas aunque no haya falla.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b48b46e7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8388,7 +8485,7 @@ indicador de falla se aleja mucho en los que fallan y poco en los sanos.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=49a544eb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e3d0e0d8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8573,7 +8670,7 @@ indicador de falla se aleja mucho en los que fallan y poco en los sanos.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=58c60147">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=01f98d41">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8705,7 +8802,22 @@ indicador de falla se aleja mucho en los que fallan y poco en los sanos.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f5fb7b8b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=36e30c82">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> La primera tabla compara cuánto cambia cada indicador al final del ensayo, medido en "veces la
+variación normal" (σ). El RMS es el que más cambia, pero también cambia mucho en los rodamientos sanos, así que no dice
+cuál rodamiento está fallando. La curtosis cambia mucho en los que fallan y casi nada en los sanos: es la que mejor
+apunta al rodamiento dañado. La segunda tabla muestra que casi todos los indicadores tienen forma de campana en estado
+sano (asimetría y exceso de curtosis cercanos a 0), que es lo que suponen las cartas de control.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=441bf62f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8720,7 +8832,7 @@ solo en ±3 Hz alrededor de 236,4 Hz y no lo captaba; ahora busca el pico en ±5
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8fee8dc5">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=192cfe08">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8786,7 +8898,20 @@ solo en ±3 Hz alrededor de 236,4 Hz y no lo captaba; ahora busca el pico en ±5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1abba7de">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=806740a7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> 48 horas antes del fin, la señal a simple vista se ve casi igual que al inicio, pero el espectro
+de envolvente ya muestra un pico claro: el defecto ya existe y golpea unas 231 veces por segundo. Un análisis más fino
+detecta el daño días antes de que la vibración total aumente.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f4cdf76a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8798,7 +8923,7 @@ gris es el baseline y los cortes en las líneas son huecos de registro.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4f48df09">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fe775a8e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8859,7 +8984,7 @@ gris es el baseline y los cortes en las líneas son huecos de registro.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ae137bc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fa903629">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8870,7 +8995,7 @@ Correlación de Spearman media entre los 4 RMS de cada ensayo, en el baseline y 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=51dc8a6d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=19c4065d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8950,7 +9075,22 @@ Correlación de Spearman media entre los 4 RMS de cada ensayo, en el baseline y 
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ecaacd9f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fbf4fa7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Al final de cada ensayo el RMS sube en todos los rodamientos, porque comparten el eje y la
+vibración del dañado se transmite a los demás. La tabla de acople lo confirma: al final los 4 rodamientos vibran casi
+al unísono. Por eso una alarma sobre el RMS también suena en rodamientos sanos. La curtosis, en cambio, sube sobre todo
+en los que fallan; en B4 del ensayo 1 sube y luego baja, porque cuando el daño se extiende los golpes dejan de ser
+aislados.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=93ccff93">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8961,7 +9101,7 @@ para no mezclar diferencias de nivel entre rodamientos). Valores cercanos a ±1 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=99ccd79d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6565240e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9009,7 +9149,19 @@ para no mezclar diferencias de nivel entre rodamientos). Valores cercanos a ±1 
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a1f8eba8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bda010bd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Dos indicadores con correlación cercana a 1 dan la misma información, así que usar ambos no
+agrega nada. Pico y factor de cresta son casi lo mismo en estado sano; basta con uno.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0fa731ca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9028,7 +9180,7 @@ variabilidad.</li>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b26d53b9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2f560ed4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9235,7 +9387,7 @@ variabilidad.</li>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e047029c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ac4dc6aa">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9274,7 +9426,7 @@ dtype: object</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ac3b662c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a27bfc6f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9324,7 +9476,21 @@ dtype: object</pre>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5bfce720">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2232f0c7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> Las cartas de control suponen que cada punto es independiente del anterior y que la señal no
+tiene tendencia. El RMS no cumple ninguna de las dos: cada punto se parece al de 10 minutos antes y la señal sube o
+baja lentamente incluso en el periodo sano. Por eso la carta I-MR sobre el RMS da tantas falsas alarmas. La curtosis sí
+es independiente, aunque en la mitad de los rodamientos no tiene forma de campana.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7037f334">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9336,7 +9502,7 @@ inicio de la falla.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6427901a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ef15b037">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9456,7 +9622,20 @@ inicio de la falla.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0872c80f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9aeec03d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Qué quiere decir.</strong> En el periodo sano casi no hay valores atípicos. En el monitoreo, la curtosis de los rodamientos
+que fallan sale de lo normal mucho más seguido que en los sanos: los atípicos son justamente la señal de la falla, por
+eso no se borran.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a5be44b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

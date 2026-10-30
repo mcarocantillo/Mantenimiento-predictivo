@@ -112,6 +112,29 @@ def con_cortes(df, y):
 """)
 
 md(r"""
+### Términos clave en palabras simples
+
+| Término | Qué es |
+| --- | --- |
+| Rodamiento | Pieza que permite que el eje gire con poca fricción: dos anillos (pistas) con bolas o rodillos entre ellos. |
+| Acelerómetro | Sensor pegado a la carcasa del rodamiento que mide su vibración 20 000 veces por segundo. Se mide en g (aceleración de la gravedad). |
+| RMS | La cantidad promedio de vibración en un segundo. Si sube, el rodamiento vibra más. |
+| Pico y factor de cresta | El pico es el golpe más fuerte del segundo; el factor de cresta es el pico dividido por el RMS (qué tan sobresaliente es ese golpe). |
+| Curtosis | Mide si la vibración tiene golpes aislados. Una grieta pequeña produce un golpecito cada vez que pasa una bola, y la curtosis sube. |
+| Asimetría | Si la vibración se carga más hacia un lado (positivo o negativo). En una máquina sana es cercana a 0. |
+| Energía por bandas | Qué porcentaje de la vibración está en sonidos graves (0–1 kHz) o agudos (5–10 kHz). |
+| Envolvente y frecuencia de defecto | Cada parte dañada golpea a un ritmo fijo: BPFO (pista externa, ~236 golpes por segundo), BPFI (pista interna), BSF (bolas) y FTF (jaula). La envolvente busca ese ritmo. |
+| Baseline (línea base) | 24 horas en que el rodamiento está sano y estable; se usa como referencia de lo normal. |
+| σ (sigma) | Cuánto varía normalmente la señal alrededor de su promedio. "Cambió 11σ" quiere decir que se movió 11 veces más de lo normal. |
+| Coeficiente de variación (CV) | σ dividida por el promedio, en porcentaje. Un CV de 1 % es una señal muy estable. |
+| Correlación de Spearman (ρ) | Mide si dos cosas suben y bajan juntas, de −1 a 1. Cerca de 1: se mueven igual. |
+| Autocorrelación | Qué tanto se parece un punto al anterior. Si es alta, los puntos no son independientes. |
+| Prueba de Shapiro-Wilk | Revisa si los datos tienen forma de campana (distribución normal). Un p menor que 0,05 indica que no. |
+| Valor atípico (vallas de Tukey) | Un valor mucho más alto o más bajo que la mayoría; aquí, fuera del rango normal del baseline. |
+| Carta de control | Gráfica de la señal en el tiempo con límites calculados en el baseline; si la señal se sale o forma ciertos patrones, suena una alarma. |
+""")
+
+md(r"""
 ## 1. Estructura y calidad de los datos
 
 Una fila = un archivo (1 s de vibración) de un ensayo; la clave es el `Timestamp`. Revisamos tamaño, cobertura en el
@@ -152,7 +175,7 @@ for e, df in datos.items():
 """)
 
 md(r"""
-**Chequeos de consistencia.** Reglas físicas que deben cumplirse: RMS y pico positivos, factor de cresta ≥ 1,
+**Chequeos de consistencia.** Si algún número rompiera estas reglas, habría un error en los datos o en el código. Reglas físicas que deben cumplirse: RMS y pico positivos, factor de cresta ≥ 1,
 fracciones de energía por banda entre 0 y 1 que suman ~1 (las 4 bandas cubren 0–10 kHz), envolventes positivas.
 """)
 
@@ -186,6 +209,12 @@ tabla = pd.DataFrame({
     for f in ["rms", "kurt", "pico", "env_BPFI"]})
 tabla.index.name = "Rodamiento (ensayo 1)"
 tabla.round(2)
+""")
+
+md(r"""
+**Qué quiere decir.** Los datos están completos y son coherentes físicamente. Los únicos problemas son los 3 archivos
+del final con la máquina apagada (ya excluidos) y los huecos del ensayo 1, donde la prueba se detuvo y se reanudó días
+después. Esos reinicios cambian un poco el nivel de vibración y pueden hacer sonar alarmas aunque no haya falla.
 """)
 
 md(r"""
@@ -231,6 +260,14 @@ for f in FEATS:
             sk.append(stats.skew(s)); ku.append(stats.kurtosis(s))
     filas.append({"Indicador": NOMBRES[f], "Asimetría": np.median(sk), "Exceso de curtosis": np.median(ku)})
 pd.DataFrame(filas).set_index("Indicador").round(2)
+""")
+
+md(r"""
+**Qué quiere decir.** La primera tabla compara cuánto cambia cada indicador al final del ensayo, medido en "veces la
+variación normal" (σ). El RMS es el que más cambia, pero también cambia mucho en los rodamientos sanos, así que no dice
+cuál rodamiento está fallando. La curtosis cambia mucho en los que fallan y casi nada en los sanos: es la que mejor
+apunta al rodamiento dañado. La segunda tabla muestra que casi todos los indicadores tienen forma de campana en estado
+sano (asimetría y exceso de curtosis cercanos a 0), que es lo que suponen las cartas de control.
 """)
 
 md(r"""
@@ -286,6 +323,12 @@ for ax in ejes[:, 1]:
 fig.suptitle(f"Ensayo 2, B1: el defecto se repite a {f_pico:.1f} Hz, no a los 236,4 Hz teóricos".replace(".", ",", 1),
              x=0.01, ha="left", fontsize=12, fontweight="bold")
 plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** 48 horas antes del fin, la señal a simple vista se ve casi igual que al inicio, pero el espectro
+de envolvente ya muestra un pico claro: el defecto ya existe y golpea unas 231 veces por segundo. Un análisis más fino
+detecta el daño días antes de que la vibración total aumente.
 """)
 
 md(r"""
@@ -352,6 +395,14 @@ pd.DataFrame(filas).set_index("Ensayo").round(2)
 """)
 
 md(r"""
+**Qué quiere decir.** Al final de cada ensayo el RMS sube en todos los rodamientos, porque comparten el eje y la
+vibración del dañado se transmite a los demás. La tabla de acople lo confirma: al final los 4 rodamientos vibran casi
+al unísono. Por eso una alarma sobre el RMS también suena en rodamientos sanos. La curtosis, en cambio, sube sobre todo
+en los que fallan; en B4 del ensayo 1 sube y luego baja, porque cuando el daño se extiende los golpes dejan de ser
+aislados.
+""")
+
+md(r"""
 ## 5. Relaciones entre indicadores
 
 Correlación de Spearman entre los 13 indicadores en el baseline (calculada por rodamiento y promediada sobre los 12,
@@ -381,6 +432,11 @@ fig.colorbar(im, ax=ax, shrink=0.7, label="Spearman (media de 12 rodamientos)")
 par = corr.where(~np.eye(len(FEATS), dtype=bool)).abs().stack().idxmax()
 ax.set_title(f"Correlación entre indicadores en el baseline · par más redundante: {par[0]} y {par[1]}", loc="left")
 plt.show()
+""")
+
+md(r"""
+**Qué quiere decir.** Dos indicadores con correlación cercana a 1 dan la misma información, así que usar ambos no
+agrega nada. Pico y factor de cresta son casi lo mismo en estado sano; basta con uno.
 """)
 
 md(r"""
@@ -457,6 +513,13 @@ plt.show()
 """)
 
 md(r"""
+**Qué quiere decir.** Las cartas de control suponen que cada punto es independiente del anterior y que la señal no
+tiene tendencia. El RMS no cumple ninguna de las dos: cada punto se parece al de 10 minutos antes y la señal sube o
+baja lentamente incluso en el periodo sano. Por eso la carta I-MR sobre el RMS da tantas falsas alarmas. La curtosis sí
+es independiente, aunque en la mitad de los rodamientos no tiene forma de campana.
+""")
+
+md(r"""
 ## 7. Valores atípicos
 
 Puntos fuera de las vallas de Tukey (Q1 − 1,5·RIC, Q3 + 1,5·RIC) del baseline, contados en el baseline y en el
@@ -483,6 +546,12 @@ for f in ["rms", "pico", "cresta", "kurt", "env_BPFO", "env_BPFI"]:
             fila[f"{grupo.capitalize()} · {fase} (%)"] = np.mean(tasas)
     filas.append(fila)
 pd.DataFrame(filas).set_index("Indicador").round(1)
+""")
+
+md(r"""
+**Qué quiere decir.** En el periodo sano casi no hay valores atípicos. En el monitoreo, la curtosis de los rodamientos
+que fallan sale de lo normal mucho más seguido que en los sanos: los atípicos son justamente la señal de la falla, por
+eso no se borran.
 """)
 
 md(r"""
