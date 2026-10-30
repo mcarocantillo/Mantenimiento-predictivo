@@ -120,7 +120,7 @@ fig.tight_layout(); plt.show()
 md(r"""
 ## 3. Las alarmas por σ sobre la potencia media de cada ciclo
 
-Simulamos tu sistema: μ y σ se calculan con los ciclos donde el componente está sano, y cada ciclo dispara alarma si
+Aquí se reproduce el sistema de alarmas actual: el promedio (μ) y la desviación estándar (σ) se calculan con los ciclos donde el componente está sano, y cada ciclo dispara alarma si
 su potencia media sale de μ ± 1.5σ (línea discontinua) o μ ± 3σ (punteada).
 
 Las franjas horizontales son los tres estados del **enfriador**: cambian la potencia mucho más que la degradación que
