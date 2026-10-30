@@ -1,4 +1,4 @@
-"""Compara alarmas por sigma (EPS1 = potencia del motor, proxy del torque) contra ML
+"""Compara alarmas por sigma (EPS1 = potencia del motor) contra ML
 supervisado y no supervisado para detectar degradación temprana.
 
 Uso: python -I scripts/analisis.py features.csv

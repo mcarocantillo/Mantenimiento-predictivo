@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=818fd54d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e9ef3b54">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7805,19 +7805,16 @@ a.anchor-link {
 <h1 id="Mantenimiento-predictivo:-%C2%BFpuede-el-ML-anticiparse-a-las-alarmas-por-%CF%83?">Mantenimiento predictivo: ¿puede el ML anticiparse a las alarmas por σ?<a class="anchor-link" href="#Mantenimiento-predictivo:-%C2%BFpuede-el-ML-anticiparse-a-las-alarmas-por-%CF%83?">¶</a></h1><p><strong>Pregunta.</strong> Hoy se usa una alarma cuando la señal del motor sale de μ ± 1.5σ y otra cuando sale de μ ± 3σ.
 ¿Puede el Machine Learning detectar la degradación <strong>antes</strong>, en sus grados leves, cuando las alarmas σ todavía no se disparan?</p>
 <p><strong>Datos.</strong> <em>Condition monitoring of hydraulic systems</em> (UCI, ZeMA): 2205 ciclos de 60 s de un banco hidráulico,
-17 sensores. Se usa <strong>EPS1 (potencia del motor, W)</strong> como sustituto del torque: si la velocidad es casi
-constante, $P = T\,\omega$, así que la potencia es proporcional al torque (supuesto no verificado en los datos).</p>
-<p><strong>Dos advertencias sobre el dataset</strong></p>
-<ol>
-<li>No contiene torque, solo potencia.</li>
-<li>No es un registro de fallas que avancen con el tiempo: los investigadores fijaron a mano el estado de cuatro
-componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la pregunta equivalente a
-"anticiparse" es: <strong>¿se detectan los grados leves de degradación antes de llegar a la falla grave?</strong></li>
-</ol>
+17 sensores. La señal que se vigila es <strong>EPS1, la potencia del motor (W)</strong>, que es la variable sobre la que se
+calculan las alarmas de 1.5σ y 3σ.</p>
+<p><strong>Una advertencia sobre el dataset.</strong> No es un registro de fallas que avancen con el tiempo: los investigadores
+fijaron a mano el estado de cuatro componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la
+pregunta equivalente a "anticiparse" es: <strong>¿se detectan los grados leves de degradación antes de llegar a la falla
+grave?</strong></p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a3a59f26">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dc03b574">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7867,7 +7864,7 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a265bfc1">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c6553875">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7901,7 +7898,7 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2371e4fd">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c2e0a65">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7924,8 +7921,8 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 <td>Instrumento que mide algo (presión, caudal, temperatura, potencia) muchas veces por segundo.</td>
 </tr>
 <tr>
-<td>Potencia del motor (EPS1) y torque</td>
-<td>El torque es la fuerza de giro del motor; la potencia es torque por velocidad. Como la velocidad casi no cambia, aquí la potencia sirve como reemplazo del torque.</td>
+<td>Potencia del motor (EPS1)</td>
+<td>Cuánta energía por segundo consume el motor para mover el banco, en vatios (W). Si un componente se daña, el motor tiene que esforzarse distinto y su potencia cambia.</td>
 </tr>
 <tr>
 <td>Degradación y grado</td>
@@ -7977,7 +7974,7 @@ componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso l
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d3055fbf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=51701837">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7989,7 +7986,7 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=634f6f8c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=78029e38">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8025,7 +8022,7 @@ estudiar "qué pasa justo antes del cruce" en el tiempo.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1b8631b2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef2c5463">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8038,7 +8035,7 @@ leves antes que los graves.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5100535a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=104ab89d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8049,7 +8046,7 @@ leves antes que los graves.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9a10a472">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9e4cfe16">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8089,7 +8086,7 @@ leves antes que los graves.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0cbe925c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a01c084e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8102,7 +8099,7 @@ cifras de cada ciclo.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=de859f4b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0fef04ed">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8116,7 +8113,7 @@ dispersión que causan los otros componentes, así que un umbral fijo no puede s
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=449fe94f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=66f9036c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8164,7 +8161,7 @@ dispersión que causan los otros componentes, así que un umbral fijo no puede s
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a5786bb9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dabd3f4e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8177,7 +8174,7 @@ falla del enfriador, que cambia mucho la potencia del motor.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b96a710d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=53de4032">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8191,7 +8188,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e5484ad4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b0a1419d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8385,7 +8382,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=720de9f5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d11e0faa">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8395,7 +8392,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a37dffa6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a5cbd4c4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8445,7 +8442,7 @@ Todas las tasas se reportan sobre ciclos estables, igual que las de σ.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8ac8b1f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d77f0585">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8458,7 +8455,7 @@ cambio, da muchas falsas alarmas si solo usa la señal del motor; con los demás
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85c87568">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=db4a2fe1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8470,7 +8467,7 @@ cuarto del ciclo (<code>q1</code>–<code>q4</code>).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7dc31280">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8b87dc73">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8508,7 +8505,7 @@ cuarto del ciclo (<code>q1</code>–<code>q4</code>).</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85ba094b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3ef61dca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8521,7 +8518,7 @@ los otros componentes.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aceac28b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fbd3568">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8536,7 +8533,7 @@ sentido.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=17ef28f9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dc94ed70">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8577,15 +8574,15 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_98ce6">
+<table id="T_beb32">
 <caption>Válvula: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_98ce6_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_98ce6_level0_col1">detección 90</th>
-<th class="col_heading level0 col2" id="T_98ce6_level0_col2">detección 80</th>
-<th class="col_heading level0 col3" id="T_98ce6_level0_col3">detección 73</th>
+<th class="col_heading level0 col0" id="T_beb32_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_beb32_level0_col1">detección 90</th>
+<th class="col_heading level0 col2" id="T_beb32_level0_col2">detección 80</th>
+<th class="col_heading level0 col3" id="T_beb32_level0_col3">detección 73</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8597,18 +8594,18 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_98ce6_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_98ce6_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_98ce6_row0_col1">0.000000</td>
-<td class="data row0 col2" id="T_98ce6_row0_col2">0.000000</td>
-<td class="data row0 col3" id="T_98ce6_row0_col3">0.000000</td>
+<th class="row_heading level0 row0" id="T_beb32_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_beb32_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_beb32_row0_col1">0.000000</td>
+<td class="data row0 col2" id="T_beb32_row0_col2">0.000000</td>
+<td class="data row0 col3" id="T_beb32_row0_col3">0.000000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_98ce6_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_98ce6_row1_col0">69.700000</td>
-<td class="data row1 col1" id="T_98ce6_row1_col1">33.300000</td>
-<td class="data row1 col2" id="T_98ce6_row1_col2">33.300000</td>
-<td class="data row1 col3" id="T_98ce6_row1_col3">36.400000</td>
+<th class="row_heading level0 row1" id="T_beb32_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_beb32_row1_col0">69.700000</td>
+<td class="data row1 col1" id="T_beb32_row1_col1">33.300000</td>
+<td class="data row1 col2" id="T_beb32_row1_col2">33.300000</td>
+<td class="data row1 col3" id="T_beb32_row1_col3">36.400000</td>
 </tr>
 </tbody>
 </table>
@@ -8619,14 +8616,14 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_a179c">
+<table id="T_8024c">
 <caption>Bomba: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_a179c_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_a179c_level0_col1">detección 1</th>
-<th class="col_heading level0 col2" id="T_a179c_level0_col2">detección 2</th>
+<th class="col_heading level0 col0" id="T_8024c_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_8024c_level0_col1">detección 1</th>
+<th class="col_heading level0 col2" id="T_8024c_level0_col2">detección 2</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8637,16 +8634,16 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_a179c_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_a179c_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_a179c_row0_col1">17.300000</td>
-<td class="data row0 col2" id="T_a179c_row0_col2">24.400000</td>
+<th class="row_heading level0 row0" id="T_8024c_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_8024c_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_8024c_row0_col1">17.300000</td>
+<td class="data row0 col2" id="T_8024c_row0_col2">24.400000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_a179c_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_a179c_row1_col0">69.000000</td>
-<td class="data row1 col1" id="T_a179c_row1_col1">45.600000</td>
-<td class="data row1 col2" id="T_a179c_row1_col2">50.800000</td>
+<th class="row_heading level0 row1" id="T_8024c_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_8024c_row1_col0">69.000000</td>
+<td class="data row1 col1" id="T_8024c_row1_col1">45.600000</td>
+<td class="data row1 col2" id="T_8024c_row1_col2">50.800000</td>
 </tr>
 </tbody>
 </table>
@@ -8657,15 +8654,15 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_302e2">
+<table id="T_a0e8f">
 <caption>Acumulador: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_302e2_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_302e2_level0_col1">detección 115</th>
-<th class="col_heading level0 col2" id="T_302e2_level0_col2">detección 100</th>
-<th class="col_heading level0 col3" id="T_302e2_level0_col3">detección 90</th>
+<th class="col_heading level0 col0" id="T_a0e8f_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_a0e8f_level0_col1">detección 115</th>
+<th class="col_heading level0 col2" id="T_a0e8f_level0_col2">detección 100</th>
+<th class="col_heading level0 col3" id="T_a0e8f_level0_col3">detección 90</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8677,18 +8674,18 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_302e2_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_302e2_row0_col0">0.000000</td>
-<td class="data row0 col1" id="T_302e2_row0_col1">0.000000</td>
-<td class="data row0 col2" id="T_302e2_row0_col2">0.600000</td>
-<td class="data row0 col3" id="T_302e2_row0_col3">0.500000</td>
+<th class="row_heading level0 row0" id="T_a0e8f_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_a0e8f_row0_col0">0.000000</td>
+<td class="data row0 col1" id="T_a0e8f_row0_col1">0.000000</td>
+<td class="data row0 col2" id="T_a0e8f_row0_col2">0.600000</td>
+<td class="data row0 col3" id="T_a0e8f_row0_col3">0.500000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_302e2_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_302e2_row1_col0">0.000000</td>
-<td class="data row1 col1" id="T_302e2_row1_col1">16.400000</td>
-<td class="data row1 col2" id="T_302e2_row1_col2">24.200000</td>
-<td class="data row1 col3" id="T_302e2_row1_col3">19.500000</td>
+<th class="row_heading level0 row1" id="T_a0e8f_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_a0e8f_row1_col0">0.000000</td>
+<td class="data row1 col1" id="T_a0e8f_row1_col1">16.400000</td>
+<td class="data row1 col2" id="T_a0e8f_row1_col2">24.200000</td>
+<td class="data row1 col3" id="T_a0e8f_row1_col3">19.500000</td>
 </tr>
 </tbody>
 </table>
@@ -8699,14 +8696,14 @@ sentido.</p>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_4616a">
+<table id="T_0736a">
 <caption>Enfriador: % de ciclos marcados como anómalos</caption>
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_4616a_level0_col0">falsas alarmas %</th>
-<th class="col_heading level0 col1" id="T_4616a_level0_col1">detección 20</th>
-<th class="col_heading level0 col2" id="T_4616a_level0_col2">detección 3</th>
+<th class="col_heading level0 col0" id="T_0736a_level0_col0">falsas alarmas %</th>
+<th class="col_heading level0 col1" id="T_0736a_level0_col1">detección 20</th>
+<th class="col_heading level0 col2" id="T_0736a_level0_col2">detección 3</th>
 </tr>
 <tr>
 <th class="index_name level0">datos</th>
@@ -8717,16 +8714,16 @@ sentido.</p>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_4616a_level0_row0">solo EPS1</th>
-<td class="data row0 col0" id="T_4616a_row0_col0">0.800000</td>
-<td class="data row0 col1" id="T_4616a_row0_col1">100.000000</td>
-<td class="data row0 col2" id="T_4616a_row0_col2">100.000000</td>
+<th class="row_heading level0 row0" id="T_0736a_level0_row0">solo EPS1</th>
+<td class="data row0 col0" id="T_0736a_row0_col0">0.800000</td>
+<td class="data row0 col1" id="T_0736a_row0_col1">100.000000</td>
+<td class="data row0 col2" id="T_0736a_row0_col2">100.000000</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_4616a_level0_row1">todos los sensores</th>
-<td class="data row1 col0" id="T_4616a_row1_col0">25.700000</td>
-<td class="data row1 col1" id="T_4616a_row1_col1">100.000000</td>
-<td class="data row1 col2" id="T_4616a_row1_col2">100.000000</td>
+<th class="row_heading level0 row1" id="T_0736a_level0_row1">todos los sensores</th>
+<td class="data row1 col0" id="T_0736a_row1_col0">25.700000</td>
+<td class="data row1 col1" id="T_0736a_row1_col1">100.000000</td>
+<td class="data row1 col2" id="T_0736a_row1_col2">100.000000</td>
 </tr>
 </tbody>
 </table>
@@ -8735,7 +8732,7 @@ sentido.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a01a70a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c9b3a4bc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8748,7 +8745,7 @@ aprender qué es lo normal. No significa que el método no sirva: con meses de o
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fd0f46a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f09c185d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

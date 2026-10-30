@@ -12,14 +12,13 @@ md(r"""
 ¿Puede el Machine Learning detectar la degradación **antes**, en sus grados leves, cuando las alarmas σ todavía no se disparan?
 
 **Datos.** *Condition monitoring of hydraulic systems* (UCI, ZeMA): 2205 ciclos de 60 s de un banco hidráulico,
-17 sensores. Se usa **EPS1 (potencia del motor, W)** como sustituto del torque: si la velocidad es casi
-constante, $P = T\,\omega$, así que la potencia es proporcional al torque (supuesto no verificado en los datos).
+17 sensores. La señal que se vigila es **EPS1, la potencia del motor (W)**, que es la variable sobre la que se
+calculan las alarmas de 1.5σ y 3σ.
 
-**Dos advertencias sobre el dataset**
-1. No contiene torque, solo potencia.
-2. No es un registro de fallas que avancen con el tiempo: los investigadores fijaron a mano el estado de cuatro
-   componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la pregunta equivalente a
-   "anticiparse" es: **¿se detectan los grados leves de degradación antes de llegar a la falla grave?**
+**Una advertencia sobre el dataset.** No es un registro de fallas que avancen con el tiempo: los investigadores
+fijaron a mano el estado de cuatro componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la
+pregunta equivalente a "anticiparse" es: **¿se detectan los grados leves de degradación antes de llegar a la falla
+grave?**
 """)
 
 code(r"""
@@ -79,7 +78,7 @@ md(r"""
 | --- | --- |
 | Ciclo | Una repetición de 60 s del trabajo del banco hidráulico. Cada fila de los datos es un ciclo. |
 | Sensor | Instrumento que mide algo (presión, caudal, temperatura, potencia) muchas veces por segundo. |
-| Potencia del motor (EPS1) y torque | El torque es la fuerza de giro del motor; la potencia es torque por velocidad. Como la velocidad casi no cambia, aquí la potencia sirve como reemplazo del torque. |
+| Potencia del motor (EPS1) | Cuánta energía por segundo consume el motor para mover el banco, en vatios (W). Si un componente se daña, el motor tiene que esforzarse distinto y su potencia cambia. |
 | Degradación y grado | Qué tan dañado está un componente. Por ejemplo, la bomba tiene tres grados: sin fuga, fuga leve y fuga severa. |
 | μ y σ | μ es el valor promedio de la señal en ciclos sanos; σ (desviación estándar) dice cuánto se aleja normalmente de ese promedio. |
 | Alarma 1.5σ y 3σ | Suena si la señal se aleja del promedio más de 1,5 o 3 veces lo normal. La de 3σ es más estricta. |
