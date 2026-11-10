@@ -57,11 +57,11 @@
     daña. En total hay 4 rodamientos que fallan y 8 que terminan sanos, que sirven de comparación.
   </p>
   <p>
-    En esta página están los objetivos que planteó el profesor, en qué va cada uno, los documentos con los resultados
-    y el código, y lo que sigue.
+    En esta página están los objetivos del proyecto y su estado, los documentos con los resultados, el código y los
+    próximos pasos.
   </p>
 
-  <h2>Lo que pidió el profesor y en qué va</h2>
+  <h2>Objetivos del proyecto y estado</h2>
   <div class="tabla">
   <table>
     <tr><th>Objetivo</th><th>Estado</th><th>Respuesta corta</th></tr>
@@ -86,11 +86,29 @@
     </tr>
   </table>
   </div>
-  <div class="nota">
-    <strong>Una aclaración importante.</strong> Solo hay 4 rodamientos que fallan en estos datos. Los resultados son
-    consistentes en los tres ensayos, pero con tan pocas fallas no alcanzan a ser concluyentes desde el punto de vista
-    estadístico. Hay que confirmarlos con más datos. Además, el criterio de estabilidad usado en Superbricks
-    (coeficiente de variación de 10 a 30 %) no se transfiere: en estos rodamientos lo normal es cerca de 1 %.
+  <h2>Limitaciones y cómo se van a resolver</h2>
+  <div class="tabla">
+  <table>
+    <tr><th>Limitación</th><th>Por qué importa</th><th>Cómo se va a resolver</th></tr>
+    <tr>
+      <td>Solo hay 4 rodamientos que fallan en los datos IMS.</td>
+      <td>Los resultados son consistentes en los tres ensayos, pero se probaron 54 alarmas a la vez y, con tan pocas
+        fallas, la mejor puede haber salido bien en parte por casualidad. Por eso todavía no son concluyentes desde el
+        punto de vista estadístico.</td>
+      <td>Confirmar con otros conjuntos públicos de rodamientos llevados hasta la falla: XJTU-SY (15 rodamientos) y
+        FEMTO/PRONOSTIA (17). La alarma ganadora se elige con IMS y se evalúa en los nuevos datos <strong>sin ajustar
+        nada</strong>. Así es una sola prueba planeada de antemano, no 54, y con 4 veces más fallas el resultado sí
+        puede ser concluyente. Ver la <a href="plan_ml.html#mas-datos">sección 9 del plan</a>.</td>
+    </tr>
+    <tr>
+      <td>El criterio de estabilidad de Superbricks (coeficiente de variación de 10 a 30 %) no se transfiere.</td>
+      <td>En estos rodamientos lo normal es un CV cercano a 1 %; valores de 10 a 30 % solo aparecen cuando ya están
+        fallando. Un umbral fijo no sirve para todas las industrias.</td>
+      <td>Esto es en sí un resultado del estudio de transferencia. Se propondrá un criterio relativo a cada máquina:
+        considerar estable un periodo cuyo CV no supere unas pocas veces el CV más bajo observado en esa misma máquina.
+        Se probará en los conjuntos XJTU-SY y FEMTO para ver si funciona sin recalibrar.</td>
+    </tr>
+  </table>
   </div>
 
   <h2>Documentos</h2>
@@ -110,7 +128,7 @@
     </div>
     <div class="tarjeta">
       <h3>3. Ejercicio previo con datos hidráulicos</h3>
-      <p>Primera prueba de la idea con los datos hidráulicos que compartió el profesor: alarmas por σ sobre la potencia
+      <p>Primera prueba de la idea con un conjunto de datos hidráulicos (UCI): alarmas por σ sobre la potencia
         del motor frente a modelos de Machine Learning.</p>
       <a class="boton" href="html/mantenimiento_predictivo.html">Abrir</a>
     </div>
@@ -142,26 +160,32 @@
     correr todo están en el <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo#cómo-reproducir">README</a>.
   </p>
 
-  <h2>Qué sigue: Machine Learning para predecir la falla</h2>
+  <h2>Qué sigue: Machine Learning para anticipar la falla</h2>
   <p>
-    Con las reglas de Nelson ya evaluadas, el siguiente paso es probar si un modelo de Machine Learning puede avisar
-    antes que la mejor alarma (la carta S), o con menos falsas alarmas. Todo se puede hacer con los datos que ya
-    tenemos, sin agregar sensores ni modificar el equipo.
+    La siguiente etapa prueba si un modelo de Machine Learning puede avisar antes que la mejor alarma de Nelson (la
+    carta S, con 86 horas de anticipación y 0,07 falsas alarmas por día), o con menos falsas alarmas. Todo se hace con
+    los datos que ya existen, sin agregar sensores ni modificar equipos.
   </p>
-  <ol>
-    <li><strong>Modelos que aprenden solo de lo sano.</strong> Aprenden cómo vibra un rodamiento sano a partir de varios
-      indicadores a la vez y avisan cuando algo se aleja de eso. Son la primera opción, porque hay muchos datos sanos y
-      solo 4 fallas. La pregunta es si avisan antes que las reglas de Nelson.</li>
-    <li><strong>Modelos que aprenden de ejemplos.</strong> Responden "¿va a fallar este rodamiento en las próximas 24 a 48
-      horas?" a partir de las últimas horas de vibración. Se entrenan con dos ensayos y se evalúan en el tercero.</li>
-    <li><strong>Pronóstico de la señal.</strong> Predecir hacia dónde va la vibración y avisar antes de que cruce los
-      límites de la carta.</li>
-    <li><strong>Comparación justa.</strong> Cada modelo se mide igual que las alarmas: horas de anticipación, falsas
-      alarmas por día y nota de acierto.</li>
-    <li><strong>Más datos.</strong> Repetir lo mejor en otro conjunto público de rodamientos con más fallas, para que los
-      resultados sean concluyentes.</li>
-  </ol>
-  <p>El detalle está en la sección 7 del documento <a href="html/cartas_nelson_ims.html">Cartas de control y reglas de Nelson</a>.</p>
+  <div class="tabla">
+  <table>
+    <tr><th>Enfoque</th><th>Qué pregunta responde</th><th>Modelos que se van a probar</th></tr>
+    <tr><td>Modelos que aprenden solo de lo sano</td><td>¿Este momento se parece a un rodamiento sano? Avisan cuando se aleja.</td><td>PCA con T² de Hotelling, distancia de Mahalanobis, Isolation Forest, One-Class SVM, Local Outlier Factor, distancia a grupos sanos (k-means) y autoencoder.</td></tr>
+    <tr><td>Modelos que aprenden de ejemplos</td><td>¿Va a sonar la alarma de la carta S en las próximas 24 h? ¿Va a fallar en las próximas 48 h?</td><td>Regresión logística, k vecinos más cercanos, bayesiano ingenuo, SVM, Random Forest y XGBoost.</td></tr>
+    <tr><td>Pronóstico de la señal</td><td>¿A qué hora va a cruzar la señal el límite de la carta?</td><td>Tendencia lineal en ventana móvil, suavizamiento exponencial (Holt) y ARIMA.</td></tr>
+  </table>
+  </div>
+  <p>
+    Cada modelo se valida entrenando con dos ensayos y evaluando en el tercero, y se compara con las reglas de Nelson
+    usando exactamente las mismas medidas: horas de anticipación, falsas alarmas por día y nota J.
+  </p>
+  <div class="tarjetas">
+    <div class="tarjeta">
+      <h3>Plan detallado de Machine Learning</h3>
+      <p>Qué datos entran a cada modelo, qué tiene que predecir, cómo se valida, cómo se compara con las cartas,
+        el orden de trabajo y los riesgos.</p>
+      <a class="boton" href="plan_ml.html">Abrir</a>
+    </div>
+  </div>
 
   <footer>
     Datos: IMS Bearing Data, NSF I/UCR Center for Intelligent Maintenance Systems, Universidad de Cincinnati, con apoyo

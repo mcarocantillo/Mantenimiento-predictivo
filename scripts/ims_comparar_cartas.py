@@ -9,7 +9,7 @@ Dos comparaciones pareadas sobre los mismos rodamientos y los mismos instantes:
   2. Con reglas: J de Youden (fase 4) de N1, N2, N5, N6 y disp en cada carta.
 Incertidumbre: bootstrap por rodamiento (se remuestrean con reemplazo los 4 que fallan y los
 8 sanos, B veces) y en cada réplica se comparan las tres cartas sobre la misma muestra.
-No uso el test de DeLong (notas de Lihki, 9.9.1) porque supone puntos independientes, y aquí
+No uso el test de DeLong (notas del curso de Machine Learning, sección 9.9.1) porque supone puntos independientes, y aquí
 puntos de un mismo rodamiento están muy autocorrelacionados: la unidad real es el rodamiento.
 
 Uso: python scripts/ims_comparar_cartas.py  (escribe comparacion_cartas.csv)

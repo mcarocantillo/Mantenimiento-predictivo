@@ -1,4 +1,4 @@
-"""Las 8 reglas de Nelson tal como las implementa `reglas_nelson` del código del profesor
+"""Las 8 reglas de Nelson tal como las implementa `reglas_nelson` del código original
 (Code01), vectorizadas con ventanas móviles. Ojo: su N8 exige además que los 8 puntos
 alternen de lado, que es más estricto que la regla de Nelson estándar.
 """

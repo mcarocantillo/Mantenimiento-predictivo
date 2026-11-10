@@ -4,7 +4,7 @@ Criterio (recalibrado para IMS, donde el CV estable es ~1 % y no 10-30 %):
   - CV móvil del RMS en ventanas de VENT archivos, sin cruzar huecos de registro.
   - Baseline = bloque de LARGO archivos seguidos, dentro de un mismo tramo y en la primera
     mitad del ensayo, cuyo peor CV (entre los 4 rodamientos) es el más bajo.
-  - Media y sigma (MR̄/1.128 como el código del profesor, y desviación estándar) se calculan
+  - Media y sigma (MR̄/1.128 como el código original (Code01), y desviación estándar) se calculan
     solo con ese bloque; todo lo posterior es monitoreo.
 Para el ensayo 1 también prueba "recentrar" el nivel tras cada reinicio con la mediana de los
 primeros RECENTRO archivos del tramo (lo que haría un operario al recalibrar tras una parada).

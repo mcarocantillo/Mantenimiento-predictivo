@@ -11,7 +11,7 @@ md(r"""
 **Pregunta.** Hoy se usa una alarma cuando la señal del motor sale de μ ± 1.5σ y otra cuando sale de μ ± 3σ.
 ¿Puede el Machine Learning detectar la degradación **antes**, en sus grados leves, cuando las alarmas σ todavía no se disparan?
 
-**Contexto.** Este fue un ejercicio previo, con los datos hidráulicos que compartió el profesor Aldana, para
+**Contexto.** Este fue un ejercicio previo, con un conjunto de datos hidráulicos, para
 probar la idea general antes de trabajar con los rodamientos IMS: comparar las alarmas por σ con modelos de Machine
 Learning.
 

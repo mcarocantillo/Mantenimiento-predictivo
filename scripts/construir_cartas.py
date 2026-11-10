@@ -13,7 +13,7 @@ md(r"""
 funcionaron. Este trabajo revisa si esas mismas reglas sirven para anticipar fallas en otra industria, la de máquinas
 rotativas, usando rodamientos. Si sirven, también busca con qué tipo de carta funcionan mejor.
 
-**Lo que pidió el profesor**
+**Objetivos**
 1. Identificar cuál de las 8 alarmas corresponde a falla.
 2. Ver si hay relación en el tiempo entre las alarmas y la falla: si las alarmas aumentan a medida que el rodamiento
    se acerca a fallar. Primero en el ensayo 1 y luego en los ensayos 2 y 3.
@@ -340,7 +340,7 @@ md(r"""
 ## 4. Objetivo 2: ¿las alarmas aumentan cuando se acerca la falla?
 
 **Qué se hizo.** Se contó qué porcentaje del tiempo estuvo sonando cada alarma en bloques de 6 horas, y se midió si
-ese porcentaje aumenta a medida que se acerca el fin del ensayo. Se hizo para los 3 ensayos, como pidió el profesor.
+ese porcentaje aumenta a medida que se acerca el fin del ensayo. Se hizo para los 3 ensayos.
 
 **Cómo leer la figura.** Hay tres paneles, uno por alarma. En cada uno:
 - El eje horizontal son las horas que faltan para la falla, en la última semana (168 horas).
@@ -425,7 +425,7 @@ md(rf"""
 md(r"""
 ## 6. Conclusiones
 
-| Lo que pidió el profesor | Respuesta |
+| Objetivo | Respuesta |
 | --- | --- |
 | 1. ¿Cuál de las 8 alarmas corresponde a falla? | La alarma de dispersión (con la carta S) y las reglas 1 y 5 (con la curtosis). Las reglas 3, 4, 7 y 8 no se asociaron con la falla. |
 | 2. ¿Hay relación en el tiempo entre alarmas y falla (ensayos 1, 2 y 3)? | Sí, en los tres ensayos. Con el método original la relación aparece también en los rodamientos sanos; con la carta S y la curtosis, solo en el que falla, desde unas 120 horas antes. |
@@ -441,39 +441,26 @@ md(r"""
 """)
 
 md(r"""
-## 7. Qué sigue: Machine Learning para predecir la falla
+## 7. Qué sigue
 
-Con las reglas de Nelson ya evaluadas, el siguiente paso es probar si un modelo de Machine Learning puede avisar
-**antes** que la mejor alarma (la carta S), o con menos falsas alarmas. Todo se puede hacer con los datos que ya
-tenemos, sin agregar sensores ni modificar el equipo.
+**Confirmar con más datos.** Para que los resultados sean concluyentes, la alarma ganadora (dispersión de la carta S
+sobre el RMS) se evaluará, sin ajustar nada, en otros conjuntos públicos de rodamientos llevados hasta la falla:
+XJTU-SY (15 rodamientos) y FEMTO/PRONOSTIA (17). Al ser una sola prueba planeada de antemano, ya no hace falta corregir
+por 54 comparaciones. En esos mismos datos se probará un criterio de estabilidad relativo a cada máquina, que
+reemplace el umbral fijo de CV de 10 a 30 %.
 
-**1. Modelos que aprenden solo de lo sano (no supervisados).** Son la primera opción, porque hay muchos datos sanos y
-solo 4 fallas. El modelo aprende cómo vibra un rodamiento sano a partir de varios indicadores a la vez (RMS, curtosis,
-envolvente, energía por bandas) y avisa cuando algo se aleja de eso. Se probarían Isolation Forest, One-Class SVM,
-análisis de componentes principales con la estadística T² de Hotelling y la distancia al grupo sano. La pregunta
-clave es si su señal de anomalía sube antes que las alarmas de Nelson, y cuántas horas antes.
+**Machine Learning para anticipar la falla.** La siguiente etapa prueba si un modelo puede avisar antes que la carta S,
+o con menos falsas alarmas, usando solo los datos que ya existen:
 
-**2. Modelos que aprenden de ejemplos (supervisados).** Se entrenaría un modelo para responder "¿va a sonar una alarma
-(o a fallar el rodamiento) en las próximas 24 a 48 horas?" a partir de las últimas horas de vibración. Se probarían
-regresión logística, k-vecinos más cercanos, máquinas de soporte vectorial, Random Forest y XGBoost. Para que la
-prueba sea justa, el modelo se entrena con dos ensayos y se evalúa en el tercero, que nunca vio.
+| Enfoque | Qué pregunta responde | Modelos |
+| --- | --- | --- |
+| Aprenden solo de lo sano | ¿Este momento se parece a un rodamiento sano? | PCA con T² de Hotelling, Mahalanobis, Isolation Forest, One-Class SVM, Local Outlier Factor, k-means, autoencoder |
+| Aprenden de ejemplos | ¿Sonará la alarma de la carta S en 24 h? ¿Fallará en 48 h? | Regresión logística, k-NN, bayesiano ingenuo, SVM, Random Forest, XGBoost |
+| Pronóstico de la señal | ¿A qué hora cruzará el límite de la carta? | Tendencia lineal, suavizamiento exponencial (Holt), ARIMA |
 
-**3. Pronóstico de la señal.** Predecir hacia dónde va el RMS o la curtosis en las próximas horas y avisar cuando el
-pronóstico vaya a cruzar los límites de la carta, antes de que la señal real los cruce.
-
-**4. Mejores indicadores de entrada.** Agregar tendencias de las últimas horas (por ejemplo, cuánto subió la curtosis
-en el último día), usar los dos sensores del ensayo 1 por separado y medir la envolvente en la frecuencia real del
-defecto. Después, ver cuáles indicadores usa más el modelo para anticipar la falla.
-
-**5. Comparación con la mejor alarma de Nelson.** Cada modelo se evaluará con las mismas medidas usadas aquí: horas de
-anticipación, falsas alarmas por día, nota J y AUC. También se comparará contra un modelo "tonto" que no aprende nada,
-para asegurarse de que el modelo realmente aporta.
-
-**6. Más datos.** Para que los resultados sean concluyentes, repetir lo mejor en otro conjunto público de rodamientos
-llevados hasta la falla (FEMTO/PRONOSTIA o XJTU-SY), que tienen más fallas que IMS.
-
-Con 4 fallas en IMS, los modelos muy complejos tienden a memorizar los datos en lugar de aprender el patrón. Por eso
-se empezará por los modelos no supervisados y por los supervisados más simples.
+Todos se validan entrenando con dos ensayos y evaluando en el tercero, y se comparan con las reglas de Nelson con las
+mismas medidas de esta página. El detalle (datos de entrada, etiquetas, validación, orden de trabajo y riesgos) está en
+el [plan de Machine Learning](https://mcarocantillo.github.io/Mantenimiento-predictivo/plan_ml.html).
 """)
 
 nb = nbf.v4.new_notebook(cells=celdas)

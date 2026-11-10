@@ -1,6 +1,6 @@
 """Características por archivo (1 s de vibración, 20 kHz, 8 canales) del IMS 1st_test.
 
-Además del RMS que usa el código del profesor, calcula indicadores que en rodamientos
+Además del RMS que usa el código original (Code01), calcula indicadores que en rodamientos
 suelen cambiar ANTES que el RMS: curtosis, factor de cresta, energía por bandas de
 frecuencia y amplitud del espectro de envolvente en las frecuencias de defecto.
 

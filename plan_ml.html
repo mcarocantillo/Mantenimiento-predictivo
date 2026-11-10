@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan de Machine Learning</title>
+<style>
+  :root {
+    --fondo: #fcfcfb; --tarjeta: #ffffff; --tinta: #1a1a19; --tinta2: #52514e; --borde: #e1e0d9;
+    --acento: #2a78d6; --acento-suave: #eaf2fc; --aviso: #8a5a00; --aviso-suave: #fdf3e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #161615; --tarjeta: #1f1f1e; --tinta: #ededeb; --tinta2: #b4b3ae; --borde: #383835;
+      --acento: #6da7ec; --acento-suave: #1d2a3a; --aviso: #e6b45c; --aviso-suave: #2e2717;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--tinta);
+         font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 1.3rem; margin: 44px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--borde); }
+  h3 { font-size: 1.08rem; margin: 28px 0 8px; }
+  p { margin: 0 0 12px; }
+  .sub { color: var(--tinta2); margin-bottom: 24px; }
+  a { color: var(--acento); }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 0.94rem; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--borde); }
+  th { color: var(--tinta2); font-weight: 600; }
+  .tabla { overflow-x: auto; }
+  .nota { background: var(--acento-suave); border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .aviso { background: var(--aviso-suave); border-radius: 10px; padding: 14px 16px; margin: 16px 0; }
+  .aviso strong { color: var(--aviso); }
+  ol, ul { padding-left: 22px; margin: 0 0 12px; }
+  li { margin-bottom: 6px; }
+  code { font-family: Consolas, "SFMono-Regular", monospace; font-size: 0.9em; }
+  .indice { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 18px; }
+  .indice ol { margin: 0; }
+  .volver { display: inline-block; margin-bottom: 18px; }
+  footer { margin-top: 48px; color: var(--tinta2); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="volver" href="index.html">← Volver a la página de inicio</a>
+  <h1>Plan de Machine Learning para anticipar la falla</h1>
+  <p class="sub">Siguiente etapa del proyecto de alarmas de Nelson en rodamientos IMS</p>
+
+  <p>
+    Las cartas de control ya mostraron que la alarma de dispersión de la carta S sobre el RMS es la que mejor anticipa
+    la falla. Esta etapa prueba si un modelo de Machine Learning (ML) puede hacerlo mejor: avisar <strong>antes</strong>,
+    con <strong>menos falsas alarmas</strong>, o las dos cosas. Todo se hace con los datos que ya existen, sin agregar
+    sensores ni modificar ningún equipo.
+  </p>
+
+  <div class="indice">
+    <ol>
+      <li><a href="#referencia">La referencia que hay que superar</a></li>
+      <li><a href="#entradas">Qué ve el modelo (datos de entrada)</a></li>
+      <li><a href="#preguntas">Qué tiene que responder el modelo</a></li>
+      <li><a href="#no-supervisados">Modelos que aprenden solo de lo sano</a></li>
+      <li><a href="#supervisados">Modelos que aprenden de ejemplos</a></li>
+      <li><a href="#pronostico">Pronóstico de la señal</a></li>
+      <li><a href="#validacion">Cómo se valida para no engañarse</a></li>
+      <li><a href="#comparacion">Cómo se compara con las reglas de Nelson</a></li>
+      <li><a href="#mas-datos">Más datos para confirmar</a></li>
+      <li><a href="#orden">Orden de trabajo y entregables</a></li>
+      <li><a href="#riesgos">Riesgos y cómo se manejan</a></li>
+    </ol>
+  </div>
+
+  <h2 id="referencia">1. La referencia que hay que superar</h2>
+  <p>
+    Un modelo de ML solo vale la pena si mejora lo que ya se logra con las cartas de control. Estas son las dos
+    mejores alarmas de Nelson y el método original, medidos en los 3 ensayos IMS (4 rodamientos que fallan y 8
+    sanos):
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Alarma</th><th>Sonó en las 48 h antes de la falla</th><th>Sonó en rodamientos sanos</th><th>Falsas alarmas por día</th><th>Anticipación mediana</th><th>Nota J</th></tr>
+    <tr><td>RMS · carta S · dispersión (la mejor)</td><td>57 %</td><td>2 %</td><td>0,07</td><td>86 h</td><td>0,55</td></tr>
+    <tr><td>Curtosis · I-MR · regla 1</td><td>60 %</td><td>7 %</td><td>1,10</td><td>117 h</td><td>0,53</td></tr>
+    <tr><td>RMS · I-MR · regla 1 (método original)</td><td>84 %</td><td>49 %</td><td>2,70</td><td>112 h</td><td>0,35</td></tr>
+  </table>
+  </div>
+  <p>
+    <strong>Meta concreta:</strong> un modelo es un avance si, con 0,1 falsas alarmas por día o menos (una cada 10 días),
+    avisa con más de 86 horas de anticipación, o si con la misma anticipación da menos falsas alarmas que la carta S.
+  </p>
+
+  <h2 id="entradas">2. Qué ve el modelo (datos de entrada)</h2>
+  <p>
+    Cada fila de datos es un rodamiento en un momento dado: un archivo de 1 segundo de vibración, tomado cada 10
+    minutos. En total son unas 9 460 filas por rodamiento sumando los 3 ensayos. Para cada fila, el modelo recibe
+    cuatro grupos de números:
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Grupo</th><th>Qué contiene</th><th>Por qué ayuda</th></tr>
+    <tr><td>Indicadores del segundo</td><td>Los 13 ya calculados: RMS, pico, factor de cresta, curtosis, asimetría, energía en 4 bandas de frecuencia y envolvente en las 4 frecuencias de defecto (pista externa, pista interna, bolas y jaula).</td><td>Cada uno ve una cara distinta del daño: el RMS ve la energía, la curtosis los golpes y la envolvente el ritmo de los golpes.</td></tr>
+    <tr><td>Irregularidad dentro del segundo</td><td>La dispersión de los 20 trozos de cada segundo (lo que usa la carta S), para el RMS y la curtosis.</td><td>Es lo que mejor funcionó en las cartas; el modelo debe poder usarlo.</td></tr>
+    <tr><td>Tendencias recientes</td><td>Para cada indicador: promedio de las últimas 6 y 24 horas, pendiente (cuánto sube por hora) y cambio respecto al día anterior.</td><td>Un daño que empieza se nota más en cómo cambia la señal que en su valor de un momento.</td></tr>
+    <tr><td>Comparación con su propio estado sano</td><td>Cada indicador dividido por su valor en la línea base de ese mismo rodamiento (o en unidades de σ).</td><td>Cada rodamiento vibra a un nivel distinto. Comparar cada uno consigo mismo permite que un modelo entrenado en un ensayo sirva en otro.</td></tr>
+  </table>
+  </div>
+  <p>
+    En el ensayo 1 se usarán los dos sensores de cada rodamiento por separado, y no su promedio, porque el análisis
+    exploratorio mostró que promediarlos diluye la curtosis. Se excluyen los 3 archivos del final en que la máquina ya
+    estaba apagada.
+  </p>
+  <div class="nota">
+    <strong>Regla de oro:</strong> todo lo que el modelo usa para normalizar o escalar (promedios, σ, valores de la
+    línea base) se calcula solo con datos anteriores al momento que se evalúa. Así se simula lo que pasaría en una
+    planta real, donde no se conoce el futuro.
+  </div>
+
+  <h2 id="preguntas">3. Qué tiene que responder el modelo</h2>
+  <p>Se probarán tres preguntas, de la más directa a la más exigente:</p>
+  <div class="tabla">
+  <table>
+    <tr><th>Pregunta</th><th>Respuesta del modelo</th><th>Cómo se marcan los ejemplos</th></tr>
+    <tr><td><strong>A.</strong> ¿Va a sonar la alarma de la carta S en las próximas 24 h?</td><td>Sí / no, con una probabilidad</td><td>"Sí" si la alarma de dispersión de la carta S suena de forma sostenida en las 24 horas siguientes. Responde directamente si hay un patrón antes de que la alarma llegue.</td></tr>
+    <tr><td><strong>B.</strong> ¿Va a fallar este rodamiento en las próximas 48 h?</td><td>Sí / no, con una probabilidad</td><td>"Sí" en las últimas 48 horas de los 4 rodamientos que fallan; "no" en los 8 sanos y en los que fallan cuando faltan más de 7 días. El tramo entre 48 horas y 7 días antes de la falla se deja fuera del entrenamiento (zona gris), porque ahí el rodamiento puede estar empezando a dañarse y no se sabe qué etiqueta poner.</td></tr>
+    <tr><td><strong>C.</strong> ¿Cuántas horas le quedan al rodamiento?</td><td>Un número de horas</td><td>Horas que faltan hasta la falla. Con solo 4 fallas es exploratoria: sirve para ver si el modelo ordena bien los momentos (más cerca o más lejos de la falla), no para dar una fecha exacta.</td></tr>
+  </table>
+  </div>
+
+  <h2 id="no-supervisados">4. Modelos que aprenden solo de lo sano (no supervisados)</h2>
+  <p>
+    <strong>Idea:</strong> el modelo estudia muchos ejemplos de rodamientos sanos y aprende cómo es "lo normal" mirando
+    todos los indicadores a la vez. Después le pone a cada momento un <em>puntaje de anomalía</em>: bajo si se parece a
+    lo normal y alto si se aleja. Es la primera opción porque hay muchísimos datos sanos y solo 4 fallas, y estos
+    modelos no necesitan ejemplos de fallas para aprender.
+  </p>
+  <p>
+    <strong>Con qué se entrenan:</strong> con la línea base de 24 horas de cada rodamiento (y, como variante, con los
+    primeros días de cada ensayo). El umbral de alarma se fija en el percentil 99 del puntaje en esos datos sanos: si el
+    puntaje supera lo que solo el 1 % de los momentos sanos alcanza, se considera anómalo. Como en las cartas, la
+    alarma se da cuando el puntaje queda por encima del umbral 3 veces seguidas (30 minutos).
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Modelo</th><th>Cómo decide qué es raro, en palabras simples</th><th>Ajustes iniciales</th><th>Notas del curso</th></tr>
+    <tr><td>PCA con T² de Hotelling y error Q</td><td>Resume los indicadores en unas pocas direcciones principales. T² mide qué tan lejos está un punto dentro de esas direcciones; Q mide qué tan mal se puede explicar con ellas. Es la versión de varias variables de una carta de control.</td><td>Componentes que expliquen el 90 % de la variación</td><td>Cap. 7 (PCA)</td></tr>
+    <tr><td>Distancia de Mahalanobis</td><td>Mide la distancia de un punto al centro de los datos sanos, teniendo en cuenta que algunos indicadores se mueven juntos.</td><td>Covarianza robusta (MinCovDet)</td><td>Cap. 7</td></tr>
+    <tr><td>Isolation Forest</td><td>Intenta aislar cada punto con cortes al azar. Los puntos raros se aíslan con pocos cortes.</td><td>200 árboles</td><td>Cap. 5 (árboles)</td></tr>
+    <tr><td>One-Class SVM</td><td>Traza una frontera alrededor de los datos sanos; lo que queda afuera es anómalo.</td><td>Kernel RBF, ν = 0,01</td><td>Cap. 6 (SVM)</td></tr>
+    <tr><td>Local Outlier Factor</td><td>Compara qué tan rodeado de vecinos está cada punto frente a sus vecinos sanos.</td><td>20 vecinos, modo novedad</td><td>Cap. 2 (k-NN)</td></tr>
+    <tr><td>Distancia a grupos sanos (k-means)</td><td>Agrupa los momentos sanos en unos pocos grupos y mide la distancia de cada punto nuevo al grupo más cercano.</td><td>Número de grupos elegido con el método del codo o la silueta</td><td>Cap. 8 (clustering)</td></tr>
+    <tr><td>Autoencoder (red neuronal pequeña)</td><td>Aprende a comprimir y reconstruir los datos sanos. Si no logra reconstruir un punto, es porque no se parece a lo sano.</td><td>2 capas ocultas pequeñas; opcional si los anteriores no bastan</td><td>TensorFlow</td></tr>
+  </table>
+  </div>
+  <p>
+    <strong>Variante que une ML y cartas de control:</strong> aplicar las mismas reglas de Nelson sobre el puntaje de
+    anomalía en lugar de sobre el RMS. Así se conserva la lógica de alarmas que ya usa la empresa, pero alimentada con
+    un indicador que combina todas las señales.
+  </p>
+
+  <h2 id="supervisados">5. Modelos que aprenden de ejemplos (supervisados)</h2>
+  <p>
+    <strong>Idea:</strong> se le muestran al modelo muchos momentos ya marcados ("esto ocurrió 30 horas antes de una
+    falla", "esto era un rodamiento sano") y aprende a reconocer el patrón que precede a la falla. Responden las
+    preguntas A y B de la sección 3.
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Modelo</th><th>Cómo decide, en palabras simples</th><th>Por qué probarlo</th><th>Notas del curso</th></tr>
+    <tr><td>Regresión logística regularizada</td><td>Suma los indicadores con un peso para cada uno y convierte el resultado en una probabilidad.</td><td>Es simple y se puede explicar: muestra qué indicador pesa más. Es la referencia mínima.</td><td>Cap. 3 (Ridge y Lasso)</td></tr>
+    <tr><td>k vecinos más cercanos (k-NN)</td><td>Busca los momentos pasados más parecidos y responde lo que pasó en ellos.</td><td>Fácil de entender; sirve para ver si hay patrones repetidos entre rodamientos.</td><td>Cap. 2</td></tr>
+    <tr><td>Clasificador bayesiano ingenuo</td><td>Calcula la probabilidad de falla suponiendo que cada indicador aporta por separado.</td><td>Funciona con pocos ejemplos.</td><td>Cap. 4</td></tr>
+    <tr><td>Máquina de soporte vectorial (SVM)</td><td>Busca la frontera que mejor separa "antes de falla" de "sano".</td><td>Suele funcionar bien con pocos datos y muchos indicadores.</td><td>Cap. 6</td></tr>
+    <tr><td>Random Forest</td><td>Combina cientos de árboles de decisión, cada uno con reglas del tipo "si la curtosis subió más de X…".</td><td>Muestra qué indicadores usa más (importancia de variables).</td><td>Cap. 5</td></tr>
+    <tr><td>XGBoost</td><td>Construye árboles uno tras otro, cada uno corrigiendo los errores del anterior.</td><td>Suele ser el más preciso en datos tabulares, pero también el que más se sobreajusta.</td><td>Cap. 5</td></tr>
+  </table>
+  </div>
+  <p><strong>Detalles de cómo se entrenan:</strong></p>
+  <ul>
+    <li><strong>Desbalance.</strong> Hay muchos más momentos sanos que momentos antes de una falla. Se le da más peso a
+      los ejemplos de falla para que el modelo no aprenda simplemente a decir siempre "sano".</li>
+    <li><strong>Umbral de alarma.</strong> El modelo da una probabilidad; el umbral para convertirla en alarma se elige
+      en los datos de entrenamiento para que haya como máximo 0,1 falsas alarmas por día, igual que la meta.</li>
+    <li><strong>Modelo tonto de comparación.</strong> Se compara contra un modelo que no aprende nada (que responde al
+      azar según la proporción de cada clase). Si un modelo no le gana, no aporta.</li>
+    <li><strong>Preprocesamiento dentro del modelo.</strong> El escalado de los indicadores se hace dentro de un
+      <em>pipeline</em>, para que se calcule solo con los datos de entrenamiento y no haya fuga de información
+      (cap. 10).</li>
+    <li><strong>Ajuste de parámetros.</strong> Con una búsqueda pequeña de parámetros (por ejemplo, la profundidad de
+      los árboles o la fuerza de la regularización) evaluada solo dentro de los datos de entrenamiento (validación
+      cruzada anidada, cap. 9).</li>
+    <li><strong>Importancia de variables.</strong> En el mejor modelo se revisa qué indicadores usa más, para saber qué
+      parte de la vibración anticipa la falla.</li>
+  </ul>
+
+  <h2 id="pronostico">6. Pronóstico de la señal</h2>
+  <p>
+    <strong>Idea:</strong> en lugar de esperar a que la señal cruce el límite de la carta, predecir hacia dónde va y
+    avisar cuando el pronóstico diga que lo va a cruzar en las próximas horas.
+  </p>
+  <div class="tabla">
+  <table>
+    <tr><th>Método</th><th>En palabras simples</th><th>Qué se mide</th></tr>
+    <tr><td>Tendencia lineal en ventana móvil</td><td>Con las últimas 12 a 24 horas se traza una recta y se calcula a qué hora cruzaría el límite si sigue igual.</td><td>Horas de anticipación ganadas frente a la alarma de la carta.</td></tr>
+    <tr><td>Suavizamiento exponencial (Holt)</td><td>Estima el nivel y la tendencia de la señal dándole más peso a lo reciente, y proyecta 6, 12 y 24 horas hacia adelante.</td><td>Error del pronóstico y horas ganadas.</td></tr>
+    <tr><td>ARIMA</td><td>Modelo clásico de series de tiempo que usa los valores anteriores para predecir los siguientes.</td><td>Igual que el anterior; sirve para comparar.</td></tr>
+  </table>
+  </div>
+  <p>
+    Se aplicará a la irregularidad de la carta S y a la curtosis, que son las señales que mejor anticipan. Las redes
+    neuronales recurrentes (LSTM) no se recomiendan con solo 4 fallas: necesitan muchos más ejemplos.
+  </p>
+
+  <h2 id="validacion">7. Cómo se valida para no engañarse</h2>
+  <p>
+    Con tan pocas fallas es muy fácil obtener resultados que parecen buenos pero no se repiten. Por eso la forma de
+    probar los modelos es tan importante como el modelo mismo:
+  </p>
+  <ol>
+    <li><strong>Dejar un ensayo afuera.</strong> Se entrena con dos ensayos y se evalúa en el tercero, que el modelo
+      nunca vio. Se repite tres veces, dejando afuera cada ensayo una vez. Esto responde además si lo aprendido en una
+      situación sirve en otra, que es la pregunta de fondo del proyecto.</li>
+    <li><strong>Dejar un rodamiento afuera.</strong> Como segunda prueba, se deja fuera un rodamiento a la vez (12
+      repeticiones).</li>
+    <li><strong>Nunca mezclar momentos al azar.</strong> Un momento y el de 10 minutos después son casi iguales; si uno
+      queda en entrenamiento y el otro en prueba, el modelo "hace trampa".</li>
+    <li><strong>Prueba de permutación.</strong> Se repite el entrenamiento fingiendo que fallaron otros rodamientos. Si
+      el modelo acierta igual de bien, su resultado es casualidad.</li>
+    <li><strong>Margen de error.</strong> Se calcula repitiendo la evaluación con muestras al azar de rodamientos
+      (bootstrap), igual que en la comparación de cartas.</li>
+  </ol>
+
+  <h2 id="comparacion">8. Cómo se compara con las reglas de Nelson</h2>
+  <p>Cada modelo se mide con exactamente las mismas medidas que las alarmas de Nelson, en los mismos rodamientos:</p>
+  <div class="tabla">
+  <table>
+    <tr><th>Medida</th><th>Qué responde</th></tr>
+    <tr><td>Sensibilidad en las 48 h previas</td><td>¿Qué porcentaje del tiempo avisó antes de la falla?</td></tr>
+    <tr><td>Falsas alarmas en sanos (% del tiempo y por día)</td><td>¿Cuántas veces avisó sin que hubiera falla?</td></tr>
+    <tr><td>Anticipación mediana</td><td>¿Cuántas horas antes de la falla empezó a avisar de forma sostenida?</td></tr>
+    <tr><td>Nota J</td><td>Sensibilidad menos falsas alarmas: una sola nota para comparar.</td></tr>
+    <tr><td>AUC y AUC de precisión-exhaustividad</td><td>¿Qué tan bien ordena los momentos de más a menos peligrosos? La segunda es más justa cuando los casos de falla son pocos.</td></tr>
+    <tr><td>Horas ganadas frente a la carta S</td><td>Diferencia entre la anticipación del modelo y la de la mejor alarma de Nelson, rodamiento por rodamiento.</td></tr>
+  </table>
+  </div>
+  <p>
+    El resultado final será una tabla con todos los modelos y las alarmas de Nelson en las mismas filas, y una
+    figura como la de las épocas superpuestas, para ver con qué anticipación se separa cada método.
+  </p>
+
+  <h2 id="mas-datos">9. Más datos para confirmar</h2>
+  <p>
+    Con 4 fallas, ningún resultado puede ser concluyente. Para confirmar lo mejor de las cartas y de los modelos se
+    usará otro conjunto público de rodamientos llevados hasta la falla, sin necesidad de equipos propios:
+  </p>
+  <ul>
+    <li><strong>XJTU-SY</strong> (Universidad Xi'an Jiaotong): 15 rodamientos en 3 condiciones de velocidad y carga.</li>
+    <li><strong>FEMTO / PRONOSTIA</strong> (desafío IEEE PHM 2012): 17 rodamientos.</li>
+  </ul>
+  <p>
+    La regla para usarlos: la mejor alarma y el mejor modelo se eligen con IMS y se evalúan en el nuevo conjunto
+    <strong>sin ajustar nada</strong>. Si funcionan ahí, el resultado es mucho más sólido.
+  </p>
+
+  <h2 id="orden">10. Orden de trabajo y entregables</h2>
+  <div class="tabla">
+  <table>
+    <tr><th>Etapa</th><th>Qué se hace</th><th>Entregable</th></tr>
+    <tr><td>1. Tabla de datos para ML</td><td>Unir los indicadores, la irregularidad de la carta S, las tendencias recientes, la comparación con la línea base y las etiquetas de las preguntas A, B y C.</td><td>Script <code>ml_preparar.py</code> y la tabla <code>ml_tabla.csv</code></td></tr>
+    <tr><td>2. Modelos no supervisados</td><td>Entrenar los 7 modelos de la sección 4 con la línea base y medir si avisan antes que la carta S.</td><td>Documento <code>ml_no_supervisado</code> (notebook y HTML)</td></tr>
+    <tr><td>3. Modelos supervisados</td><td>Entrenar los 6 modelos de la sección 5 dejando un ensayo afuera, para las preguntas A y B.</td><td>Documento <code>ml_supervisado</code></td></tr>
+    <tr><td>4. Pronóstico</td><td>Probar los 3 métodos de la sección 6 sobre la carta S y la curtosis.</td><td>Documento <code>ml_pronostico</code></td></tr>
+    <tr><td>5. Comparación final</td><td>Una tabla y una figura con todos los métodos frente a las reglas de Nelson.</td><td>Sección nueva en la página de inicio</td></tr>
+    <tr><td>6. Confirmación</td><td>Repetir el mejor método en XJTU-SY o FEMTO sin ajustar nada.</td><td>Documento <code>confirmacion</code></td></tr>
+  </table>
+  </div>
+
+  <h2 id="riesgos">11. Riesgos y cómo se manejan</h2>
+  <div class="tabla">
+  <table>
+    <tr><th>Riesgo</th><th>Qué podría pasar</th><th>Cómo se maneja</th></tr>
+    <tr><td>Pocas fallas (4)</td><td>El modelo memoriza esos 4 casos en vez de aprender el patrón.</td><td>Empezar por modelos no supervisados y simples, pocos indicadores, validación dejando un ensayo afuera y confirmación con otro conjunto de datos.</td></tr>
+    <tr><td>Fuga de información</td><td>El modelo usa, sin querer, datos del futuro y parece mejor de lo que es.</td><td>Normalizar solo con datos anteriores y escalar dentro del pipeline.</td></tr>
+    <tr><td>Rodamientos con niveles distintos</td><td>Un modelo entrenado en un rodamiento no sirve en otro.</td><td>Comparar cada rodamiento con su propia línea base.</td></tr>
+    <tr><td>Reinicios del ensayo 1</td><td>Los saltos de nivel tras cada reinicio parecen anomalías.</td><td>Recalibrar la línea base después de cada reinicio, como en las cartas.</td></tr>
+    <tr><td>Muchas falsas alarmas</td><td>Un modelo que avisa antes pero con muchas falsas alarmas no sirve en planta.</td><td>Fijar el umbral para un máximo de 0,1 falsas alarmas por día y reportar siempre las dos medidas juntas.</td></tr>
+  </table>
+  </div>
+  <div class="aviso">
+    <strong>Qué se puede esperar.</strong> Es posible que ningún modelo supere claramente a la carta S. Ese también es
+    un resultado útil: mostraría que una alarma simple, bien elegida, es suficiente para anticipar fallas de
+    rodamientos, y que la ganancia de un modelo más complejo no justifica su costo.
+  </div>
+
+  <footer>
+    <a href="index.html">Volver a la página de inicio</a> ·
+    <a href="html/cartas_nelson_ims.html">Cartas de control y reglas de Nelson</a> ·
+    <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo">Código en GitHub</a>
+  </footer>
+</main>
+</body>
+</html>

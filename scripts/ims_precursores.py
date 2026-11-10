@@ -1,6 +1,6 @@
 """¿Qué cambia ANTES de que el RMS cruce 1.5σ / 3σ? (IMS 1st_test)
 
-Reproduce los límites del profesor (baseline 2003-11-08 a 2003-11-14, sigma = MR_bar/1.128)
+Reproduce los límites del código original (Code01) (baseline 2003-11-08 a 2003-11-14, sigma = MR_bar/1.128)
 y compara contra cuándo se salen otros indicadores, con el mismo método.
 
 Uso: python scripts/ims_precursores.py ims_features.csv
@@ -24,7 +24,7 @@ for b in range(1, 5):
 
 
 def limites_imr(x):
-    """Media y sigma como en el código del profesor (carta I-MR)."""
+    """Media y sigma como en el código original (carta I-MR)."""
     mr = x.diff().abs().iloc[1:].mean()
     return x.mean(), mr / 1.128
 

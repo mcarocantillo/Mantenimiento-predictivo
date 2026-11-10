@@ -1,7 +1,7 @@
 """Subgrupos racionales para las cartas X̄-R y X̄-S: cada archivo (1 s, 20 480 muestras)
 se parte en N_SUB subbloques de 1024 muestras (~51 ms) y en cada uno se calcula RMS y curtosis.
 En el 1st_test (2 canales por rodamiento) se promedian los dos canales, como hace el código
-del profesor con el RMS.
+original (Code01) con el RMS.
 
 Uso: python scripts/ims_subgrupos.py <carpeta del ensayo> salida.csv
 """

@@ -67,7 +67,7 @@ res.to_csv("correlacion_temporal.csv", index=False)
 pd.set_option("display.width", 250)
 print(f"ρ de Spearman (tasa de alarma por bloques de {BLOQUE} h vs cercanía a la falla)")
 print(res.head(15).round(3).to_string(index=False))
-print("\nCarta del profe (RMS · I-MR):")
+print("\nMétodo original (RMS · I-MR):")
 print(res[(res["var"] == "rms") & (res["carta"] == "I-MR")].round(3).to_string(index=False))
 
 # Épocas superpuestas para las alarmas que interesan
