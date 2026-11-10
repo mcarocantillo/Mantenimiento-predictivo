@@ -13,21 +13,42 @@ code = lambda s: celdas.append(nbf.v4.new_code_cell(s.strip()))
 md(r"""
 # Mantenimiento predictivo: ¿puede el ML anticiparse a las alarmas por σ?
 
-**Pregunta.** Hoy se usa una alarma cuando la señal del motor sale de μ ± 1.5σ y otra cuando sale de μ ± 3σ.
-¿Puede el Machine Learning detectar la degradación **antes**, en sus grados leves, cuando las alarmas σ todavía no se disparan?
+**Pregunta.** Un sistema de alarmas sencillo avisa cuando una señal se aleja de su promedio más de 1.5σ (alarma
+de advertencia) o más de 3σ (alarma crítica). ¿Puede un modelo de Machine Learning detectar el deterioro **antes**,
+cuando todavía es leve y esas alarmas no suenan?
 
-**Contexto.** Este fue un ejercicio previo, con un conjunto de datos hidráulicos, para
-probar la idea general antes de trabajar con los rodamientos IMS: comparar las alarmas por σ con modelos de Machine
-Learning.
+### Para qué sirve este ejercicio dentro del estudio
 
-**Datos.** *Condition monitoring of hydraulic systems* (UCI, ZeMA; Helwig et al., 2015): 2205 ciclos de 60 s de un banco hidráulico,
-17 sensores. La señal que se vigila es **EPS1, la potencia del motor (W)**, que es la variable sobre la que se
-calculan las alarmas de 1.5σ y 3σ.
+El estudio principal evalúa si las alarmas de las reglas de Nelson anticipan fallas de rodamientos (conjunto IMS) y
+si el Machine Learning puede mejorarlas. Antes de trabajar con los rodamientos, este ejercicio prueba la idea general
+en un caso más sencillo y controlado, por tres razones:
 
-**Una advertencia sobre el dataset.** No es un registro de fallas que avancen con el tiempo: los investigadores
-fijaron a mano el estado de cuatro componentes (enfriador, válvula, bomba, acumulador) en varios grados. Por eso la
-pregunta equivalente a "anticiparse" es: **¿se detectan los grados leves de degradación antes de llegar a la falla
-grave?**
+1. **Aquí se sabe exactamente qué tan dañado está cada componente en cada momento.** Los autores del conjunto de
+   datos provocaron cada daño a propósito y anotaron su nivel. Eso permite comprobar, sin ninguna duda, si una
+   alarma o un modelo detecta el daño y desde qué nivel. En los rodamientos, en cambio, solo se sabe cuándo terminó
+   la prueba, no cuándo empezó el daño.
+2. **Permite probar las herramientas antes de usarlas con los rodamientos:** cómo simular las alarmas por σ, cómo
+   describir una señal con varias características y cómo validar un modelo sin que "haga trampa" con datos casi
+   iguales.
+3. **Muestra qué esperar de cada enfoque.** Las conclusiones de este ejercicio (al final del documento) orientaron
+   las decisiones del estudio con rodamientos:
+   - Una alarma por σ sobre una sola cifra (el promedio de la potencia) casi no detecta los daños leves. Por eso, en
+     los rodamientos, además del RMS se probaron la curtosis y la irregularidad dentro de cada segundo (carta S).
+   - Un modelo que combina varias características sí detecta daños leves que la alarma no ve. Por eso el plan de
+     Machine Learning para los rodamientos usa varios indicadores a la vez.
+   - El modelo que aprende solo de lo sano falló porque aquí no había un periodo limpio en que todo estuviera sano.
+     Por eso, en los rodamientos, la línea base se toma de 24 horas sanas y estables de cada rodamiento.
+
+**Datos.** *Condition monitoring of hydraulic systems* (Helwig et al., 2015), disponible en el repositorio UCI:
+2205 ciclos de trabajo de 60 segundos de un banco de pruebas hidráulico, medidos con 17 sensores. La señal que se
+vigila es **EPS1, la potencia del motor (W)**: sobre ella se calculan las alarmas de 1.5σ y 3σ.
+
+**Cómo se produjeron los daños.** Los autores del conjunto de datos (Helwig et al., 2015) no dejaron que el banco se
+deteriorara solo con el uso: provocaron a propósito distintos niveles de daño en cuatro componentes y los fueron
+combinando. El enfriador tiene 3 niveles de eficiencia, la válvula 4 niveles de velocidad de conmutación, la bomba 3
+niveles de fuga interna y el acumulador 4 niveles de presión. Como los daños aparecen de golpe y no poco a poco, aquí
+no se puede medir con cuántas horas de anticipación avisa una alarma. La pregunta equivalente es: **¿se detectan los
+niveles leves de daño antes de llegar a los graves?**
 
 **Dónde está el código.** Las características de cada ciclo se calculan con [features.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/features.py), la
 comparación de alarmas y modelos con [analisis.py](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/analisis.py), y este notebook se genera con
