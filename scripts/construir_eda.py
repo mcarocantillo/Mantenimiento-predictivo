@@ -619,8 +619,10 @@ md(r"""
   2,5–5 kHz también separan.
 - La **envolvente en BPFO** es el segundo indicador que más separa (+32σ en los que fallan, +9σ en los sanos),
   después de corregir un error: la falla del ensayo 2 se repite a ~231 Hz y no a los 236,4 Hz teóricos, y la
-  primera versión buscaba solo en ±3 Hz. Ahora busca en ±5 %. Que también suba en los sanos puede deberse al eje
-  compartido o a que la ventana incluye el 7.º armónico del eje (233 Hz); hay que revisarlo.
+  primera versión buscaba solo en ±3 Hz. Ahora busca en ±5 %. Que también suba en los sanos se debe al eje compartido: en los rodamientos sanos el pico aparece en los
+  mismos ~231 Hz del defecto, y no en 233 Hz, que es el 7.º armónico del eje (33,3 Hz × 7), cuya altura no cambia.
+  El golpe del rodamiento dañado viaja por el eje hasta los sensores vecinos. Por eso la envolvente dice qué
+  **tipo** de daño hay, pero no siempre **en cuál** rodamiento.
 - La envolvente en BPFI separa poco porque solo 1 de los 4 rodamientos que fallan (ensayo 1, B3) tiene falla en
   la pista interna; el indicador es específico del tipo de falla.
 
