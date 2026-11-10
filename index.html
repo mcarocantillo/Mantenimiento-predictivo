@@ -42,6 +42,7 @@
   ol, ul { padding-left: 22px; margin: 0 0 12px; }
   li { margin-bottom: 6px; }
   code { font-family: Consolas, "SFMono-Regular", monospace; font-size: 0.9em; }
+  .refs li { font-size: 0.9rem; margin-bottom: 8px; }
   footer { margin-top: 48px; color: var(--tinta2); font-size: 0.9rem; }
 </style>
 </head>
@@ -51,9 +52,9 @@
   <p class="sub">María Carolina Cantillo Orozco y Jenaan Tarabein · Universidad del Norte · octubre de 2026</p>
 
   <p>
-    Este proyecto revisa si las 8 reglas de alarma de Nelson, que una empresa ya usó con éxito en Superbricks, sirven
+    Este proyecto revisa si las 8 reglas de alarma de Nelson (Nelson, 1984), que una empresa ya usó con éxito en Superbricks, sirven
     para anticipar fallas en otra industria: la de máquinas rotativas. Para eso se usan los datos públicos de
-    rodamientos IMS (Universidad de Cincinnati), en los que 4 rodamientos montados en un eje giran hasta que uno se
+    rodamientos IMS (Universidad de Cincinnati; Qiu et al., 2006; Lee et al., 2007), en los que 4 rodamientos montados en un eje giran hasta que uno se
     daña. En total hay 4 rodamientos que fallan y 8 que terminan sanos, que sirven de comparación.
   </p>
   <p>
@@ -186,6 +187,19 @@
       <a class="boton" href="plan_ml.html">Abrir</a>
     </div>
   </div>
+
+  <h2>Referencias</h2>
+    <ul class="refs">
+      <li>Benjamini, Y. y Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. <em>Journal of the Royal Statistical Society: Series B, 57</em>(1), 289–300. <a href="https://doi.org/10.1111/j.2517-6161.1995.tb02031.x">https://doi.org/10.1111/j.2517-6161.1995.tb02031.x</a></li>
+      <li>Holm, S. (1979). A simple sequentially rejective multiple test procedure. <em>Scandinavian Journal of Statistics, 6</em>(2), 65–70. <a href="https://www.jstor.org/stable/4615733">https://www.jstor.org/stable/4615733</a></li>
+      <li>Lee, J., Qiu, H., Yu, G., Lin, J. y Rexnord Technical Services (2007). <em>IMS Bearing Data</em> [conjunto de datos]. NASA Prognostics Data Repository, NASA Ames Research Center.</li>
+      <li>Montgomery, D. C. <em>Introduction to Statistical Quality Control</em> (8.ª ed.). Wiley.</li>
+      <li>Nelson, L. S. (1984). The Shewhart control chart—Tests for special causes. <em>Journal of Quality Technology, 16</em>(4), 237–239. <a href="https://doi.org/10.1080/00224065.1984.11978921">https://doi.org/10.1080/00224065.1984.11978921</a></li>
+      <li>Qiu, H., Lee, J., Lin, J. y Yu, G. (2006). Wavelet filter-based weak signature detection method and its application on rolling element bearing prognostics. <em>Journal of Sound and Vibration, 289</em>(4–5), 1066–1090. <a href="https://doi.org/10.1016/j.jsv.2005.03.007">https://doi.org/10.1016/j.jsv.2005.03.007</a></li>
+      <li>Randall, R. B. y Antoni, J. (2011). Rolling element bearing diagnostics—A tutorial. <em>Mechanical Systems and Signal Processing, 25</em>(2), 485–520. <a href="https://doi.org/10.1016/j.ymssp.2010.07.017">https://doi.org/10.1016/j.ymssp.2010.07.017</a></li>
+      <li>Youden, W. J. (1950). Index for rating diagnostic tests. <em>Cancer, 3</em>(1), 32–35. <a href="https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3">https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3</a></li>
+    </ul>
+  <p>Cada documento tiene al final su propia lista de referencias; las de los modelos de Machine Learning están en el <a href="plan_ml.html#referencias">plan</a>.</p>
 
   <footer>
     Datos: IMS Bearing Data, NSF I/UCR Center for Intelligent Maintenance Systems, Universidad de Cincinnati, con apoyo

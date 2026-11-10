@@ -1,5 +1,10 @@
 """Genera cartas_nelson_ims.ipynb: cartas de control, reglas de Nelson y sus resultados (fases 2 a 6)."""
+import sys
+
 import nbformat as nbf
+
+sys.path.insert(0, "scripts")
+from referencias import bloque  # noqa: E402
 
 celdas = []
 md = lambda s: celdas.append(nbf.v4.new_markdown_cell(s.strip()))
@@ -9,7 +14,7 @@ GH = "https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/script
 md(r"""
 # Cartas de control y reglas de Nelson en los rodamientos IMS
 
-**Pregunta.** Una empresa usa 8 reglas de alarma, las reglas de Nelson, sobre cartas de control, y en Superbricks
+**Pregunta.** Una empresa usa 8 reglas de alarma, las reglas de Nelson (Nelson, 1984), sobre cartas de control, y en Superbricks
 funcionaron. Este trabajo revisa si esas mismas reglas sirven para anticipar fallas en otra industria, la de máquinas
 rotativas, usando rodamientos. Si sirven, también busca con qué tipo de carta funcionan mejor.
 
@@ -20,7 +25,7 @@ rotativas, usando rodamientos. Si sirven, también busca con qué tipo de carta 
 3. Para el mismo periodo, además de la carta I-MR, construir las cartas X̄-R y X̄-S y ver con cuál de las tres hay
    mejor relación entre alarma y falla.
 
-**Datos.** Los 3 ensayos del conjunto IMS (Universidad de Cincinnati). En cada ensayo, 4 rodamientos montados en un
+**Datos.** Los 3 ensayos del conjunto IMS (Universidad de Cincinnati; Qiu et al., 2006; Lee et al., 2007). En cada ensayo, 4 rodamientos montados en un
 mismo eje giran a 2000 revoluciones por minuto, con mucha carga, hasta que uno se daña. Cada 10 minutos se guarda
 1 segundo de vibración de cada rodamiento. En total hay 4 rodamientos que fallan y 8 que terminan sanos; los sanos
 sirven de control para saber cuántas veces una alarma suena sin que haya falla.
@@ -62,18 +67,19 @@ md(r"""
 | Baseline (línea base) | 24 horas en que el rodamiento está sano y estable. De ahí salen el promedio y los límites de lo que se considera normal. |
 | σ (sigma) | Cuánto varía normalmente la señal alrededor de su promedio. Un valor a 3σ del promedio es muy raro en una máquina sana. |
 | Coeficiente de variación (CV) | σ dividida por el promedio, en porcentaje. Un CV de 1 % quiere decir que la señal casi no cambia. |
-| Carta de control | Gráfica de la señal en el tiempo con una línea central (el promedio sano) y límites arriba y abajo. Si la señal se sale de los límites o forma ciertos patrones, suena una alarma. |
+| Carta de control | Gráfica de la señal en el tiempo con una línea central (el promedio sano) y límites arriba y abajo. Si la señal se sale de los límites o forma ciertos patrones, suena una alarma (Montgomery, 8.ª ed.). |
 | Carta I-MR | Mira cada medición por separado (I) y cuánto cambió respecto a la anterior (MR). Es la que usa el código original. |
 | Cartas X̄-R y X̄-S | Agrupan varias mediciones tomadas casi al mismo tiempo; aquí, trozos de 51 milésimas de segundo dentro del mismo segundo. X̄ es el promedio del grupo; R (rango) y S (desviación estándar) miden qué tan distintas son entre sí. R se usa con grupos pequeños (aquí 5) y S con grupos grandes (aquí 20). |
 | Alarma de dispersión | La que suena cuando MR, R o S se salen de sus límites, es decir, cuando la señal se vuelve más irregular de lo normal. |
 | Falsa alarma | La alarma suena en un rodamiento que está sano. |
 | Sensibilidad | De las 48 horas antes de la falla, qué porcentaje del tiempo estuvo sonando la alarma. |
-| J de Youden | Una nota para la alarma: sensibilidad menos el porcentaje de tiempo que suena en rodamientos sanos. 1 es perfecta y 0 no sirve. |
+| J de Youden | Una nota para la alarma: sensibilidad menos el porcentaje de tiempo que suena en rodamientos sanos. 1 es perfecta y 0 no sirve (Youden, 1950). |
 | AUC | Probabilidad de que la alarma distinga correctamente un momento previo a la falla de un momento sano. 0,5 es lo mismo que adivinar; 1 es perfecto. |
 | Anticipación | Cuántas horas antes de la falla empezó a sonar la alarma de forma sostenida (3 puntos seguidos, es decir, 30 minutos). |
 | Valor p | Probabilidad de que un resultado tan bueno salga por pura casualidad. Un p de 0,01 es un 1 %. |
 
-**Las 8 reglas de Nelson**
+**Las 8 reglas de Nelson** (Nelson, 1984). Las reglas de Western Electric (Western Electric Company, 1956) son un
+subconjunto de ellas.
 
 | Regla | Suena cuando… | Qué suele indicar |
 | --- | --- | --- |
@@ -328,8 +334,8 @@ md(rf"""
 rodamiento del mismo ensayo, en las 96 combinaciones posibles, y se recalculó la nota J. Para la mejor alarma, la
 combinación real es la que da la nota más alta de las 96, así que la probabilidad de que salga así por casualidad es
 de 1 en 96, cerca del 1 % (p = 0,010). Pero
-como se probaron 54 alarmas a la vez, alguna podía salir bien por suerte; al corregir por eso (correcciones de Holm y
-de Benjamini-Hochberg), el resultado deja de ser concluyente. Con solo 4 fallas no hay datos suficientes para
+como se probaron 54 alarmas a la vez, alguna podía salir bien por suerte; al corregir por eso (correcciones de Holm, 1979, y
+de Benjamini y Hochberg, 1995), el resultado deja de ser concluyente. Con solo 4 fallas no hay datos suficientes para
 afirmarlo con fuerza estadística; hay que confirmarlo con otro conjunto de datos.
 
 *Código:* [ims_reglas_falla.py]({GH}/ims_reglas_falla.py). La tabla completa de las 54 alarmas está en
@@ -397,7 +403,7 @@ Cada carta tiene dos partes, y se evaluaron por separado:
 - **Dispersión:** la parte que mira qué tan irregular es la señal (MR, R o S).
 
 Entre corchetes está el margen de error, calculado repitiendo el análisis 2000 veces con muestras al azar de los
-rodamientos (bootstrap). Si los márgenes de dos cartas se cruzan, no se puede decir que una sea mejor que la otra.
+rodamientos (bootstrap; Efron y Tibshirani, 1993). Si los márgenes de dos cartas se cruzan, no se puede decir que una sea mejor que la otra.
 """)
 
 code(r"""
@@ -462,6 +468,9 @@ Todos se validan entrenando con dos ensayos y evaluando en el tercero, y se comp
 mismas medidas de esta página. El detalle (datos de entrada, etiquetas, validación, orden de trabajo y riesgos) está en
 el [plan de Machine Learning](https://mcarocantillo.github.io/Mantenimiento-predictivo/plan_ml.html).
 """)
+
+md(bloque(["nelson1984", "we1956", "montgomery", "youden1950", "holm1979", "bh1995", "efron1993",
+           "qiu2006", "nasa_ims"]))
 
 nb = nbf.v4.new_notebook(cells=celdas)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}

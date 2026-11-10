@@ -38,6 +38,7 @@
   .indice { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 18px; }
   .indice ol { margin: 0; }
   .volver { display: inline-block; margin-bottom: 18px; }
+  .refs li { font-size: 0.9rem; margin-bottom: 8px; }
   footer { margin-top: 48px; color: var(--tinta2); font-size: 0.9rem; }
 </style>
 </head>
@@ -67,6 +68,7 @@
       <li><a href="#mas-datos">Más datos para confirmar</a></li>
       <li><a href="#orden">Orden de trabajo y entregables</a></li>
       <li><a href="#riesgos">Riesgos y cómo se manejan</a></li>
+      <li><a href="#referencias">Referencias</a></li>
     </ol>
   </div>
 
@@ -142,17 +144,17 @@
   <div class="tabla">
   <table>
     <tr><th>Modelo</th><th>Cómo decide qué es raro, en palabras simples</th><th>Ajustes iniciales</th><th>Notas del curso</th></tr>
-    <tr><td>PCA con T² de Hotelling y error Q</td><td>Resume los indicadores en unas pocas direcciones principales. T² mide qué tan lejos está un punto dentro de esas direcciones; Q mide qué tan mal se puede explicar con ellas. Es la versión de varias variables de una carta de control.</td><td>Componentes que expliquen el 90 % de la variación</td><td>Cap. 7 (PCA)</td></tr>
+    <tr><td>PCA con T² de Hotelling y error Q (MacGregor y Kourti, 1995)</td><td>Resume los indicadores en unas pocas direcciones principales. T² mide qué tan lejos está un punto dentro de esas direcciones; Q mide qué tan mal se puede explicar con ellas. Es la versión de varias variables de una carta de control.</td><td>Componentes que expliquen el 90 % de la variación</td><td>Cap. 7 (PCA)</td></tr>
     <tr><td>Distancia de Mahalanobis</td><td>Mide la distancia de un punto al centro de los datos sanos, teniendo en cuenta que algunos indicadores se mueven juntos.</td><td>Covarianza robusta (MinCovDet)</td><td>Cap. 7</td></tr>
-    <tr><td>Isolation Forest</td><td>Intenta aislar cada punto con cortes al azar. Los puntos raros se aíslan con pocos cortes.</td><td>200 árboles</td><td>Cap. 5 (árboles)</td></tr>
-    <tr><td>One-Class SVM</td><td>Traza una frontera alrededor de los datos sanos; lo que queda afuera es anómalo.</td><td>Kernel RBF, ν = 0,01</td><td>Cap. 6 (SVM)</td></tr>
-    <tr><td>Local Outlier Factor</td><td>Compara qué tan rodeado de vecinos está cada punto frente a sus vecinos sanos.</td><td>20 vecinos, modo novedad</td><td>Cap. 2 (k-NN)</td></tr>
+    <tr><td>Isolation Forest (Liu et al., 2008)</td><td>Intenta aislar cada punto con cortes al azar. Los puntos raros se aíslan con pocos cortes.</td><td>200 árboles</td><td>Cap. 5 (árboles)</td></tr>
+    <tr><td>One-Class SVM (Schölkopf et al., 2001)</td><td>Traza una frontera alrededor de los datos sanos; lo que queda afuera es anómalo.</td><td>Kernel RBF, ν = 0,01</td><td>Cap. 6 (SVM)</td></tr>
+    <tr><td>Local Outlier Factor (Breunig et al., 2000)</td><td>Compara qué tan rodeado de vecinos está cada punto frente a sus vecinos sanos.</td><td>20 vecinos, modo novedad</td><td>Cap. 2 (k-NN)</td></tr>
     <tr><td>Distancia a grupos sanos (k-means)</td><td>Agrupa los momentos sanos en unos pocos grupos y mide la distancia de cada punto nuevo al grupo más cercano.</td><td>Número de grupos elegido con el método del codo o la silueta</td><td>Cap. 8 (clustering)</td></tr>
     <tr><td>Autoencoder (red neuronal pequeña)</td><td>Aprende a comprimir y reconstruir los datos sanos. Si no logra reconstruir un punto, es porque no se parece a lo sano.</td><td>2 capas ocultas pequeñas; opcional si los anteriores no bastan</td><td>TensorFlow</td></tr>
   </table>
   </div>
   <p>
-    <strong>Variante que une ML y cartas de control:</strong> aplicar las mismas reglas de Nelson sobre el puntaje de
+    <strong>Variante que une ML y cartas de control:</strong> aplicar las mismas reglas de Nelson (Nelson, 1984) sobre el puntaje de
     anomalía en lugar de sobre el RMS. Así se conserva la lógica de alarmas que ya usa la empresa, pero alimentada con
     un indicador que combina todas las señales.
   </p>
@@ -170,8 +172,8 @@
     <tr><td>k vecinos más cercanos (k-NN)</td><td>Busca los momentos pasados más parecidos y responde lo que pasó en ellos.</td><td>Fácil de entender; sirve para ver si hay patrones repetidos entre rodamientos.</td><td>Cap. 2</td></tr>
     <tr><td>Clasificador bayesiano ingenuo</td><td>Calcula la probabilidad de falla suponiendo que cada indicador aporta por separado.</td><td>Funciona con pocos ejemplos.</td><td>Cap. 4</td></tr>
     <tr><td>Máquina de soporte vectorial (SVM)</td><td>Busca la frontera que mejor separa "antes de falla" de "sano".</td><td>Suele funcionar bien con pocos datos y muchos indicadores.</td><td>Cap. 6</td></tr>
-    <tr><td>Random Forest</td><td>Combina cientos de árboles de decisión, cada uno con reglas del tipo "si la curtosis subió más de X…".</td><td>Muestra qué indicadores usa más (importancia de variables).</td><td>Cap. 5</td></tr>
-    <tr><td>XGBoost</td><td>Construye árboles uno tras otro, cada uno corrigiendo los errores del anterior.</td><td>Suele ser el más preciso en datos tabulares, pero también el que más se sobreajusta.</td><td>Cap. 5</td></tr>
+    <tr><td>Random Forest (Breiman, 2001)</td><td>Combina cientos de árboles de decisión, cada uno con reglas del tipo "si la curtosis subió más de X…".</td><td>Muestra qué indicadores usa más (importancia de variables).</td><td>Cap. 5</td></tr>
+    <tr><td>XGBoost (Chen y Guestrin, 2016)</td><td>Construye árboles uno tras otro, cada uno corrigiendo los errores del anterior.</td><td>Suele ser el más preciso en datos tabulares, pero también el que más se sobreajusta.</td><td>Cap. 5</td></tr>
   </table>
   </div>
   <p><strong>Detalles de cómo se entrenan:</strong></p>
@@ -226,7 +228,7 @@
     <li><strong>Prueba de permutación.</strong> Se repite el entrenamiento fingiendo que fallaron otros rodamientos. Si
       el modelo acierta igual de bien, su resultado es casualidad.</li>
     <li><strong>Margen de error.</strong> Se calcula repitiendo la evaluación con muestras al azar de rodamientos
-      (bootstrap), igual que en la comparación de cartas.</li>
+      (bootstrap; Efron y Tibshirani, 1993), igual que en la comparación de cartas.</li>
   </ol>
 
   <h2 id="comparacion">8. Cómo se compara con las reglas de Nelson</h2>
@@ -237,7 +239,7 @@
     <tr><td>Sensibilidad en las 48 h previas</td><td>¿Qué porcentaje del tiempo avisó antes de la falla?</td></tr>
     <tr><td>Falsas alarmas en sanos (% del tiempo y por día)</td><td>¿Cuántas veces avisó sin que hubiera falla?</td></tr>
     <tr><td>Anticipación mediana</td><td>¿Cuántas horas antes de la falla empezó a avisar de forma sostenida?</td></tr>
-    <tr><td>Nota J</td><td>Sensibilidad menos falsas alarmas: una sola nota para comparar.</td></tr>
+    <tr><td>Nota J</td><td>Sensibilidad menos falsas alarmas: una sola nota para comparar (Youden, 1950).</td></tr>
     <tr><td>AUC y AUC de precisión-exhaustividad</td><td>¿Qué tan bien ordena los momentos de más a menos peligrosos? La segunda es más justa cuando los casos de falla son pocos.</td></tr>
     <tr><td>Horas ganadas frente a la carta S</td><td>Diferencia entre la anticipación del modelo y la de la mejor alarma de Nelson, rodamiento por rodamiento.</td></tr>
   </table>
@@ -253,8 +255,8 @@
     usará otro conjunto público de rodamientos llevados hasta la falla, sin necesidad de equipos propios:
   </p>
   <ul>
-    <li><strong>XJTU-SY</strong> (Universidad Xi'an Jiaotong): 15 rodamientos en 3 condiciones de velocidad y carga.</li>
-    <li><strong>FEMTO / PRONOSTIA</strong> (desafío IEEE PHM 2012): 17 rodamientos.</li>
+    <li><strong>XJTU-SY</strong> (Universidad Xi'an Jiaotong; Wang et al., 2020): 15 rodamientos en 3 condiciones de velocidad y carga.</li>
+    <li><strong>FEMTO / PRONOSTIA</strong> (desafío IEEE PHM 2012; Nectoux et al., 2012): 17 rodamientos según los trabajos que lo usan.</li>
   </ul>
   <p>
     La regla para usarlos: la mejor alarma y el mejor modelo se eligen con IMS y se evalúan en el nuevo conjunto
@@ -290,6 +292,23 @@
     un resultado útil: mostraría que una alarma simple, bien elegida, es suficiente para anticipar fallas de
     rodamientos, y que la ganancia de un modelo más complejo no justifica su costo.
   </div>
+
+  <h2 id="referencias">Referencias</h2>
+    <ul class="refs">
+      <li>Breiman, L. (2001). Random forests. <em>Machine Learning, 45</em>(1), 5–32. <a href="https://doi.org/10.1023/A:1010933404324">https://doi.org/10.1023/A:1010933404324</a></li>
+      <li>Breunig, M. M., Kriegel, H.-P., Ng, R. T. y Sander, J. (2000). LOF: Identifying density-based local outliers. En <em>Proceedings of the 2000 ACM SIGMOD International Conference on Management of Data</em> (pp. 93–104). <a href="https://doi.org/10.1145/342009.335388">https://doi.org/10.1145/342009.335388</a></li>
+      <li>Chen, T. y Guestrin, C. (2016). XGBoost: A scalable tree boosting system. En <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em> (pp. 785–794). <a href="https://doi.org/10.1145/2939672.2939785">https://doi.org/10.1145/2939672.2939785</a></li>
+      <li>Efron, B. y Tibshirani, R. J. (1993). <em>An Introduction to the Bootstrap</em>. Chapman &amp; Hall/CRC. <a href="https://doi.org/10.1007/978-1-4899-4541-9">https://doi.org/10.1007/978-1-4899-4541-9</a></li>
+      <li>Liu, F. T., Ting, K. M. y Zhou, Z.-H. (2008). Isolation forest. En <em>2008 Eighth IEEE International Conference on Data Mining</em> (pp. 413–422). <a href="https://doi.org/10.1109/ICDM.2008.17">https://doi.org/10.1109/ICDM.2008.17</a></li>
+      <li>MacGregor, J. F. y Kourti, T. (1995). Statistical process control of multivariate processes. <em>Control Engineering Practice, 3</em>(3), 403–414. <a href="https://doi.org/10.1016/0967-0661(95)00014-L">https://doi.org/10.1016/0967-0661(95)00014-L</a></li>
+      <li>Nectoux, P., Gouriveau, R., Medjaher, K., Ramasso, E., Chebel-Morello, B., Zerhouni, N. y Varnier, C. (2012). PRONOSTIA: An experimental platform for bearings accelerated degradation tests. En <em>IEEE International Conference on Prognostics and Health Management (PHM'12)</em>, Denver. <a href="https://hal.science/hal-00719503">https://hal.science/hal-00719503</a></li>
+      <li>Nelson, L. S. (1984). The Shewhart control chart—Tests for special causes. <em>Journal of Quality Technology, 16</em>(4), 237–239. <a href="https://doi.org/10.1080/00224065.1984.11978921">https://doi.org/10.1080/00224065.1984.11978921</a></li>
+      <li>Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., … Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research, 12</em>(85), 2825–2830. <a href="https://jmlr.org/papers/v12/pedregosa11a.html">https://jmlr.org/papers/v12/pedregosa11a.html</a></li>
+      <li>Qiu, H., Lee, J., Lin, J. y Yu, G. (2006). Wavelet filter-based weak signature detection method and its application on rolling element bearing prognostics. <em>Journal of Sound and Vibration, 289</em>(4–5), 1066–1090. <a href="https://doi.org/10.1016/j.jsv.2005.03.007">https://doi.org/10.1016/j.jsv.2005.03.007</a></li>
+      <li>Schölkopf, B., Platt, J. C., Shawe-Taylor, J., Smola, A. J. y Williamson, R. C. (2001). Estimating the support of a high-dimensional distribution. <em>Neural Computation, 13</em>(7), 1443–1471. <a href="https://doi.org/10.1162/089976601750264965">https://doi.org/10.1162/089976601750264965</a></li>
+      <li>Wang, B., Lei, Y., Li, N. y Li, N. (2020). A hybrid prognostics approach for estimating remaining useful life of rolling element bearings. <em>IEEE Transactions on Reliability, 69</em>(1), 401–412. <a href="https://doi.org/10.1109/TR.2018.2882682">https://doi.org/10.1109/TR.2018.2882682</a></li>
+      <li>Youden, W. J. (1950). Index for rating diagnostic tests. <em>Cancer, 3</em>(1), 32–35. <a href="https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3">https://doi.org/10.1002/1097-0142(1950)3:1%3C32::AID-CNCR2820030106%3E3.0.CO;2-3</a></li>
+    </ul>
 
   <footer>
     <a href="index.html">Volver a la página de inicio</a> ·

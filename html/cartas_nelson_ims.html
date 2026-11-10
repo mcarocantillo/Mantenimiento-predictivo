@@ -7796,13 +7796,13 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=576b7d44">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57587e24">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Cartas-de-control-y-reglas-de-Nelson-en-los-rodamientos-IMS">Cartas de control y reglas de Nelson en los rodamientos IMS<a class="anchor-link" href="#Cartas-de-control-y-reglas-de-Nelson-en-los-rodamientos-IMS">¶</a></h1><p><strong>Pregunta.</strong> Una empresa usa 8 reglas de alarma, las reglas de Nelson, sobre cartas de control, y en Superbricks
+<h1 id="Cartas-de-control-y-reglas-de-Nelson-en-los-rodamientos-IMS">Cartas de control y reglas de Nelson en los rodamientos IMS<a class="anchor-link" href="#Cartas-de-control-y-reglas-de-Nelson-en-los-rodamientos-IMS">¶</a></h1><p><strong>Pregunta.</strong> Una empresa usa 8 reglas de alarma, las reglas de Nelson (Nelson, 1984), sobre cartas de control, y en Superbricks
 funcionaron. Este trabajo revisa si esas mismas reglas sirven para anticipar fallas en otra industria, la de máquinas
 rotativas, usando rodamientos. Si sirven, también busca con qué tipo de carta funcionan mejor.</p>
 <p><strong>Objetivos</strong></p>
@@ -7813,7 +7813,7 @@ se acerca a fallar. Primero en el ensayo 1 y luego en los ensayos 2 y 3.</li>
 <li>Para el mismo periodo, además de la carta I-MR, construir las cartas X̄-R y X̄-S y ver con cuál de las tres hay
 mejor relación entre alarma y falla.</li>
 </ol>
-<p><strong>Datos.</strong> Los 3 ensayos del conjunto IMS (Universidad de Cincinnati). En cada ensayo, 4 rodamientos montados en un
+<p><strong>Datos.</strong> Los 3 ensayos del conjunto IMS (Universidad de Cincinnati; Qiu et al., 2006; Lee et al., 2007). En cada ensayo, 4 rodamientos montados en un
 mismo eje giran a 2000 revoluciones por minuto, con mucha carga, hasta que uno se daña. Cada 10 minutos se guarda
 1 segundo de vibración de cada rodamiento. En total hay 4 rodamientos que fallan y 8 que terminan sanos; los sanos
 sirven de control para saber cuántas veces una alarma suena sin que haya falla.</p>
@@ -7824,7 +7824,7 @@ dentro de la carpeta <code>scripts/</code> del repositorio; este notebook solo l
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1496556c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0ee1465f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7898,7 +7898,7 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=402c781a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8fdfc529">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7934,7 +7934,7 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </tr>
 <tr>
 <td>Carta de control</td>
-<td>Gráfica de la señal en el tiempo con una línea central (el promedio sano) y límites arriba y abajo. Si la señal se sale de los límites o forma ciertos patrones, suena una alarma.</td>
+<td>Gráfica de la señal en el tiempo con una línea central (el promedio sano) y límites arriba y abajo. Si la señal se sale de los límites o forma ciertos patrones, suena una alarma (Montgomery, 8.ª ed.).</td>
 </tr>
 <tr>
 <td>Carta I-MR</td>
@@ -7958,7 +7958,7 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </tr>
 <tr>
 <td>J de Youden</td>
-<td>Una nota para la alarma: sensibilidad menos el porcentaje de tiempo que suena en rodamientos sanos. 1 es perfecta y 0 no sirve.</td>
+<td>Una nota para la alarma: sensibilidad menos el porcentaje de tiempo que suena en rodamientos sanos. 1 es perfecta y 0 no sirve (Youden, 1950).</td>
 </tr>
 <tr>
 <td>AUC</td>
@@ -7974,7 +7974,8 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </tr>
 </tbody>
 </table>
-<p><strong>Las 8 reglas de Nelson</strong></p>
+<p><strong>Las 8 reglas de Nelson</strong> (Nelson, 1984). Las reglas de Western Electric (Western Electric Company, 1956) son un
+subconjunto de ellas.</p>
 <table>
 <thead>
 <tr>
@@ -8029,7 +8030,7 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=76395515">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=29c6c2f3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8103,7 +8104,7 @@ completas están en el <a href="https://github.com/mcarocantillo/Mantenimiento-p
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8e06d752">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73bb534c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8127,7 +8128,7 @@ normal (1 = igual que en el baseline, 2 = el doble de irregular).</li>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e9877276">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4ad3960c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8192,7 +8193,7 @@ normal (1 = igual que en el baseline, 2 = el doble de irregular).</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=54134ca5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=579f6193">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8216,7 +8217,7 @@ y los subgrupos de <a href="https://github.com/mcarocantillo/Mantenimiento-predi
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4641509f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc1d3269">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8230,7 +8231,7 @@ la vida real, cuando se fijan los límites todavía no se sabe qué va a pasar.<
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e98acf47">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e527cfab">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8313,7 +8314,7 @@ la vida real, cuando se fijan los límites todavía no se sabe qué va a pasar.<
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bdb48336">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c15298f3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8334,7 +8335,7 @@ industrias.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2e9ffb3d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df362010">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8355,7 +8356,7 @@ más oscuro el azul, mejor la alarma. La celda más oscura es la mejor.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f4f63b65">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=46618ad3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8403,7 +8404,7 @@ más oscuro el azul, mejor la alarma. La celda más oscura es la mejor.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3843a057">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d03ea3bc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8415,7 +8416,7 @@ seguidos) en un rodamiento sano.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=432afebe">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2f1d8129">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8536,7 +8537,7 @@ seguidos) en un rodamiento sano.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7b039fe8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=36c3cd67">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8560,8 +8561,8 @@ falla. Se podrían desactivar para no generar alarmas inútiles.</li>
 rodamiento del mismo ensayo, en las 96 combinaciones posibles, y se recalculó la nota J. Para la mejor alarma, la
 combinación real es la que da la nota más alta de las 96, así que la probabilidad de que salga así por casualidad es
 de 1 en 96, cerca del 1 % (p = 0,010). Pero
-como se probaron 54 alarmas a la vez, alguna podía salir bien por suerte; al corregir por eso (correcciones de Holm y
-de Benjamini-Hochberg), el resultado deja de ser concluyente. Con solo 4 fallas no hay datos suficientes para
+como se probaron 54 alarmas a la vez, alguna podía salir bien por suerte; al corregir por eso (correcciones de Holm, 1979, y
+de Benjamini y Hochberg, 1995), el resultado deja de ser concluyente. Con solo 4 fallas no hay datos suficientes para
 afirmarlo con fuerza estadística; hay que confirmarlo con otro conjunto de datos.</p>
 <p><em>Código:</em> <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/scripts/ims_reglas_falla.py">ims_reglas_falla.py</a>. La tabla completa de las 54 alarmas está en
 <code>reglas_falla.csv</code>.</p>
@@ -8569,7 +8570,7 @@ afirmarlo con fuerza estadística; hay que confirmarlo con otro conjunto de dato
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15586864">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3a7ffeb2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8587,7 +8588,7 @@ alrededor de cada línea muestra dónde está la mitad central de los rodamiento
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8d8a9fcd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=473803f4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8614,7 +8615,7 @@ alrededor de cada línea muestra dónde está la mitad central de los rodamiento
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c79c16d1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=583bdf67">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8626,7 +8627,7 @@ rodamientos que fallan y bajo en los sanos.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=417d469b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6f07f015">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8710,7 +8711,7 @@ rodamientos que fallan y bajo en los sanos.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3f1bc88b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4cfb5d9f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8732,7 +8733,7 @@ carta S y la curtosis, además, esa relación apunta al rodamiento correcto.</li
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=618f2402">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9524c4ed">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8748,11 +8749,11 @@ acertar siempre.</p>
 <li><strong>Dispersión:</strong> la parte que mira qué tan irregular es la señal (MR, R o S).</li>
 </ul>
 <p>Entre corchetes está el margen de error, calculado repitiendo el análisis 2000 veces con muestras al azar de los
-rodamientos (bootstrap). Si los márgenes de dos cartas se cruzan, no se puede decir que una sea mejor que la otra.</p>
+rodamientos (bootstrap; Efron y Tibshirani, 1993). Si los márgenes de dos cartas se cruzan, no se puede decir que una sea mejor que la otra.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=61d3cd3d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=674ca46a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8838,7 +8839,7 @@ rodamientos (bootstrap). Si los márgenes de dos cartas se cruzan, no se puede d
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0c1ae228">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=761bcde6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8861,7 +8862,7 @@ a su parte S. La X̄-R no mejora a la I-MR.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=962abd7f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c94b9a1b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8902,7 +8903,7 @@ que confirmarlos con más datos.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ea10c719">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bc109c6d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8944,6 +8945,25 @@ o con menos falsas alarmas, usando solo los datos que ya existen:</p>
 <p>Todos se validan entrenando con dos ensayos y evaluando en el tercero, y se comparan con las reglas de Nelson con las
 mismas medidas de esta página. El detalle (datos de entrada, etiquetas, validación, orden de trabajo y riesgos) está en
 el <a href="https://mcarocantillo.github.io/Mantenimiento-predictivo/plan_ml.html">plan de Machine Learning</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a8e5ddfa">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Referencias">Referencias<a class="anchor-link" href="#Referencias">¶</a></h2><p>Benjamini, Y. y Hochberg, Y. (1995). Controlling the false discovery rate: A practical and powerful approach to multiple testing. <em>Journal of the Royal Statistical Society: Series B, 57</em>(1), 289–300. <a href="https://doi.org/10.1111/j.2517-6161.1995.tb02031.x">https://doi.org/10.1111/j.2517-6161.1995.tb02031.x</a></p>
+<p>Efron, B. y Tibshirani, R. J. (1993). <em>An Introduction to the Bootstrap</em>. Chapman &amp; Hall/CRC. <a href="https://doi.org/10.1007/978-1-4899-4541-9">https://doi.org/10.1007/978-1-4899-4541-9</a></p>
+<p>Holm, S. (1979). A simple sequentially rejective multiple test procedure. <em>Scandinavian Journal of Statistics, 6</em>(2), 65–70. <a href="https://www.jstor.org/stable/4615733">https://www.jstor.org/stable/4615733</a></p>
+<p>Lee, J., Qiu, H., Yu, G., Lin, J. y Rexnord Technical Services (2007). <em>IMS Bearing Data</em> [conjunto de datos]. NASA Prognostics Data Repository, NASA Ames Research Center.</p>
+<p>Montgomery, D. C. <em>Introduction to Statistical Quality Control</em> (8.ª ed.). Wiley.</p>
+<p>Nelson, L. S. (1984). The Shewhart control chart—Tests for special causes. <em>Journal of Quality Technology, 16</em>(4), 237–239. <a href="https://doi.org/10.1080/00224065.1984.11978921">https://doi.org/10.1080/00224065.1984.11978921</a></p>
+<p>Qiu, H., Lee, J., Lin, J. y Yu, G. (2006). Wavelet filter-based weak signature detection method and its application on rolling element bearing prognostics. <em>Journal of Sound and Vibration, 289</em>(4–5), 1066–1090. <a href="https://doi.org/10.1016/j.jsv.2005.03.007">https://doi.org/10.1016/j.jsv.2005.03.007</a></p>
+<p>Western Electric Company (1956). <em>Statistical Quality Control Handbook</em>. Western Electric Co.</p>
+<p>Youden, W. J. (1950). Index for rating diagnostic tests. <em>Cancer, 3</em>(1), 32–35. <a href="https://doi.org/10.1002/1097-0142(1950)3:1">https://doi.org/10.1002/1097-0142(1950)3:1</a>&lt;32::AID-CNCR2820030106&gt;3.0.CO;2-3</p>
 </div>
 </div>
 </div>

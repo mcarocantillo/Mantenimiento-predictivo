@@ -1,5 +1,10 @@
 """Genera eda_ims.ipynb: análisis exploratorio de los 3 ensayos de rodamientos NASA IMS."""
+import sys
+
 import nbformat as nbf
+
+sys.path.insert(0, "scripts")
+from referencias import bloque  # noqa: E402
 
 celdas = []
 md = lambda s: celdas.append(nbf.v4.new_markdown_cell(s.strip()))
@@ -20,7 +25,7 @@ exploratorio (EDA, por sus siglas en inglés) responde cuatro preguntas:
 Este análisis es la base de las cartas de control y de las reglas de Nelson, que están en el documento
 `cartas_nelson_ims`.
 
-**Datos.** 3 ensayos llevados hasta la falla, 4 rodamientos en un mismo eje a 2000 rpm. Cada archivo es 1 s de
+**Datos.** 3 ensayos llevados hasta la falla (Qiu et al., 2006; Lee et al., 2007), 4 rodamientos en un mismo eje a 2000 rpm. Cada archivo es 1 s de
 vibración a 20 kHz, tomado cada 10 min. De cada archivo se calcularon 13 indicadores por canal
 (`scripts/ims_features.py`); en el ensayo 1 hay 2 canales por rodamiento y aquí se promedian.
 
@@ -136,7 +141,7 @@ md(r"""
 | Curtosis | Mide si la vibración tiene golpes aislados. Una grieta pequeña produce un golpecito cada vez que pasa una bola, y la curtosis sube. |
 | Asimetría | Si la vibración se carga más hacia un lado (positivo o negativo). En una máquina sana es cercana a 0. |
 | Energía por bandas | Qué porcentaje de la vibración está en sonidos graves (0–1 kHz) o agudos (5–10 kHz). |
-| Envolvente y frecuencia de defecto | Cada parte dañada golpea a un ritmo fijo: BPFO (pista externa, ~236 golpes por segundo), BPFI (pista interna), BSF (bolas) y FTF (jaula). La envolvente busca ese ritmo. |
+| Envolvente y frecuencia de defecto | Cada parte dañada golpea a un ritmo fijo: BPFO (pista externa, ~236 golpes por segundo), BPFI (pista interna), BSF (rodillos) y FTF (jaula). La envolvente busca ese ritmo (Randall y Antoni, 2011). La sección 3 explica de dónde salen estos valores. |
 | Baseline (línea base) | 24 horas en que el rodamiento está sano y estable; se usa como referencia de lo normal. |
 | σ (sigma) | Cuánto varía normalmente la señal alrededor de su promedio. "Cambió 11σ" quiere decir que se movió 11 veces más de lo normal. |
 | Coeficiente de variación (CV) | σ dividida por el promedio, en porcentaje. Un CV de 1 % es una señal muy estable. |
@@ -144,7 +149,7 @@ md(r"""
 | Autocorrelación | Qué tanto se parece un punto al anterior. Si es alta, los puntos no son independientes. |
 | Prueba de Shapiro-Wilk | Revisa si los datos tienen forma de campana (distribución normal). Un p menor que 0,05 indica que no. |
 | Valor atípico (vallas de Tukey) | Un valor mucho más alto o más bajo que la mayoría; aquí, fuera del rango normal del baseline. |
-| Carta de control | Gráfica de la señal en el tiempo con límites calculados en el baseline; si la señal se sale o forma ciertos patrones, suena una alarma. |
+| Carta de control | Gráfica de la señal en el tiempo con límites calculados en el baseline; si la señal se sale o forma ciertos patrones, suena una alarma (Montgomery, 8.ª ed.). |
 """)
 
 md(r"""
@@ -342,6 +347,37 @@ md(r"""
 **Qué quiere decir.** 48 horas antes del fin, la señal a simple vista se ve casi igual que al inicio, pero el espectro
 de envolvente ya muestra un pico claro: el defecto ya existe y golpea unas 231 veces por segundo. Un análisis más fino
 detecta el daño días antes de que la vibración total aumente.
+""")
+
+md(r"""
+### De dónde salen las frecuencias de defecto
+
+Cuando una parte del rodamiento tiene una grieta, cada vez que un rodillo pasa por ella se produce un golpe. Como el
+eje gira a velocidad constante, esos golpes se repiten a un ritmo fijo que depende solo de la geometría del rodamiento
+y de la velocidad del eje (Randall y Antoni, 2011). Para la pista externa, por ejemplo:
+
+$$
+\text{BPFO} = \frac{n}{2}\, f_r \left(1 - \frac{d}{D}\cos\theta\right)
+$$
+
+donde $f_r$ es la velocidad del eje en vueltas por segundo (2000 rpm / 60 = 33,3 Hz), $n$ el número de rodillos por
+hilera, $d$ el diámetro del rodillo, $D$ el diámetro primitivo y $\theta$ el ángulo de contacto. Con la geometría del
+rodamiento Rexnord ZA-2115 que se reporta para este banco de pruebas (16 rodillos por hilera, d = 0,331 pulgadas,
+D = 2,815 pulgadas, θ = 15,17°), **calculamos** las cuatro frecuencias y las **comprobamos** con los datos: en cada
+rodamiento que falló buscamos el pico más alto del espectro de envolvente cerca de la frecuencia de su tipo de daño.
+
+| Frecuencia | Parte que golpea | Calculada | Observada en los datos | Rodamiento donde se observó |
+| --- | --- | --- | --- | --- |
+| BPFO | Pista externa | 236,4 Hz | ~231 Hz | Ensayo 2, B1 (falla en pista externa) |
+| BPFI | Pista interna | 296,9 Hz | ~294 Hz | Ensayo 1, B3 (falla en pista interna) |
+| BSF | Rodillos | 139,9 Hz | ~131 Hz | Ensayo 1, B4 (falla en rodillos) |
+| FTF | Jaula | 14,8 Hz | — | Ningún rodamiento falló en la jaula |
+
+**Qué quiere decir.** Las frecuencias observadas quedan entre 1 % y 6 % por debajo de las calculadas, algo normal porque
+los rodillos se deslizan un poco en lugar de rodar perfectamente. Que cada rodamiento muestre el pico en la frecuencia
+de su propio tipo de daño confirma que el diagnóstico del conjunto de datos (Qiu et al., 2006) coincide con lo que se
+ve en la vibración. La frecuencia de los rodillos se corre un 6 %, más que el ±5 % que usa el indicador de envolvente;
+en la etapa de Machine Learning se ampliará esa ventana.
 """)
 
 md(r"""
@@ -609,6 +645,8 @@ md(r"""
 3. Para el RMS, probar una carta sobre residuos o un RMS relativo (rodamiento frente al promedio de los otros
    tres) para quitar la deriva y el efecto del eje compartido.
 """)
+
+md(bloque(["qiu2006", "nasa_ims", "randall2011", "montgomery"]))
 
 nb = nbf.v4.new_notebook(cells=celdas)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}

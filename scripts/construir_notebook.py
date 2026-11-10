@@ -1,5 +1,10 @@
 """Genera mantenimiento_predictivo.ipynb a partir de celdas definidas aquí."""
+import sys
+
 import nbformat as nbf
+
+sys.path.insert(0, "scripts")
+from referencias import bloque  # noqa: E402
 
 celdas = []
 md = lambda s: celdas.append(nbf.v4.new_markdown_cell(s.strip()))
@@ -15,7 +20,7 @@ md(r"""
 probar la idea general antes de trabajar con los rodamientos IMS: comparar las alarmas por σ con modelos de Machine
 Learning.
 
-**Datos.** *Condition monitoring of hydraulic systems* (UCI, ZeMA): 2205 ciclos de 60 s de un banco hidráulico,
+**Datos.** *Condition monitoring of hydraulic systems* (UCI, ZeMA; Helwig et al., 2015): 2205 ciclos de 60 s de un banco hidráulico,
 17 sensores. La señal que se vigila es **EPS1, la potencia del motor (W)**, que es la variable sobre la que se
 calculan las alarmas de 1.5σ y 3σ.
 
@@ -93,10 +98,10 @@ md(r"""
 | Detección | Porcentaje de ciclos con daño en que la alarma o el modelo sí avisa. Más alto es mejor. |
 | Falsa alarma | Porcentaje de ciclos sanos en que avisa por error. Más bajo es mejor. |
 | Machine Learning supervisado | El modelo aprende de ejemplos ya etiquetados ("este ciclo era sano", "este estaba dañado") y luego clasifica ciclos nuevos. |
-| RandomForest | Modelo supervisado que combina cientos de árboles de decisión, cada uno con reglas simples del tipo "si la potencia máxima es mayor que X…". |
+| RandomForest | Modelo supervisado que combina cientos de árboles de decisión, cada uno con reglas simples del tipo "si la potencia máxima es mayor que X…" (Breiman, 2001). |
 | Característica | Un número que resume la señal de un ciclo, como su promedio, su máximo o cuánto varía. |
 | Validación por bloques (GroupKFold) | El modelo se prueba con ciclos que no vio al entrenar, separados por bloques de tiempo, para que no "haga trampa" con ciclos casi idénticos. |
-| No supervisado (IsolationForest) | El modelo solo ve ciclos sanos y aprende cómo es lo normal; marca como anomalía lo que se aleja de eso. No necesita ejemplos de fallas. |
+| No supervisado (IsolationForest) | El modelo solo ve ciclos sanos y aprende cómo es lo normal; marca como anomalía lo que se aleja de eso. No necesita ejemplos de fallas (Liu et al., 2008). |
 | Percentil 99 | El valor por debajo del cual queda el 99 % de los datos; se usa como umbral para decidir qué es raro. |
 """)
 
@@ -376,6 +381,8 @@ Sin agregar sensores ni modificar el equipo:
 4. Entrenar un detector no supervisado con los periodos sanos registrados y comprobar si su puntaje sube antes de las
    alarmas σ.
 """)
+
+md(bloque(["helwig2015", "breiman2001", "liu2008", "pedregosa2011"]))
 
 nb = nbf.v4.new_notebook(cells=celdas, metadata={
     "kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
