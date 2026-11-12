@@ -308,6 +308,25 @@ perfil["Separación (σ)"] = perfil["Cambio final, fallan (σ)"] - perfil["Cambi
 perfil.sort_values("Separación (σ)", ascending=False).round(2)
 """)
 
+md(r"""
+**¿Los indicadores tienen forma de campana en estado sano?** Las cartas de control suponen que, cuando la máquina está
+sana, los valores de cada indicador se reparten en forma de campana (distribución normal). La siguiente tabla lo
+revisa. Hay que distinguir dos niveles:
+
+- **Las filas son los indicadores**, calculados dentro de cada segundo de vibración. Dos de ellos se llaman
+  "curtosis de la vibración" y "asimetría de la vibración": miden la forma de las 20 480 mediciones de un segundo.
+- **Las columnas describen la forma de los 144 valores** que toma cada indicador a lo largo de las 24 horas del
+  baseline (uno cada 10 minutos). Para eso se usan las mismas dos medidas estadísticas, aplicadas ahora a otro
+  conjunto de números:
+  - **Sesgo** (asimetría): 0 si los valores se reparten igual hacia arriba que hacia abajo; positivo si hay más
+    valores altos ocasionales.
+  - **Colas** (exceso de curtosis): 0 si hay tantos valores extremos como en una campana normal; positivo si hay más.
+
+Por ejemplo, en la fila "Curtosis de la vibración", un sesgo de 0,43 quiere decir que la mayoría de los segundos sanos
+tienen una curtosis baja y unos pocos la tienen algo más alta. Valores entre −1 y 1 se consideran cercanos a una
+campana. Cada número es la mediana de los 12 rodamientos.
+""")
+
 code(r"""
 # Distribución en el baseline: ¿simétrica o sesgada? (asimetría y curtosis de cada indicador, mediana de 12 rodamientos)
 filas = []
@@ -318,7 +337,9 @@ for f in FEATS:
         for b in RODS:
             s = df.loc[base, f"{b}_{f}"]
             sk.append(stats.skew(s)); ku.append(stats.kurtosis(s))
-    filas.append({"Indicador": NOMBRES[f], "Asimetría": np.median(sk), "Exceso de curtosis": np.median(ku)})
+    nombre = {"kurt": "Curtosis de la vibración", "skew": "Asimetría de la vibración"}.get(f, NOMBRES[f])
+    filas.append({"Indicador": nombre, "Forma en el baseline: sesgo": np.median(sk),
+                  "Forma en el baseline: colas": np.median(ku)})
 pd.DataFrame(filas).set_index("Indicador").round(2)
 """)
 
@@ -327,7 +348,7 @@ md(r"""
 variación normal" (σ). El RMS es el que más cambia, pero también cambia mucho en los rodamientos sanos, así que no dice
 cuál rodamiento está fallando. La curtosis cambia mucho en los que fallan y casi nada en los sanos: es la que mejor
 apunta al rodamiento dañado. La segunda tabla muestra que casi todos los indicadores tienen forma de campana en estado
-sano (asimetría y exceso de curtosis cercanos a 0), que es lo que suponen las cartas de control.
+sano (sesgo y colas entre −1 y 1), que es lo que suponen las cartas de control.
 """)
 
 md(r"""
