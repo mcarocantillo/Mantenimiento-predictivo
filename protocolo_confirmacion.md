@@ -82,6 +82,14 @@ la regla 1):
 
 Cualquier cambio a este protocolo después de ver los datos se registrará aquí, con la fecha y el motivo.
 
+**12 de noviembre de 2026, después de procesar FEMTO y antes de procesar XJTU-SY. Aclaración de implementación.**
+La primera versión del código contaba como acierto solo los eventos que **empezaban** dentro del tramo previo a la
+falla. Así, un rodamiento con la alarma sonando el 100 % del tramo final, pero desde antes de que empezara ese tramo,
+quedaba como fallo. Se corrigió para que cumpla la definición de la sección 4: hay acierto si dentro del tramo previo
+hay al menos una racha de 3 archivos seguidos fuera de los límites, haya empezado antes o no. Como esta corrección
+favorece a la hipótesis, se agrega una versión **estricta** de p₀, que suma a la probabilidad del protocolo la fracción
+del tramo sano con una alarma ya en curso. Se reportan las dos.
+
 ## Referencias
 
 Montgomery, D. C. *Introduction to Statistical Quality Control* (8.ª ed.). Wiley.
