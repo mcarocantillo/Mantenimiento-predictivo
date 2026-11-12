@@ -26,6 +26,13 @@ REFS = {
               "https://doi.org/10.1111/j.2517-6161.1995.tb02031.x",
     "efron1993": "Efron, B. y Tibshirani, R. J. (1993). *An Introduction to the Bootstrap*. Chapman & Hall/CRC. "
                  "https://doi.org/10.1007/978-1-4899-4541-9",
+    "wang2020": "Wang, B., Lei, Y., Li, N. y Li, N. (2020). A hybrid prognostics approach for estimating remaining useful "
+                "life of rolling element bearings. *IEEE Transactions on Reliability, 69*(1), 401–412. "
+                "https://doi.org/10.1109/TR.2018.2882682",
+    "nectoux2012": "Nectoux, P., Gouriveau, R., Medjaher, K., Ramasso, E., Chebel-Morello, B., Zerhouni, N. y Varnier, C. "
+                   "(2012). PRONOSTIA: An experimental platform for bearings accelerated degradation tests. En *IEEE "
+                   "International Conference on Prognostics and Health Management (PHM'12)*, Denver. "
+                   "https://hal.science/hal-00719503",
     "helwig2015": "Helwig, N., Pignanelli, E. y Schütze, A. (2015). Condition monitoring of a complex hydraulic system "
                   "using multivariate statistics. En *2015 IEEE International Instrumentation and Measurement Technology "
                   "Conference (I2MTC)* (pp. 210–215). https://doi.org/10.1109/I2MTC.2015.7151267",

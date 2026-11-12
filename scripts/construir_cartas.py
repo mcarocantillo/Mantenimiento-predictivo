@@ -336,7 +336,8 @@ combinación real es la que da la nota más alta de las 96, así que la probabil
 de 1 en 96, cerca del 1 % (p = 0,010). Pero
 como se probaron 54 alarmas a la vez, alguna podía salir bien por suerte; al corregir por eso (correcciones de Holm, 1979, y
 de Benjamini y Hochberg, 1995), el resultado deja de ser concluyente. Con solo 4 fallas no hay datos suficientes para
-afirmarlo con fuerza estadística; hay que confirmarlo con otro conjunto de datos.
+afirmarlo con fuerza estadística solo con IMS; por eso se confirmó con otros dos conjuntos de datos (sección 9),
+donde la carta S avisó en 29 de 30 rodamientos.
 
 *Código:* [ims_reglas_falla.py]({GH}/ims_reglas_falla.py). La tabla completa de las 54 alarmas está en
 `reglas_falla.csv`.
@@ -625,18 +626,28 @@ md(r"""
   cerca de 1 %.
 - El método original da muchas falsas alarmas porque el RMS cambia lentamente aunque el rodamiento esté sano, salta
   con los reinicios de la prueba y, al final, todos los rodamientos vibran juntos.
-- Con solo 4 fallas, los resultados son consistentes pero no concluyentes desde el punto de vista estadístico. Hay
-  que confirmarlos con más datos.
+- Con solo 4 fallas, los resultados de IMS no eran concluyentes por sí solos. Se confirmaron después en 30
+  rodamientos de XJTU-SY y FEMTO: la carta S avisó en 29 (p < 0,0001; sección 9).
 """)
 
 md(r"""
 ## 9. Qué sigue
 
-**Confirmar con más datos.** Para que los resultados sean concluyentes, la alarma ganadora (dispersión de la carta S
-sobre el RMS) se evaluará, sin ajustar nada, en otros conjuntos públicos de rodamientos llevados hasta la falla:
-XJTU-SY (15 rodamientos) y FEMTO/PRONOSTIA (17). Al ser una sola prueba planeada de antemano, ya no hace falta corregir
-por 54 comparaciones. En esos mismos datos se probará un criterio de estabilidad relativo a cada máquina, que
-reemplace el umbral fijo de CV de 10 a 30 %.
+**Confirmación con más datos (hecha).** La alarma ganadora se evaluó, sin ajustar nada, en dos conjuntos públicos de
+rodamientos llevados hasta la falla, con un [protocolo registrado antes de calcular](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/protocolo_confirmacion.md).
+Al ser una sola prueba planeada de antemano, ya no hace falta corregir por 54 comparaciones.
+
+| Conjunto | Rodamientos | La carta S avisó en el 10 % final de la vida | Aciertos esperados por azar | p |
+| --- | --- | --- | --- | --- |
+| XJTU-SY (Wang et al., 2020) | 13 | 12 | 24 % | < 0,0001 |
+| FEMTO/PRONOSTIA (Nectoux et al., 2012) | 17 | 17 | 78 % | 0,015 |
+| Los dos juntos | 30 | 29 | 60 % | < 0,0001 |
+
+El método original (RMS en I-MR, regla 1) también avisa, pero suena el 40 % del tiempo sano, y con el cálculo estricto
+no se distingue del azar (p = 0,057). La línea base de cada rodamiento se eligió con su propio CV más bajo, sin el
+umbral fijo de 10 a 30 %. La principal limitación es que, en estos conjuntos, la carta S estuvo en alarma el 17 % del
+tiempo sano (2 % en IMS). Detalle, análisis de sensibilidad y limitaciones en los
+[resultados de la confirmación](https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/resultados_confirmacion.md).
 
 **Machine Learning para anticipar la falla.** La siguiente etapa prueba si un modelo puede avisar antes que la carta S,
 o con menos falsas alarmas, usando solo los datos que ya existen:
@@ -653,7 +664,7 @@ el [plan de Machine Learning](https://mcarocantillo.github.io/Mantenimiento-pred
 """)
 
 md(bloque(["nelson1984", "we1956", "montgomery", "youden1950", "holm1979", "bh1995", "efron1993",
-           "qiu2006", "nasa_ims"]))
+           "qiu2006", "nasa_ims", "wang2020", "nectoux2012"]))
 
 nb = nbf.v4.new_notebook(cells=celdas)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}

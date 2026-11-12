@@ -85,29 +85,47 @@
       <td><span class="estado">Hecho</span></td>
       <td>La X̄-S es la que mejor relaciona alarma y falla, por su parte S (AUC de 0,86 frente a 0,73 de la I-MR).</td>
     </tr>
+    <tr>
+      <td>4. Ver qué tan bien predicen la falla las cartas y sus alarmas.</td>
+      <td><span class="estado">Hecho</span></td>
+      <td>En IMS, cuando suena la carta S, el rodamiento falla dentro de la semana siguiente en el 84 % de los casos;
+        con el método original, solo en el 16 %. Ver la sección 7 del documento de cartas.</td>
+    </tr>
+    <tr>
+      <td>5. Confirmar el resultado con otras bases de datos (XJTU-SY y FEMTO/PRONOSTIA).</td>
+      <td><span class="estado">Hecho</span></td>
+      <td>La carta S, elegida con IMS y aplicada sin ajustes a 30 rodamientos nuevos, avisó en el 10 % final de la vida
+        en 29 de 30. Por azar se esperaba el 60 %; p &lt; 0,0001. El método original no se distingue del azar
+        (p = 0,057).</td>
+    </tr>
   </table>
   </div>
-  <h2>Limitaciones y cómo se van a resolver</h2>
+  <h2>Limitaciones y cómo se abordaron</h2>
   <div class="tabla">
   <table>
-    <tr><th>Limitación</th><th>Por qué importa</th><th>Cómo se va a resolver</th></tr>
+    <tr><th>Limitación</th><th>Por qué importa</th><th>Estado</th></tr>
     <tr>
       <td>Solo hay 4 rodamientos que fallan en los datos IMS.</td>
-      <td>Los resultados son consistentes en los tres ensayos, pero se probaron 54 alarmas a la vez y, con tan pocas
-        fallas, la mejor puede haber salido bien en parte por casualidad. Por eso todavía no son concluyentes desde el
-        punto de vista estadístico.</td>
-      <td>Confirmar con otros conjuntos públicos de rodamientos llevados hasta la falla: XJTU-SY (15 rodamientos) y
-        FEMTO/PRONOSTIA (17). La alarma ganadora se elige con IMS y se evalúa en los nuevos datos <strong>sin ajustar
-        nada</strong>. Así es una sola prueba planeada de antemano, no 54, y con 4 veces más fallas el resultado sí
-        puede ser concluyente. Ver la <a href="plan_ml.html#mas-datos">sección 9 del plan</a>.</td>
+      <td>Se probaron 54 alarmas a la vez y, con tan pocas fallas, la mejor podía haber salido bien en parte por
+        casualidad.</td>
+      <td><strong>Resuelta.</strong> La carta S se evaluó, sin ajustar nada, en 30 rodamientos de XJTU-SY y FEMTO con
+        un <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/protocolo_confirmacion.md">protocolo registrado antes de calcular</a>. Avisó en 29 de 30
+        (p &lt; 0,0001). Ver los <a href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/resultados_confirmacion.md">resultados de la confirmación</a>.</td>
     </tr>
     <tr>
       <td>El criterio de estabilidad de Superbricks (coeficiente de variación de 10 a 30 %) no se transfiere.</td>
       <td>En estos rodamientos lo normal es un CV cercano a 1 %; valores de 10 a 30 % solo aparecen cuando ya están
         fallando. Un umbral fijo no sirve para todas las industrias.</td>
-      <td>Esto es en sí un resultado del estudio de transferencia. Se propondrá un criterio relativo a cada máquina:
-        considerar estable un periodo cuyo CV no supere unas pocas veces el CV más bajo observado en esa misma máquina.
-        Se probará en los conjuntos XJTU-SY y FEMTO para ver si funciona sin recalibrar.</td>
+      <td><strong>Abordada.</strong> En la confirmación, la línea base de cada rodamiento se eligió con su propio CV más
+        bajo, sin un umbral fijo, y la carta S funcionó en dos bancos de prueba distintos. Es en sí un resultado del
+        estudio de transferencia.</td>
+    </tr>
+    <tr>
+      <td>En XJTU-SY y FEMTO la carta S da más falsas alarmas que en IMS.</td>
+      <td>Estuvo en alarma el 17 % del tiempo sano (2 % en IMS) y su precisión fue de 19 %: identifica la etapa final,
+        pero sola no basta para decidir una parada.</td>
+      <td><strong>Pendiente.</strong> Es el punto de partida de la etapa de Machine Learning: combinar la carta S con
+        otros indicadores para reducir las falsas alarmas.</td>
     </tr>
   </table>
   </div>
@@ -132,6 +150,12 @@
       <p>Primera prueba de la idea con un conjunto de datos hidráulicos (UCI): alarmas por σ sobre la potencia
         del motor frente a modelos de Machine Learning.</p>
       <a class="boton" href="html/mantenimiento_predictivo.html">Abrir</a>
+    </div>
+    <div class="tarjeta">
+      <h3>4. Confirmación con XJTU-SY y FEMTO</h3>
+      <p>El protocolo fijado antes de ver los datos nuevos y sus resultados: la carta S avisó en 29 de 30 rodamientos,
+        con análisis de sensibilidad y limitaciones.</p>
+      <a class="boton" href="https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/resultados_confirmacion.md">Abrir</a>
     </div>
   </div>
 
