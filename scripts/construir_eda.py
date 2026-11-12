@@ -260,7 +260,9 @@ $$z_{e,b} = \frac{m_{\text{fin}} - m_{\text{base}}}{\sigma_{\text{base}}}$$
 
 Luego se resume cada grupo con la mediana y se restan:
 
-$$\text{Cambio final, fallan} = \operatorname{mediana}\{z_{e,b} : b \text{ falla}\} \qquad \text{Cambio final, sanos} = \operatorname{mediana}\{z_{e,b} : b \text{ sano}\}$$
+$$\text{Cambio final, fallan} = \operatorname{mediana}\{z_{e,b} : b \text{ falla}\}$$
+
+$$\text{Cambio final, sanos} = \operatorname{mediana}\{z_{e,b} : b \text{ sano}\}$$
 
 $$\text{Separación} = \text{Cambio final, fallan} - \text{Cambio final, sanos}$$
 
@@ -271,7 +273,9 @@ $$\text{Separación} = \text{Cambio final, fallan} - \text{Cambio final, sanos}$
 | $m_{\text{base}}$ | 0,443 | 0,190 |
 | $\sigma_{\text{base}}$ | 0,089 | 0,064 |
 | $m_{\text{fin}}$ | 1,715 | 0,070 |
-| $z = (m_{\text{fin}} - m_{\text{base}}) / \sigma_{\text{base}}$ | $(1{,}715 - 0{,}443) / 0{,}089 = 14{,}3$ | $(0{,}070 - 0{,}190) / 0{,}064 = -1{,}9$ |
+| $z$ | **14,3** | **−1,9** |
+
+$$z_{\text{B1}} = \frac{1{,}715 - 0{,}443}{0{,}089} = 14{,}3 \qquad\qquad z_{\text{B2}} = \frac{0{,}070 - 0{,}190}{0{,}064} = -1{,}9$$
 
 La curtosis de B1 subió 14 veces su variación normal; la de B2 casi no cambió.
 
