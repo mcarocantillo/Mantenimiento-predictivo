@@ -429,13 +429,196 @@ md(rf"""
 """)
 
 md(r"""
-## 6. Conclusiones
+## 6. Cada carta con sus alarmas
+
+Las figuras siguientes muestran, para cada tipo de carta, las **últimas 240 horas (10 días)** de los 4 rodamientos que
+fallan, con cada alarma marcada en el momento en que sonó. Las reglas se agrupan por tipo para que la figura se pueda
+leer:
+
+| Marca | Reglas | Qué detectan |
+| --- | --- | --- |
+| Círculo rojo | Regla 1 | Un punto más allá de 3σ |
+| Triángulo naranja | Regla 5 | 2 de 3 puntos más allá de 2σ |
+| Cuadrado azul | Reglas 2 y 6 | Corrimientos del nivel |
+| Cruz gris | Reglas 3, 4, 7 y 8 | Tendencias, oscilaciones y otros patrones |
+| Círculo rojo (columna derecha) | Dispersión | MR, R o S fuera de su límite |
+
+**Cómo leer cada figura.** Cada fila es un rodamiento que falla. La columna izquierda es la parte de **posición**
+de la carta (el nivel: I o X̄), con su línea central y sus límites a ±3σ; las reglas de Nelson se aplican aquí. La
+columna derecha es la parte de **dispersión** (MR, R o S), dividida por su valor normal, con sus límites. El 0 del eje
+horizontal es el momento de la falla.
+""")
+
+code(r"""
+LIM_DISP = {"I-MR": (0.0, 3.267, "MR"), "Xbar-R": (0.0, 2.114, "R"), "Xbar-S": (0.510, 1.490, "S")}
+FALLAS = [(1, "B3", "pista interna"), (1, "B4", "rodillos"), (2, "B1", "pista externa"), (3, "B3", "pista externa")]
+GRUPOS = [(["N1"], ROJO, "o", 16, "Regla 1"), (["N5"], NARANJA, "^", 18, "Regla 5"),
+          (["N2", "N6"], AZUL, "s", 10, "Reglas 2 y 6"), (["N3", "N4", "N7", "N8"], TENUE, "x", 18, "Reglas 3, 4, 7 y 8")]
+
+
+def dibujar_carta(var, carta, horas=240):
+    nombre_disp = LIM_DISP[carta][2]
+    fig, ejes = plt.subplots(len(FALLAS), 2, figsize=(12, 2.6 * len(FALLAS)), layout="constrained")
+    for fila, (e, rod, tipo) in enumerate(FALLAS):
+        d = alarmas[(alarmas.ensayo == e) & (alarmas.rod == rod) & (alarmas["var"] == var) & (alarmas.carta == carta)]
+        d = d[(d.fase == "monitoreo") & (d.horas_al_fin <= horas)]
+        lim = limites[(limites.ensayo == e) & (limites.rod == rod) & (limites["var"] == var) & (limites.carta == carta)].iloc[0]
+        x = -d.horas_al_fin
+        y = lim.media + d.z * lim.sigma_carta
+        ax = ejes[fila, 0]
+        ax.plot(x, y, color=TINTA2, lw=0.7)
+        for k in (-3, 3):
+            ax.axhline(lim.media + k * lim.sigma_carta, color=TENUE, ls=":", lw=1)
+        ax.axhline(lim.media, color=TENUE, lw=0.8)
+        for reglas, color, marca, tam, _ in GRUPOS:
+            m = d[reglas].any(axis=1)
+            ax.scatter(x[m], y[m], s=tam, color=color, marker=marca, zorder=3, linewidths=1)
+        ax.set_title(f"Ensayo {e}, {rod} (falla en {tipo}) · posición", loc="left")
+        ax.set_ylabel(NOMBRE_VAR[var])
+        ax = ejes[fila, 1]
+        lic, lsc, _ = LIM_DISP[carta]
+        ax.plot(x, d.disp_rel, color=TINTA2, lw=0.7)
+        for k in (lic, lsc):
+            if k > 0:
+                ax.axhline(k, color=TENUE, ls=":", lw=1)
+        ax.axhline(1, color=TENUE, lw=0.8)
+        m = d["disp"].astype(bool)
+        ax.scatter(x[m], d.disp_rel[m], s=16, color=ROJO, zorder=3)
+        ax.set_title(f"Ensayo {e}, {rod} · dispersión ({nombre_disp} / {nombre_disp} normal)", loc="left")
+    for ax in ejes[-1]:
+        ax.set_xlabel("Horas antes de la falla")
+    fig.legend(handles=[Line2D([], [], color=c, marker=mk, ls="", ms=6, label=et) for _, c, mk, _, et in GRUPOS]
+               + [Line2D([], [], color=TENUE, ls=":", label="Límites")], loc="outside lower center", ncol=5, fontsize=9)
+    sujeto = "el RMS" if var == "rms" else "la curtosis"
+    fig.suptitle(f"Carta {NOMBRE_CARTA[carta]} sobre {sujeto}: últimos 10 días de los rodamientos que fallan",
+                 x=0.01, ha="left", fontsize=12, fontweight="bold")
+    plt.show()
+""")
+
+md(r"""
+### Carta I-MR sobre el RMS (método original)
+""")
+code(r"""
+dibujar_carta("rms", "I-MR")
+""")
+md(r"""
+**Qué quiere decir.** En la parte de posición, la regla 1 (círculos rojos), la 5 (triángulos) y las de corrimiento
+(cuadrados azules) suenan casi todo el tiempo durante los 10 días, incluso cuando faltan muchos días para la falla:
+los límites son tan estrechos que cualquier cambio lento del RMS los cruza. La parte de dispersión (MR) también da
+alarmas sueltas durante todo el periodo y solo se concentra en las últimas horas. Con esta carta es difícil distinguir
+cuándo la falla está cerca.
+""")
+
+md(r"""
+### Carta X̄-R sobre el RMS
+""")
+code(r"""
+dibujar_carta("rms", "Xbar-R")
+""")
+md(r"""
+**Qué quiere decir.** La parte de posición se comporta como la I-MR: el promedio de los 5 trozos de cada segundo sigue
+al RMS y cruza los límites desde muy temprano. La parte R mide la diferencia entre el trozo más alto y el más bajo de
+esos 5 trozos. Sus alarmas se agrupan antes de la falla en B3 y B4 del ensayo 1 y en B1 del ensayo 2, pero en B3 del
+ensayo 3 aparecen sueltas durante los 10 días. Con solo 5 trozos, R es una medida menos estable que S.
+""")
+
+md(r"""
+### Carta X̄-S sobre el RMS
+""")
+code(r"""
+dibujar_carta("rms", "Xbar-S")
+""")
+md(r"""
+**Qué quiere decir.** Aquí está la diferencia principal. La parte de posición sigue sonando casi todo el tiempo, igual
+que en las otras cartas, pero la parte S (derecha) se comporta distinto: se mantiene dentro de sus límites durante
+buena parte del periodo y empieza a salirse **de forma sostenida** varios días antes de la falla. Eso ocurre desde
+unas 85 horas antes en B3 del ensayo 1, desde unas 130 horas en B4 del ensayo 1 y desde unas 45 horas en B1 del
+ensayo 2. En B3 del ensayo 3 hay alarmas sueltas durante los 10 días, pero solo se vuelven continuas en las últimas
+30 horas. Por eso la alarma de dispersión de esta carta es la que mejor anticipa la falla con pocas falsas alarmas.
+""")
+
+md(r"""
+### Carta I-MR sobre la curtosis
+""")
+code(r"""
+dibujar_carta("kurt", "I-MR")
+""")
+md(r"""
+**Qué quiere decir.** Con la curtosis, las alarmas se concentran antes de la falla en B3 del ensayo 1 (desde unas 85
+horas antes) y en B1 del ensayo 2 (desde unas 60 horas). En B4 del ensayo 1 la curtosis sube entre 160 y 75 horas antes
+y luego baja, porque cuando el daño se extiende los golpes dejan de ser aislados; por eso en ese rodamiento las alarmas
+aparecen pronto y desaparecen al final. En B3 del ensayo 3 hay alarmas por pequeños corrimientos durante los 10 días,
+y la curtosis solo sube con fuerza en las últimas horas.
+""")
+
+md(r"""
+## 7. ¿Qué tan bien predicen la falla?
+
+Las secciones anteriores miden cuánto suena cada alarma antes de la falla y en los rodamientos sanos. Para usarla en
+una planta, la pregunta práctica es otra: **cuando la alarma empieza a sonar, ¿qué tan seguido viene de verdad una
+falla?** Esa medida se llama **precisión** o valor predictivo.
+
+**Cómo se calcula.** Se cuenta cada vez que una alarma empieza a sonar de forma sostenida (3 puntos seguidos, 30
+minutos) durante el monitoreo de los 12 rodamientos. Un aviso es **cierto** si ocurre en un rodamiento que falla y
+dentro de las H horas previas a su falla; cualquier otro aviso es **falso** (en un rodamiento sano, o en uno que falla
+pero demasiado temprano). La precisión es la proporción de avisos ciertos:
+
+$$\text{Precisión}(H) = \frac{\text{avisos ciertos (dentro de las } H \text{ horas antes de una falla)}}{\text{total de avisos}}$$
+""")
+
+code(r"""
+def precision(var, carta, regla):
+    filas = []
+    sel = alarmas[(alarmas["var"] == var) & (alarmas.carta == carta) & (alarmas.fase == "monitoreo")]
+    for (e, rod), g in sel.groupby(["ensayo", "rod"]):
+        a = g[regla].to_numpy(bool)
+        sostenida = pd.Series(a).rolling(3).sum().eq(3).to_numpy()
+        inicio = sostenida & ~np.r_[False, sostenida[:-1]]
+        for h in g.horas_al_fin.to_numpy()[inicio]:
+            filas.append((bool(g.falla.iloc[0]), h))
+    ev = pd.DataFrame(filas, columns=["falla", "h"])
+    ciertos = lambda H: ((ev.falla) & (ev.h <= H)).sum()
+    return len(ev), ciertos(48), ciertos(168)
+
+
+casos = [("rms", "Xbar-S", "disp"), ("rms", "I-MR", "disp"), ("kurt", "I-MR", "N1"), ("kurt", "I-MR", "N5"),
+         ("rms", "Xbar-R", "N1"), ("rms", "I-MR", "N1")]
+filas = []
+for v, c, r in casos:
+    total, c48, c168 = precision(v, c, r)
+    filas.append({"Alarma": etiqueta(v, c, r), "Avisos en total": total,
+                  "Precisión: falla en las 48 h siguientes (%)": round(100 * c48 / total),
+                  "Precisión: falla en la semana siguiente (%)": round(100 * c168 / total)})
+pd.DataFrame(filas).set_index("Alarma")
+""")
+
+md(rf"""
+**Qué quiere decir.**
+- Cuando suena la **alarma de dispersión de la carta S sobre el RMS**, en el 84 % de los casos el rodamiento falla
+  dentro de la semana siguiente, y en el 61 % dentro de los 2 días siguientes. Además da pocos avisos en total, así que
+  cada aviso merece atención.
+- Con el **método original** (RMS en I-MR, regla 1), solo el 16 % de los avisos va seguido de una falla en la semana
+  siguiente: de cada 6 avisos, 5 son falsos. Algo parecido pasa con las reglas 1 y 5 sobre la curtosis (alrededor de
+  20 %), porque aunque anticipan bien la falla, también suenan muchas veces en rodamientos sanos.
+- **En la práctica:** la carta S sirve como alarma para actuar (planear una intervención en los próximos días). Las
+  alarmas de curtosis sirven como señal temprana para vigilar más de cerca, no para detener la máquina.
+- **Precaución:** la precisión depende de qué tan seguido ocurren fallas. En estos ensayos todos los rodamientos están
+  bajo una carga alta y 4 de 12 fallan; en una planta, donde las fallas son más raras, la precisión de cualquier
+  alarma sería menor. Por eso se reporta junto con la tasa de falsas alarmas por día, que no depende de eso.
+
+*Código:* las figuras y la precisión se calculan en este notebook a partir de `alarmas_ims.csv`, que genera
+[ims_cartas.py]({GH}/ims_cartas.py).
+""")
+
+md(r"""
+## 8. Conclusiones
 
 | Objetivo | Respuesta |
 | --- | --- |
 | 1. ¿Cuál de las 8 alarmas corresponde a falla? | La alarma de dispersión (con la carta S) y las reglas 1 y 5 (con la curtosis). Las reglas 3, 4, 7 y 8 no se asociaron con la falla. |
 | 2. ¿Hay relación en el tiempo entre alarmas y falla (ensayos 1, 2 y 3)? | Sí, en los tres ensayos. Con el método original la relación aparece también en los rodamientos sanos; con la carta S y la curtosis, solo en el que falla, desde unas 120 horas antes. |
 | 3. ¿Con cuál carta (I-MR, X̄-R, X̄-S) hay mejor relación falla-alarma? | Con la X̄-S, por su parte S: AUC de 0,86 frente a 0,73 de la I-MR. |
+| ¿Qué tan bien predicen la falla? | Cuando suena la carta S, el rodamiento falla en la semana siguiente en el 84 % de los casos; con el método original, solo en el 16 %. |
 
 **Otros hallazgos importantes**
 - El criterio de estabilidad de Superbricks (CV de 10 a 30 %) no se transfiere a rodamientos, donde lo normal es
@@ -447,7 +630,7 @@ md(r"""
 """)
 
 md(r"""
-## 7. Qué sigue
+## 9. Qué sigue
 
 **Confirmar con más datos.** Para que los resultados sean concluyentes, la alarma ganadora (dispersión de la carta S
 sobre el RMS) se evaluará, sin ajustar nada, en otros conjuntos públicos de rodamientos llevados hasta la falla:
