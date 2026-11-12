@@ -1,8 +1,8 @@
 """Aplica protocolo_confirmacion.md a los indicadores de XJTU-SY o FEMTO.
 
 Hipótesis principal: la alarma de dispersión de la carta X̄-S sobre el RMS (carta S) avisa en el
-10 % final de la vida de cada rodamiento más seguido que por casualidad. Se compara con el método
-original (RMS en carta I-MR, regla 1) usando las mismas medidas.
+10 % final de la vida de cada rodamiento más seguido que por casualidad. Se compara con la carta I-MR
+del código original (RMS, regla 1) usando las mismas medidas.
 
 Uso: python scripts/confirmacion.py <indicadores.csv> [<indicadores2.csv> ...] [--canal h|v] [--final 0.10]
 Escribe confirmacion_<canal>_<final>.csv con una fila por rodamiento y alarma.
@@ -50,7 +50,7 @@ def evaluar(g, canal, final):
     mu = rms[base].mean()
     sigma = np.abs(np.diff(rms[base])).mean() / D2_MR
     alarmas = {"Carta S (dispersión)": (s < B3 * s_bar) | (s > B4 * s_bar),
-               "Método original (I-MR, regla 1)": np.abs(rms - mu) > 3 * sigma}
+               "I-MR, regla 1 (código original)": np.abs(rms - mu) > 3 * sigma}
     t = g["t_seg"].to_numpy()
     vida = t[-1]
     idx = np.arange(n)

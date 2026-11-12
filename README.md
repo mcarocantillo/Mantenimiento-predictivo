@@ -12,7 +12,7 @@ Autores: María Carolina Cantillo Orozco, Andrés Aldana y Jenaan Tarabein (Univ
 | --- | --- | --- | --- | --- |
 | RMS · X̄-S · dispersión (carta S) | 57 % | 2 % | 0,55 | 86 h |
 | Curtosis · I-MR · N1 | 60 % | 7 % | 0,53 | 117 h |
-| RMS · I-MR · N1 (método actual) | 84 % | 49 % | 0,35 | 112 h |
+| RMS · I-MR · regla 1 (carta del código original) | 84 % | 49 % | 0,35 | 112 h |
 
 - La carta S sobre el RMS es la que mejor separa los rodamientos que fallan (AUC 0,86 frente a 0,73 de la MR).
 - N3, N4, N7 y N8 no se asocian con la falla en ninguna carta.

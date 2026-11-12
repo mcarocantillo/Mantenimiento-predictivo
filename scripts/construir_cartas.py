@@ -156,7 +156,7 @@ falla** (en la pista externa) y **B2 es uno sano**, montado en el mismo eje.
 - La línea continua horizontal es el promedio sano; las líneas punteadas son los límites. Mientras la señal esté
   entre ellas, todo es normal.
 - Los puntos rojos son los momentos en que suena la alarma.
-- **Columna izquierda:** la carta I-MR del RMS con la regla 1. Es el método original del código.
+- **Columna izquierda:** la carta I-MR del RMS con la regla 1. La carta I-MR es la que usa el código original.
 - **Columna derecha:** la carta S del RMS con su alarma de dispersión. Aquí no se grafica el nivel de vibración, sino
   qué tan distinto es cada trozo de 51 milésimas de segundo de los demás trozos del mismo segundo, comparado con lo
   normal (1 = igual que en el baseline, 2 = el doble de irregular).
@@ -297,7 +297,7 @@ plt.show()
 """)
 
 md(r"""
-La tabla siguiente muestra las 5 mejores alarmas y, al final, la del método original para comparar. "Falsas alarmas
+La tabla siguiente muestra las 5 mejores alarmas y, al final, la de la carta I-MR con la regla 1 (la carta del código original) para comparar. "Falsas alarmas
 por día" cuenta cuántas veces por día, en promedio, la alarma empieza a sonar de forma sostenida (30 minutos
 seguidos) en un rodamiento sano.
 """)
@@ -323,7 +323,7 @@ md(rf"""
   promedio 86 horas antes, unos 3,5 días.
 - Las **reglas 1 y 5 sobre la curtosis** también funcionan y avisan antes (117 a 136 horas), pero dan entre una y una
   vez y media falsa alarma al día. Son útiles como segunda señal, no como alarma principal.
-- La **regla 1 sobre el RMS en carta I-MR**, que es el método original, suena el 84 % del tiempo antes de la falla,
+- La **regla 1 sobre el RMS en carta I-MR** (la carta del código original) suena el 84 % del tiempo antes de la falla,
   pero también el 49 % del tiempo en rodamientos sanos. En una planta, una alarma así deja de tomarse en serio.
 - Las **reglas 3, 4, 7 y 8** tienen nota cercana a 0 en todas las cartas: en rodamientos no se asociaron con la
   falla. Se podrían desactivar para no generar alarmas inútiles.
@@ -379,7 +379,7 @@ pd.DataFrame({
 
 md(rf"""
 **Qué quiere decir.**
-- Con el **método original** (RMS en I-MR, panel derecho), las alarmas aumentan al acercarse el final tanto en los
+- Con la **carta I-MR y la regla 1** (panel derecho), las alarmas aumentan al acercarse el final tanto en los
   rodamientos que fallan como en los sanos (ρ de 0,79 y 0,52). Sí hay relación en el tiempo, pero no es específica:
   toda la máquina vibra más al final.
 - Con la **carta S** (panel izquierdo) y con la **curtosis** (panel central), las alarmas aumentan en el rodamiento
@@ -423,7 +423,7 @@ md(rf"""
   cruzan: no se puede decir que una gane.
 - **Respuesta al objetivo 3:** de las tres cartas, la X̄-S es la que tiene mejor relación entre alarma y falla, gracias
   a su parte S. La X̄-R no mejora a la I-MR.
-- **En la práctica:** si se vigila el RMS, conviene usar la carta S en lugar de la I-MR del método original.
+- **En la práctica:** si se vigila el RMS, conviene usar la carta S en lugar de la I-MR del código original.
 
 *Código:* [ims_comparar_cartas.py]({GH}/ims_comparar_cartas.py). El detalle con las diferencias entre cartas está en
 `comparacion_cartas.csv`.
@@ -497,7 +497,7 @@ def dibujar_carta(var, carta, horas=240):
 """)
 
 md(r"""
-### Carta I-MR sobre el RMS (método original)
+### Carta I-MR sobre el RMS (la del código original)
 """)
 code(r"""
 dibujar_carta("rms", "I-MR")
@@ -598,7 +598,7 @@ md(rf"""
 - Cuando suena la **alarma de dispersión de la carta S sobre el RMS**, en el 84 % de los casos el rodamiento falla
   dentro de la semana siguiente, y en el 61 % dentro de los 2 días siguientes. Además da pocos avisos en total, así que
   cada aviso merece atención.
-- Con el **método original** (RMS en I-MR, regla 1), solo el 16 % de los avisos va seguido de una falla en la semana
+- Con la **carta I-MR y la regla 1** sobre el RMS, solo el 16 % de los avisos va seguido de una falla en la semana
   siguiente: de cada 6 avisos, 5 son falsos. Algo parecido pasa con las reglas 1 y 5 sobre la curtosis (alrededor de
   20 %), porque aunque anticipan bien la falla, también suenan muchas veces en rodamientos sanos.
 - **En la práctica:** la carta S sirve como alarma para actuar (planear una intervención en los próximos días). Las
@@ -617,14 +617,14 @@ md(r"""
 | Objetivo | Respuesta |
 | --- | --- |
 | 1. ¿Cuál de las 8 alarmas corresponde a falla? | La alarma de dispersión (con la carta S) y las reglas 1 y 5 (con la curtosis). Las reglas 3, 4, 7 y 8 no se asociaron con la falla. |
-| 2. ¿Hay relación en el tiempo entre alarmas y falla (ensayos 1, 2 y 3)? | Sí, en los tres ensayos. Con el método original la relación aparece también en los rodamientos sanos; con la carta S y la curtosis, solo en el que falla, desde unas 120 horas antes. |
+| 2. ¿Hay relación en el tiempo entre alarmas y falla (ensayos 1, 2 y 3)? | Sí, en los tres ensayos. Con la carta I-MR y la regla 1 la relación aparece también en los rodamientos sanos; con la carta S y la curtosis, solo en el que falla, desde unas 120 horas antes. |
 | 3. ¿Con cuál carta (I-MR, X̄-R, X̄-S) hay mejor relación falla-alarma? | Con la X̄-S, por su parte S: AUC de 0,86 frente a 0,73 de la I-MR. |
-| ¿Qué tan bien predicen la falla? | Cuando suena la carta S, el rodamiento falla en la semana siguiente en el 84 % de los casos; con el método original, solo en el 16 %. |
+| ¿Qué tan bien predicen la falla? | Cuando suena la carta S, el rodamiento falla en la semana siguiente en el 84 % de los casos; con la I-MR y la regla 1, solo en el 16 %. |
 
 **Otros hallazgos importantes**
 - El criterio de estabilidad de Superbrix (CV de 10 a 30 %) no se transfiere a rodamientos, donde lo normal es
   cerca de 1 %.
-- El método original da muchas falsas alarmas porque el RMS cambia lentamente aunque el rodamiento esté sano, salta
+- La carta I-MR del código original da muchas falsas alarmas porque el RMS cambia lentamente aunque el rodamiento esté sano, salta
   con los reinicios de la prueba y, al final, todos los rodamientos vibran juntos.
 - Con solo 4 fallas, los resultados de IMS no eran concluyentes por sí solos. Se confirmaron después en 30
   rodamientos de XJTU-SY y FEMTO: la carta S avisó en 29 (p < 0,0001; sección 9).
@@ -643,7 +643,7 @@ Al ser una sola prueba planeada de antemano, ya no hace falta corregir por 54 co
 | FEMTO/PRONOSTIA (Nectoux et al., 2012) | 17 | 17 | 78 % | 0,015 |
 | Los dos juntos | 30 | 29 | 60 % | < 0,0001 |
 
-El método original (RMS en I-MR, regla 1) también avisa, pero suena el 40 % del tiempo sano, y con el cálculo estricto
+La carta I-MR con la regla 1 también avisa, pero suena el 40 % del tiempo sano, y con el cálculo estricto
 no se distingue del azar (p = 0,057). La línea base de cada rodamiento se eligió con su propio CV más bajo, sin el
 umbral fijo de 10 a 30 %. La principal limitación es que, en estos conjuntos, la carta S estuvo en alarma el 17 % del
 tiempo sano (2 % en IMS). Detalle, análisis de sensibilidad y limitaciones en los

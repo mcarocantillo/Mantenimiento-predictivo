@@ -67,13 +67,13 @@ res.to_csv("correlacion_temporal.csv", index=False)
 pd.set_option("display.width", 250)
 print(f"ρ de Spearman (tasa de alarma por bloques de {BLOQUE} h vs cercanía a la falla)")
 print(res.head(15).round(3).to_string(index=False))
-print("\nMétodo original (RMS · I-MR):")
+print("\nCarta I-MR del código original (RMS):")
 print(res[(res["var"] == "rms") & (res["carta"] == "I-MR")].round(3).to_string(index=False))
 
 # Épocas superpuestas para las alarmas que interesan
 CASOS = [("rms", "Xbar-S", "disp", "RMS · carta S (dispersión)"),
-         ("kurt", "I-MR", "N1", "Curtosis · I-MR · N1"),
-         ("rms", "I-MR", "N1", "RMS · I-MR · N1 (método actual)")]
+         ("kurt", "I-MR", "N1", "Curtosis · I-MR · regla 1"),
+         ("rms", "I-MR", "N1", "RMS · I-MR · regla 1 (código original)")]
 fig, ejes = plt.subplots(1, 3, figsize=(13, 3.8), sharey=True, layout="constrained")
 for ax, (v, carta, r, titulo) in zip(ejes, CASOS):
     t = tasa.loc[(v, carta), r].reset_index()

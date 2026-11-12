@@ -30,9 +30,9 @@ Criterio del protocolo: p < 0,05 en el análisis conjunto y más aciertos que lo
 acertar por casualidad es más fácil (78 %); aun así pasa. En XJTU-SY la diferencia es muy clara: por azar acertaría en
 1 de cada 4 rodamientos y acertó en 12 de 13.
 
-## Comparación con el método original (RMS en carta I-MR, regla 1)
+## Comparación con la carta I-MR del código original (RMS, regla 1)
 
-| Medida (los dos conjuntos juntos) | Carta S | Método original |
+| Medida (los dos conjuntos juntos) | Carta S | I-MR, regla 1 |
 | --- | --- | --- |
 | Aciertos | 29 de 30 | 30 de 30 |
 | Aciertos esperados por azar | 60 % | 76 % |
@@ -41,20 +41,20 @@ acertar por casualidad es más fácil (78 %); aun así pasa. En XJTU-SY la difer
 | Precisión (eventos dentro del tramo final) | 19 % | 14 % |
 | Anticipación mediana | 18,7 % de la vida | 24,3 % de la vida |
 
-**Qué quiere decir.** El método original también avisa antes de la falla, pero suena tanto en el tramo sano (40 % del
+**Qué quiere decir.** La I-MR con la regla 1 también avisa antes de la falla, pero suena tanto en el tramo sano (40 % del
 tiempo) que acertar no prueba nada: con el cálculo estricto no se distingue del azar. La carta S suena menos de la
 mitad de veces en el tramo sano y su acierto sí es significativo.
 
 ## Análisis de sensibilidad (los dos conjuntos juntos)
 
-| Variante | Aciertos de la carta S | p (estricta) | Método original, p (estricta) |
+| Variante | Aciertos de la carta S | p (estricta) | I-MR con regla 1, p (estricta) |
 | --- | --- | --- | --- |
 | Principal: canal horizontal, 10 % final | 29/30 | < 0,0001 | 0,057 |
 | Canal vertical | 30/30 | < 0,0001 | 0,116 |
 | Tramo final del 5 % | 28/30 | < 0,0001 | 0,003 |
 | Tramo final del 20 % | 29/30 | 0,006 | 0,342 |
 
-La carta S es significativa en todas las variantes. El método original solo lo es en una.
+La carta S es significativa en todas las variantes. La I-MR con la regla 1 solo lo es en una.
 
 ## Limitaciones
 
