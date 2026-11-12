@@ -243,6 +243,44 @@ la desviación estándar del baseline. Se toma la mediana de los 4 rodamientos q
 indicador de falla se aleja mucho en los que fallan y poco en los sanos.
 """)
 
+md(r"""
+**Cómo se calcula el "cambio final".** Para cada rodamiento $b$ de cada ensayo $e$ y para cada indicador, se
+comparan dos periodos: $B$, las 24 horas del baseline (144 archivos), y $F$, las últimas 24 horas antes del fin del
+ensayo. Si $x_t$ es el valor del indicador en el archivo $t$:
+
+$$m_{\text{base}} = \operatorname{mediana}\{x_t : t \in B\} \qquad m_{\text{fin}} = \operatorname{mediana}\{x_t : t \in F\}$$
+
+$$\sigma_{\text{base}} = \sqrt{\frac{1}{|B|-1}\sum_{t \in B}\left(x_t - \bar{x}_B\right)^2}$$
+
+donde $\bar{x}_B$ es el promedio del baseline: $\sigma_{\text{base}}$ es cuánto varía normalmente el indicador cuando el
+rodamiento está sano. El cambio de ese rodamiento es la distancia entre el final y el estado sano, medida en
+"veces su variación normal":
+
+$$z_{e,b} = \frac{m_{\text{fin}} - m_{\text{base}}}{\sigma_{\text{base}}}$$
+
+Luego se resume cada grupo con la mediana y se restan:
+
+$$\text{Cambio final, fallan} = \operatorname{mediana}\{z_{e,b} : b \text{ falla}\} \qquad \text{Cambio final, sanos} = \operatorname{mediana}\{z_{e,b} : b \text{ sano}\}$$
+
+$$\text{Separación} = \text{Cambio final, fallan} - \text{Cambio final, sanos}$$
+
+**Ejemplo con la curtosis del ensayo 2:**
+
+| | B1 (falla) | B2 (sano) |
+| --- | --- | --- |
+| $m_{\text{base}}$ | 0,443 | 0,190 |
+| $\sigma_{\text{base}}$ | 0,089 | 0,064 |
+| $m_{\text{fin}}$ | 1,715 | 0,070 |
+| $z = (m_{\text{fin}} - m_{\text{base}}) / \sigma_{\text{base}}$ | $(1{,}715 - 0{,}443) / 0{,}089 = 14{,}3$ | $(0{,}070 - 0{,}190) / 0{,}064 = -1{,}9$ |
+
+La curtosis de B1 subió 14 veces su variación normal; la de B2 casi no cambió.
+
+**Por qué se calcula así.** Se divide por $\sigma_{\text{base}}$ para poder comparar indicadores con unidades distintas
+(el RMS está en g y la curtosis no tiene unidad). Se usa la mediana, y no el promedio, porque al final hay picos muy
+grandes y la mediana no se deja arrastrar por un solo valor extremo. Y se mira la separación, no solo el cambio de los
+que fallan, porque un buen indicador de falla debe cambiar en el rodamiento dañado y no en los sanos.
+""")
+
 code(r"""
 filas = []
 for f in FEATS:
