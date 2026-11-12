@@ -14,7 +14,7 @@ GH = "https://github.com/mcarocantillo/Mantenimiento-predictivo/blob/main/script
 md(r"""
 # Cartas de control y reglas de Nelson en los rodamientos IMS
 
-**Pregunta.** Una empresa usa 8 reglas de alarma, las reglas de Nelson (Nelson, 1984), sobre cartas de control, y en Superbricks
+**Pregunta.** Una empresa usa 8 reglas de alarma, las reglas de Nelson (Nelson, 1984), sobre cartas de control, y en Superbrix
 funcionaron. Este trabajo revisa si esas mismas reglas sirven para anticipar fallas en otra industria, la de máquinas
 rotativas, usando rodamientos. Si sirven, también busca con qué tipo de carta funcionan mejor.
 
@@ -243,7 +243,7 @@ tabla
 md(rf"""
 **Qué quiere decir.**
 - En estos rodamientos, el estado sano tiene un CV de 1 a 2 %: la vibración casi no cambia de un momento a otro.
-- En Superbricks se consideraba normal un CV de 10 a 30 %. Aquí esos valores solo aparecen cuando el rodamiento ya
+- En Superbrix se consideraba normal un CV de 10 a 30 %. Aquí esos valores solo aparecen cuando el rodamiento ya
   está fallando (en el EDA se ve que el CV llega a 28–45 % al final).
 - **En la práctica:** el umbral de "estado estable" no se puede copiar de una industria a otra; hay que calibrarlo
   para cada tipo de máquina con sus propios datos sanos. Esto es en sí mismo un resultado de la transferencia entre
@@ -622,7 +622,7 @@ md(r"""
 | ¿Qué tan bien predicen la falla? | Cuando suena la carta S, el rodamiento falla en la semana siguiente en el 84 % de los casos; con el método original, solo en el 16 %. |
 
 **Otros hallazgos importantes**
-- El criterio de estabilidad de Superbricks (CV de 10 a 30 %) no se transfiere a rodamientos, donde lo normal es
+- El criterio de estabilidad de Superbrix (CV de 10 a 30 %) no se transfiere a rodamientos, donde lo normal es
   cerca de 1 %.
 - El método original da muchas falsas alarmas porque el RMS cambia lentamente aunque el rodamiento esté sano, salta
   con los reinicios de la prueba y, al final, todos los rodamientos vibran juntos.
